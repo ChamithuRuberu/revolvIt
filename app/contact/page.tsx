@@ -141,12 +141,9 @@ export default function Contact() {
             <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
             <div className="bg-gray-50 p-8 rounded-xl">
               <div className="space-y-6">
-                <div className="flex items-start">
-                  <Mail className="h-6 w-6 text-blue-600 mt-1" />
-                  <div className="ml-4">
-                    <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">info@revolvit.com</p>
-                  </div>
+                <div className="flex items-center space-x-4">
+                  <Mail className="h-6 w-6 text-gray-400" />
+                  <p className="text-gray-600">info@greencodesolution.com</p>
                 </div>
 
                 <div className="flex items-start">

@@ -57,7 +57,7 @@ export default function About() {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Revolvit</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Green Code Solution</h1>
           <p className="text-xl max-w-3xl">
             We're a team of passionate technologists dedicated to creating innovative
             software solutions that drive business success.
@@ -71,7 +71,7 @@ export default function About() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-600 mb-4">
-              Founded in 2020, Revolvit emerged from a vision to transform how businesses
+              Founded in 2020, Green Code Solution emerged from a vision to transform how businesses
               approach digital solutions. We recognized that many organizations struggled
               with digital transformation and needed a partner who could guide them through
               the process.
@@ -90,8 +90,8 @@ export default function About() {
           </div>
           <div className="relative h-[400px] rounded-xl overflow-hidden">
             <Image
-              src="/about/office.jpg"
-              alt="Revolvit office"
+              src="/images/office.jpg"
+              alt="Green Code Solution office"
               fill
               className="object-cover"
             />

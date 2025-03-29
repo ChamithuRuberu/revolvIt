@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-white">Revolvit</h3>
+            <h3 className="text-2xl font-bold text-white">Green Code Solution</h3>
             <p className="text-sm">
               Innovative software solutions for modern businesses. We transform ideas into powerful digital experiences.
             </p>
@@ -85,7 +85,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
                 <Mail size={16} />
-                <span>info@revolvit.com</span>
+                <span>info@greencodesolution.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={16} />
@@ -101,7 +101,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-sm text-center">
-          <p>© {currentYear} Revolvit. All rights reserved.</p>
+          <p>© {currentYear} Green Code Solution. All rights reserved.</p>
         </div>
       </div>
     </footer>
