@@ -7,8 +7,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Revolvit - Professional Software Solutions",
-  description: "We create innovative software solutions for businesses worldwide. Specializing in web development, mobile apps, and digital transformation.",
+  title: "Revolvit",
 };
 
 export default function RootLayout({
