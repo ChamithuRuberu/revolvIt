@@ -8,7 +8,6 @@ const directories = [
   'public/about',
   'public/portfolio',
   'public/blog',
-  'public/careers'
 ];
 
 directories.forEach(dir => {
@@ -107,11 +106,7 @@ const images = [
     url: 'https://picsum.photos/800/600',
     path: 'public/blog/digital-transform.jpg'
   },
-  // Careers
-  {
-    url: 'https://picsum.photos/800/600',
-    path: 'public/careers/culture.jpg'
-  }
+
 ];
 
 // Download all images
