@@ -1,4 +1,7 @@
 import { Code, Cloud, Smartphone, Database, Shield, Users } from 'lucide-react';
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const services = [
   {
