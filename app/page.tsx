@@ -12,7 +12,7 @@ export default function Home() {
         {/* AI Visualization Background */}
         <div className="absolute inset-0">
           <Image
-            src="/images/ai-visualization.jpg"
+            src="/images/image.png"
             alt="AI Visualization"
             fill
             className="object-cover opacity-20"
@@ -50,7 +50,7 @@ export default function Home() {
         {/* Tech Pattern Background */}
         <div className="absolute inset-0">
           <Image
-            src="/images/tech-pattern.jpg"
+            src="/images/image2.png"
             alt="Tech Pattern"
             fill
             className="object-cover opacity-10"

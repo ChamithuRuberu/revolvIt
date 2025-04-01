@@ -17,12 +17,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 shadow-md border-b border-gray-100">
+    <nav className="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-              Green Code Solution
+            <img src="/logo.png" alt="logo" className="w-40 h-14" />
             </Link>
           </div>
           
@@ -33,7 +33,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-600 hover:text-blue-600 px-3 py-2 text-sm font-semibold transition-colors"
+                  className="text-gray-600 hover:text-blue-600 px-2 py-2 text-md font-normal transition-colors"
                 >
                   {item.name}
                 </Link>

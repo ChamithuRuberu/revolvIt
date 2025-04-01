@@ -6,9 +6,12 @@ import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export const metadata: Metadata = {
   title: "Green Code Solution",
-  description: "Transforming Ideas into Digital Reality",
+  icons: {
+    icon: '/logo1.jpeg',
+  },
 };
 
 export default function RootLayout({
