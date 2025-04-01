@@ -3,10 +3,10 @@ import Image from 'next/image';
 
 const teamMembers = [
   {
-    name: 'John Smith',
+    name: 'Chamithu Ruberu',
     role: 'CEO & Founder',
     image: '/team/john-smith.jpg',
-    bio: 'With over 15 years of experience in software development and business leadership.'
+    bio: 'With over 5 years of experience in software development and business leadership.'
   },
   {
     name: 'Sarah Johnson',
