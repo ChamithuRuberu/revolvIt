@@ -9,6 +9,7 @@ const projects = [
     category: 'Web Development',
     image: '/portfolio/image.png',
     description: 'A modern e-commerce platform built with cutting-edge technologies to provide a seamless shopping experience.',
+    link: 'https://avaira.com.au/',
     results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%'],
     challenge: 'The client needed a scalable e-commerce solution that could handle high traffic and provide a smooth user experience.',
     solution: 'We implemented a modern tech stack with Next.js, optimized performance, and integrated advanced analytics.',
@@ -18,7 +19,7 @@ const projects = [
   {
     title: 'GYM Management System',
     category: 'Enterprise Solutions',
-    image: '/portfolio/healthcare.jpg',
+    image: '/portfolio/gym.png',
     description: 'A comprehensive healthcare management system designed to streamline patient care and administrative processes.',
     results: ['Reduced wait times by 60%', 'Improved patient satisfaction by 45%', 'Streamlined administrative tasks'],
     challenge: 'The healthcare facility needed a system to manage patient records, appointments, and billing efficiently.',
@@ -110,24 +111,32 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <div className="relative h-[400px] mb-8 rounded-xl overflow-hidden">
+            <div className="relative h-[300px] mb-8 rounded-xl overflow-hidden">
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
 
             <div className="prose max-w-none">
               <h2 className="text-2xl font-bold mb-4">Overview</h2>
-              <p className="text-gray-600 mb-8">{project.description}</p>
-
-              <h2 className="text-2xl font-bold mb-4">The Challenge</h2>
-              <p className="text-gray-600 mb-8">{project.challenge}</p>
-
-              <h2 className="text-2xl font-bold mb-4">Our Solution</h2>
-              <p className="text-gray-600 mb-8">{project.solution}</p>
+              <p className="text-gray-600 mb-8">
+                {project.description}
+                <br />
+                
+                {project.link && (
+                  <a 
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 ml-0"
+                  >
+                    Visit Website →
+                  </a>
+                )}
+              </p>
 
               <h2 className="text-2xl font-bold mb-4">Technologies Used</h2>
               <div className="flex flex-wrap gap-2 mb-8">
@@ -145,7 +154,7 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-8">
+            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-8 text-gray-700">
               <h3 className="text-xl font-bold mb-4">Key Results</h3>
               <ul className="space-y-3">
                 {project.results.map((result, index) => (

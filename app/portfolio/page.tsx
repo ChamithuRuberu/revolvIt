@@ -12,7 +12,7 @@ const projects = [
   {
     title: 'GYM Management System',
     category: 'Enterprise Solutions',
-    image: '/portfolio/healthcare.jpg',
+    image: '/portfolio/gym.png',
     results: ['Improved patient satisfaction by 45%', 'Streamlined administrative tasks']
   },
   {
