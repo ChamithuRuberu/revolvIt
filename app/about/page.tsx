@@ -1,5 +1,6 @@
 import { Trophy, Target, Users, Rocket } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const teamMembers = [
   {
@@ -70,19 +71,19 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-400 mb-4">
               Founded in 2020, Green Code Solution emerged from a vision to transform how businesses
               approach digital solutions. We recognized that many organizations struggled
               with digital transformation and needed a partner who could guide them through
               the process.
             </p>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-400 mb-4">
               Today, we're proud to have helped numerous businesses across various
               industries achieve their digital goals. Our team has grown to include
               talented developers, designers, and consultants who share our passion
               for excellence and innovation.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               We continue to evolve and adapt to the changing technology landscape,
               always staying ahead of the curve to provide our clients with the best
               possible solutions.
@@ -143,20 +144,23 @@ export default function About() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-blue-600 text-white py-16 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-8">Join Our Team</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            We're always looking for talented individuals who share our passion for
-            technology and innovation. Check out our current openings.
-          </p>
-          <a
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
-          >
-            View Careers
-          </a>
+      <Link href="/careers">
+        <div className="bg-blue-600 text-white py-16 mt-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold mb-8">Join Our Team</h2>
+            <p className="text-xl mb-8 max-w-3xl mx-auto">
+              We're always looking for talented individuals who share our passion for
+              technology and innovation. Check out our current openings.
+            </p>
+            <a
+              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+            >
+              View Careers
+            </a>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
+
   );
 } 

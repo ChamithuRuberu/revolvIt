@@ -5,13 +5,13 @@ import { ArrowRight, MapPin, Clock, Briefcase } from 'lucide-react';
 const jobOpenings = [
   {
     title: 'Senior Full Stack Developer',
-    location: 'San Francisco, CA (Hybrid)',
+    location: 'Colombo, Sri Lanka (On-site)',
     type: 'Full-time',
     department: 'Engineering',
     description: 'We are looking for an experienced Full Stack Developer to join our team and help build innovative solutions for our clients.',
     requirements: [
       'Minimum 5 years of experience in full-stack development',
-      'Strong proficiency in React, Node.js, and TypeScript',
+      'Strong proficiency in React, Spring Boot, and TypeScript',
       'Experience with cloud platforms (AWS/Azure/GCP)',
       'Excellent problem-solving and communication skills'
     ]
@@ -31,7 +31,7 @@ const jobOpenings = [
   },
   {
     title: 'DevOps Engineer',
-    location: 'New York, NY (On-site)',
+    location: 'Colombo, Sri Lanka (On-site)',
     type: 'Full-time',
     department: 'Operations',
     description: 'Help us build and maintain robust infrastructure and deployment pipelines for our growing portfolio of applications.',
@@ -115,12 +115,12 @@ export default function Careers() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-6">Our Culture</h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-400 mb-4">
               At Green Code Solution, we believe in fostering a culture of innovation,
               collaboration, and continuous learning. Our team members are passionate
               about technology and committed to delivering excellence in everything we do.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               We value diversity, creativity, and open communication. When you join our
               team, you'll be part of an environment that encourages growth, supports
               your development, and celebrates your achievements.
@@ -128,7 +128,7 @@ export default function Careers() {
           </div>
           <div className="relative h-[400px] rounded-xl overflow-hidden">
             <Image
-              src="/images/team.jpg"
+              src="/careers/2150165607.jpg"
               alt="Team collaboration"
               fill
               className="object-cover"
@@ -137,37 +137,15 @@ export default function Careers() {
         </div>
       </div>
 
-      {/* Benefits Section */}
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center">Benefits & Perks</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">{benefit.title}</h3>
-                <ul className="space-y-2">
-                  {benefit.items.map((item, itemIndex) => (
-                    <li key={itemIndex} className="flex items-center text-gray-600">
-                      <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Job Openings */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold mb-12">Open Positions</h2>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-6 text-gray-700">
           {jobOpenings.map((job, index) => (
             <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 ">{job.title}</h3>
                   <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                     <div className="flex items-center">
                       <MapPin className="h-4 w-4 mr-1" />
