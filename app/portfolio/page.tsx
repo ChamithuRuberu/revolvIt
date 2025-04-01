@@ -59,7 +59,7 @@ export default function Portfolio() {
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Portfolio</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Solutions</h1>
           <p className="text-xl max-w-3xl">
             Explore our successful projects and see how we've helped businesses
             transform their digital presence.
