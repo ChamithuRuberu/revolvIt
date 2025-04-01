@@ -4,41 +4,30 @@ import { ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    title: 'E-commerce Platform',
+    title: 'AVAIRA',
     category: 'Web Development',
-    image: '/portfolio/ecommerce.jpg',
-    results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%']
+    image: '/portfolio/image.png',
+    results: ['30% reduction in cart abandonment', 'Improved page load times by 40%']
   },
   {
-    title: 'Healthcare Management System',
+    title: 'GYM Management System',
     category: 'Enterprise Solutions',
     image: '/portfolio/healthcare.jpg',
-    results: ['Reduced wait times by 60%', 'Improved patient satisfaction by 45%', 'Streamlined administrative tasks']
+    results: ['Improved patient satisfaction by 45%', 'Streamlined administrative tasks']
   },
   {
-    title: 'Mobile Banking App',
+    title: 'CINETOON',
     category: 'Mobile Development',
     image: '/portfolio/banking.jpg',
-    results: ['4.8/5 App Store rating', '200,000+ downloads', 'Increased mobile banking adoption by 75%']
+    results: ['200,000+ downloads', 'Increased mobile banking adoption by 75%']
   },
   {
     title: 'Smart City Dashboard',
     category: 'IoT Solutions',
     image: '/portfolio/smart-city.jpg',
-    results: ['20% reduction in energy consumption', 'Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
+    results: ['Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
   },
-  {
-    title: 'Supply Chain Platform',
-    category: 'Enterprise Solutions',
-    image: '/portfolio/supply-chain.jpg',
-    results: ['Reduced processing time by 40%', 'Improved supplier compliance by 65%', 'Enhanced inventory accuracy by 85%']
-  },
-  {
-    title: 'AI-Powered Analytics',
-    category: 'Data Analytics',
-    image: '/portfolio/analytics.jpg',
-    results: ['Increased revenue by 25%', 'Improved decision accuracy by 40%', 'Reduced operational costs by 30%']
-  }
+  
 ];
 
 export default function Portfolio() {
@@ -60,7 +49,7 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div key={index} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <div className="relative h-48">
+              <div className="relative h-64">
                 <Image
                   src={project.image}
                   alt={project.title}
@@ -75,7 +64,7 @@ export default function Portfolio() {
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 
                 {/* Results */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <h4 className="text-sm font-semibold mb-2">Key Results:</h4>
                   <ul className="space-y-1">
                     {project.results.map((result, resultIndex) => (

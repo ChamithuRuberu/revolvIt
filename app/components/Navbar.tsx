@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: 'About', href: '/about' },
     { name: 'Solutions', href: '/portfolio' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   return (

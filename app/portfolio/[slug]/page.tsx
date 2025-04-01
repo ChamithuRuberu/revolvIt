@@ -5,9 +5,9 @@ import { ArrowLeft } from 'lucide-react';
 // This would typically come from a database or CMS
 const projects = [
   {
-    title: 'E-commerce Platform',
+    title: 'AVAIRA',
     category: 'Web Development',
-    image: '/portfolio/ecommerce.jpg',
+    image: '/portfolio/image.png',
     description: 'A modern e-commerce platform built with cutting-edge technologies to provide a seamless shopping experience.',
     results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%'],
     challenge: 'The client needed a scalable e-commerce solution that could handle high traffic and provide a smooth user experience.',
@@ -16,7 +16,7 @@ const projects = [
     testimonial: 'The new platform has transformed our online business. The improved performance and user experience have led to significant growth in our sales.'
   },
   {
-    title: 'Healthcare Management System',
+    title: 'GYM Management System',
     category: 'Enterprise Solutions',
     image: '/portfolio/healthcare.jpg',
     description: 'A comprehensive healthcare management system designed to streamline patient care and administrative processes.',
@@ -27,7 +27,7 @@ const projects = [
     testimonial: 'The system has revolutionized how we manage our healthcare facility. Everything is now more organized and efficient.'
   },
   {
-    title: 'Mobile Banking App',
+    title: 'CINETOON',
     category: 'Mobile Development',
     image: '/portfolio/banking.jpg',
     description: 'A secure and user-friendly mobile banking application with features like real-time transactions, bill payments, and investment tracking.',
