@@ -85,15 +85,15 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center space-x-2">
                 <Mail size={16} />
-                <span>info@greencodesolution.com</span>
+                <span>greencodesolution@gmail.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={16} />
-                <span>+1 (555) 123-4567</span>
+                <span>+ (94) 78 150 82 52</span>
               </li>
               <li className="flex items-center space-x-2">
                 <MapPin size={16} />
-                <span>123 Business Ave, Tech City, TC 12345</span>
+                <span>Wewala, piliyandala Colombo</span>
               </li>
             </ul>
           </div>
