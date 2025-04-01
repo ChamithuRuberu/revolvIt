@@ -33,8 +33,7 @@ const services = [
     title: 'Web Development',
     description: 'Modern web applications built with Next.js and Spring Boot. We create fast, secure, and scalable web solutions that deliver exceptional user experiences.',
     features: [
-      'Next.js Development',
-      'Spring Boot Applications',
+      'Design Systems',
       'Full-stack Development',
       'RESTful APIs',
       'Real-time Applications'
@@ -52,18 +51,7 @@ const services = [
       'DevOps & CI/CD'
     ]
   },
-  {
-    icon: Cpu,
-    title: 'Backend Development',
-    description: 'Robust backend solutions using Spring Boot and modern backend technologies. We build scalable and secure server-side applications.',
-    features: [
-      'Spring Boot Development',
-      'Database Design',
-      'API Integration',
-      'Authentication & Authorization',
-      'Performance Optimization'
-    ]
-  },
+  
   {
     icon: Shield,
     title: 'Security & Compliance',
@@ -75,7 +63,16 @@ const services = [
       'Data Protection',
       'Security Monitoring'
     ]
-  }
+  },
+  {
+    icon: Cpu,
+    title: 'Custom Software Solutions',
+    description: 'Robust backend solutions using Spring Boot and modern backend technologies. We build scalable and secure server-side applications.',
+    features: [
+      'Database Design',
+      'Performance Optimization'
+    ]
+  },
 ];
 
 export default function Services() {
@@ -123,7 +120,7 @@ export default function Services() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gray-50 py-16 mt-16">
+      <div className="bg-gray-50 py-16 mt-16 text-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-8">Need a Custom Solution?</h2>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">

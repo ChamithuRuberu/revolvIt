@@ -36,7 +36,7 @@ export default function Home() {
               Modern Technology
             </span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-200">
+          <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto text-gray-200">
             We create powerful software solutions using Next.js, Spring Boot, and cloud technologies
             to help your business thrive in the digital age.
           </p>
@@ -63,11 +63,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">10+</div>
               <div className="text-gray-600">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
+              <div className="text-4xl font-bold text-blue-600 mb-2">5+</div>
               <div className="text-gray-600">Enterprise Clients</div>
             </div>
             <div className="text-center">
@@ -85,51 +85,7 @@ export default function Home() {
       {/* Services Section */}
       <Services />
 
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Our Solutions?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We combine cutting-edge technology with industry expertise to deliver exceptional results.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="bg-blue-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                <Code className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Modern Tech Stack</h3>
-              <p className="text-gray-600">
-                Leveraging Next.js, Spring Boot, and cloud technologies for robust solutions.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="bg-blue-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                <Shield className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Enterprise Security</h3>
-              <p className="text-gray-600">
-                Comprehensive security measures to protect your applications and data.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-              <div className="bg-blue-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                <Zap className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Scalable Solutions</h3>
-              <p className="text-gray-600">
-                Cloud-native architecture that grows with your business needs.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Testimonials Section */}
       <section className="py-20 bg-white">
@@ -156,7 +112,7 @@ export default function Home() {
                 "The team delivered an exceptional solution that transformed our business operations. Their expertise and professionalism are unmatched."
               </p>
               <div className="font-semibold">John Smith</div>
-              <div className="text-gray-500">CEO, TechCorp</div>
+              <div className="text-gray-500">CEO, AVAIRA</div>
             </div>
 
             <div className="bg-gray-50 p-8 rounded-2xl">
@@ -171,7 +127,7 @@ export default function Home() {
                 "Outstanding service and technical expertise. They helped us modernize our legacy systems with minimal disruption."
               </p>
               <div className="font-semibold">Sarah Johnson</div>
-              <div className="text-gray-500">CTO, InnovateTech</div>
+              <div className="text-gray-500">CEO, CINETOON</div>
             </div>
 
             <div className="bg-gray-50 p-8 rounded-2xl">
