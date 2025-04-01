@@ -1,4 +1,4 @@
-import { Code, Cloud, Smartphone, Database, Shield, Users } from 'lucide-react';
+import { Code, Cloud, Smartphone, Database, Shield, Users, Layout, Server, Cpu } from 'lucide-react';
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -6,74 +6,74 @@ const inter = Inter({ subsets: ["latin"] });
 const services = [
   {
     icon: Code,
-    title: 'Web Development',
-    description: 'Custom web applications built with modern frameworks and technologies. We create responsive, scalable, and user-friendly solutions that drive business growth.',
+    title: 'Software Development',
+    description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices. We specialize in creating scalable, maintainable, and efficient applications.',
     features: [
-      'Custom Web Applications',
-      'E-commerce Solutions',
-      'Progressive Web Apps (PWA)',
-      'API Development & Integration',
-      'Website Maintenance & Support'
+      'Custom Software Solutions',
+      'Enterprise Applications',
+      'Microservices Architecture',
+      'API Development',
+      'Code Quality & Testing'
     ]
   },
   {
-    icon: Smartphone,
-    title: 'Mobile App Development',
-    description: 'Native and cross-platform mobile applications that provide seamless user experiences across all devices.',
+    icon: Layout,
+    title: 'UI/UX Design',
+    description: 'User-centered design solutions that create engaging and intuitive interfaces. We focus on creating beautiful, accessible, and user-friendly experiences.',
     features: [
-      'iOS App Development',
-      'Android App Development',
-      'Cross-platform Solutions',
-      'App Store Optimization',
-      'Mobile App Maintenance'
+      'User Interface Design',
+      'User Experience Design',
+      'Wireframing & Prototyping',
+      'Design Systems',
+      'Accessibility Compliance'
+    ]
+  },
+  {
+    icon: Server,
+    title: 'Web Development',
+    description: 'Modern web applications built with Next.js and Spring Boot. We create fast, secure, and scalable web solutions that deliver exceptional user experiences.',
+    features: [
+      'Next.js Development',
+      'Spring Boot Applications',
+      'Full-stack Development',
+      'RESTful APIs',
+      'Real-time Applications'
     ]
   },
   {
     icon: Cloud,
-    title: 'Cloud Solutions',
-    description: 'Scalable cloud infrastructure and services that help businesses optimize their operations and reduce costs.',
+    title: 'Cloud Services',
+    description: 'Comprehensive cloud solutions leveraging AWS, Azure, and Google Cloud. We help businesses migrate, optimize, and manage their cloud infrastructure.',
     features: [
       'Cloud Migration',
-      'Cloud Architecture Design',
-      'DevOps Services',
-      'Serverless Solutions',
-      'Cloud Security'
+      'Container Orchestration',
+      'Serverless Architecture',
+      'Cloud Security',
+      'DevOps & CI/CD'
     ]
   },
   {
-    icon: Database,
-    title: 'Database Solutions',
-    description: 'Robust database design and management services to help you store, manage, and analyze your data effectively.',
+    icon: Cpu,
+    title: 'Backend Development',
+    description: 'Robust backend solutions using Spring Boot and modern backend technologies. We build scalable and secure server-side applications.',
     features: [
+      'Spring Boot Development',
       'Database Design',
-      'Data Migration',
-      'Performance Optimization',
-      'Backup & Recovery',
-      'Database Administration'
+      'API Integration',
+      'Authentication & Authorization',
+      'Performance Optimization'
     ]
   },
   {
     icon: Shield,
-    title: 'Cybersecurity',
-    description: 'Comprehensive security solutions to protect your digital assets and ensure compliance with industry standards.',
+    title: 'Security & Compliance',
+    description: 'Enterprise-grade security solutions to protect your applications and data. We ensure your systems meet industry standards and best practices.',
     features: [
       'Security Audits',
       'Penetration Testing',
-      'Security Monitoring',
       'Compliance Management',
-      'Security Training'
-    ]
-  },
-  {
-    icon: Users,
-    title: 'IT Consulting',
-    description: 'Strategic technology consulting to help you make informed decisions and achieve your business objectives.',
-    features: [
-      'Technology Assessment',
-      'Digital Transformation',
-      'Project Management',
-      'Technology Stack Selection',
-      'Process Optimization'
+      'Data Protection',
+      'Security Monitoring'
     ]
   }
 ];
