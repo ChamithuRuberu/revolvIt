@@ -97,7 +97,7 @@ export default function Services() {
             return (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-8"
+                className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-8"
               >
                 <IconComponent className="h-12 w-12 text-blue-600 mb-6" />
                 <h2 className="text-2xl font-semibold mb-4">{service.title}</h2>

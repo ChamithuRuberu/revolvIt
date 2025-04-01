@@ -193,18 +193,14 @@ export default function Contact() {
           {/* Contact Information */}
           <div>
             <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
-            <div className="bg-gray-50 p-8 rounded-xl">
+            <div className="bg-gray-50 p-8 rounded-xl text-gray-800">
               <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <Mail className="h-6 w-6 text-gray-400" />
-                  <p className="text-gray-600">info@greencodesolution.com</p>
-                </div>
 
                 <div className="flex items-start">
                   <Phone className="h-6 w-6 text-blue-600 mt-1" />
                   <div className="ml-4">
                     <h3 className="font-semibold">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+ (94) 78 150 82 52</p>
                   </div>
                 </div>
 
@@ -213,9 +209,8 @@ export default function Contact() {
                   <div className="ml-4">
                     <h3 className="font-semibold">Address</h3>
                     <p className="text-gray-600">
-                      123 Business Ave<br />
-                      Tech City, TC 12345<br />
-                      United States
+                    Wewala, piliyandala <br />
+                    Colombo
                     </p>
                   </div>
                 </div>
@@ -236,14 +231,13 @@ export default function Contact() {
             {/* Map */}
             <div className="mt-8">
               <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.30596073366!2d-74.25987368715491!3d40.69714941932609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1647043435559!5m2!1sen!2s"
-                  width="100%"
-                  height="400"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                ></iframe>
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63389.40207872737!2d79.89510966767261!3d6.789603611051199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24f91d281cc5d%3A0xea4b2fcd3ce0e74e!2sPiliyandala!5e0!3m2!1sen!2slk!4v1743535860454!5m2!1sen!2slk" 
+                  width="600" 
+                  height="450" 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
           </div>
