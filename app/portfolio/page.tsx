@@ -7,16 +7,12 @@ const projects = [
     title: 'E-commerce Platform',
     category: 'Web Development',
     image: '/portfolio/ecommerce.jpg',
-    description: 'A modern e-commerce platform built with Next.js and Shopify, featuring real-time inventory management and seamless checkout experience.',
-    technologies: ['Next.js', 'Shopify', 'Tailwind CSS', 'Node.js'],
     results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%']
   },
   {
     title: 'Healthcare Management System',
     category: 'Enterprise Solutions',
     image: '/portfolio/healthcare.jpg',
-    description: 'A comprehensive healthcare management system that streamlines patient care, appointment scheduling, and medical record management.',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Docker'],
     results: ['Reduced wait times by 60%', 'Improved patient satisfaction by 45%', 'Streamlined administrative tasks']
   },
   {
@@ -24,7 +20,6 @@ const projects = [
     category: 'Mobile Development',
     image: '/portfolio/banking.jpg',
     description: 'A secure and user-friendly mobile banking application with features like real-time transactions, bill payments, and investment tracking.',
-    technologies: ['React Native', 'Firebase', 'Redux', 'TypeScript'],
     results: ['4.8/5 App Store rating', '200,000+ downloads', 'Increased mobile banking adoption by 75%']
   },
   {
@@ -32,7 +27,6 @@ const projects = [
     category: 'IoT Solutions',
     image: '/portfolio/smart-city.jpg',
     description: 'An IoT-powered dashboard for monitoring and managing city infrastructure, including traffic, utilities, and public services.',
-    technologies: ['Vue.js', 'Python', 'AWS IoT', 'MongoDB'],
     results: ['20% reduction in energy consumption', 'Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
   },
   {
@@ -40,7 +34,6 @@ const projects = [
     category: 'Enterprise Solutions',
     image: '/portfolio/supply-chain.jpg',
     description: 'A blockchain-based supply chain management platform that ensures transparency and traceability across the entire supply chain.',
-    technologies: ['Hyperledger Fabric', 'React', 'Node.js', 'PostgreSQL'],
     results: ['Reduced processing time by 40%', 'Improved supplier compliance by 65%', 'Enhanced inventory accuracy by 85%']
   },
   {
@@ -48,14 +41,13 @@ const projects = [
     category: 'Data Analytics',
     image: '/portfolio/analytics.jpg',
     description: 'An advanced analytics platform that uses AI and machine learning to provide actionable business insights and predictive analytics.',
-    technologies: ['Python', 'TensorFlow', 'React', 'AWS'],
     results: ['Increased revenue by 25%', 'Improved decision accuracy by 40%', 'Reduced operational costs by 30%']
   }
 ];
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16 text-gray-700">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,21 +79,6 @@ export default function Portfolio() {
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-gray-600 mb-4">{project.description}</p>
                 
-                {/* Technologies */}
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold mb-2">Technologies Used:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
                 {/* Results */}
                 <div className="mb-6">
                   <h4 className="text-sm font-semibold mb-2">Key Results:</h4>
