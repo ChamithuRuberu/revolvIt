@@ -19,28 +19,24 @@ const projects = [
     title: 'Mobile Banking App',
     category: 'Mobile Development',
     image: '/portfolio/banking.jpg',
-    description: 'A secure and user-friendly mobile banking application with features like real-time transactions, bill payments, and investment tracking.',
     results: ['4.8/5 App Store rating', '200,000+ downloads', 'Increased mobile banking adoption by 75%']
   },
   {
     title: 'Smart City Dashboard',
     category: 'IoT Solutions',
     image: '/portfolio/smart-city.jpg',
-    description: 'An IoT-powered dashboard for monitoring and managing city infrastructure, including traffic, utilities, and public services.',
     results: ['20% reduction in energy consumption', 'Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
   },
   {
     title: 'Supply Chain Platform',
     category: 'Enterprise Solutions',
     image: '/portfolio/supply-chain.jpg',
-    description: 'A blockchain-based supply chain management platform that ensures transparency and traceability across the entire supply chain.',
     results: ['Reduced processing time by 40%', 'Improved supplier compliance by 65%', 'Enhanced inventory accuracy by 85%']
   },
   {
     title: 'AI-Powered Analytics',
     category: 'Data Analytics',
     image: '/portfolio/analytics.jpg',
-    description: 'An advanced analytics platform that uses AI and machine learning to provide actionable business insights and predictive analytics.',
     results: ['Increased revenue by 25%', 'Improved decision accuracy by 40%', 'Reduced operational costs by 30%']
   }
 ];
