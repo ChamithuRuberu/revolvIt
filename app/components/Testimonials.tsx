@@ -26,7 +26,7 @@ const testimonials = [
 
 const TestimonialCard = ({ testimonial }: { testimonial: { rating: number, text: string, name: string, role: string } }) => {
   return (
-    <div className="bg-gray-50 p-8 rounded-2xl hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-gray-50 p-8 rounded-2xl hover:shadow-lg transition-shadow duration-300 h-full">
       <div className="flex items-center mb-4">
         {[...Array(testimonial.rating)].map((_, i) => (
           <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
@@ -50,6 +50,15 @@ export default function Testimonials() {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
   };
 
+  const getVisibleTestimonials = () => {
+    const visibleTestimonials = [];
+    for (let i = 0; i < 3; i++) {
+      const index = (currentIndex + i) % testimonials.length;
+      visibleTestimonials.push(testimonials[index]);
+    }
+    return visibleTestimonials;
+  };
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-800">
@@ -63,8 +72,10 @@ export default function Testimonials() {
         </div>
 
         <div className="relative">
-          <div className="max-w-3xl mx-auto">
-            <TestimonialCard testimonial={testimonials[currentIndex]} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {getVisibleTestimonials().map((testimonial, index) => (
+              <TestimonialCard key={index} testimonial={testimonial} />
+            ))}
           </div>
           
           <div className="flex justify-center items-center mt-8 gap-4">
