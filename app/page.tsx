@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Code, Layout, Server, Cpu, Cloud, Shield, Zap, Database, Users, CheckCircle2, Star } from 'lucide-react';
+import { ArrowRight, Code, Layout, Server, Cpu, Cloud, Shield, Zap, Database, Users, CheckCircle2 } from 'lucide-react';
 import Services from './components/Services';
+import Testimonials from './components/Testimonials';
 
 export default function Home() {
   return (
@@ -85,68 +86,8 @@ export default function Home() {
       {/* Services Section */}
       <Services />
 
-      
-
       {/* Testimonials Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-800">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Trusted by leading companies worldwide to deliver exceptional software solutions.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="flex items-center mb-4">
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-              </div>
-              <p className="text-gray-600 mb-6">
-                "The team delivered an exceptional solution that transformed our business operations. Their expertise and professionalism are unmatched."
-              </p>
-              <div className="font-semibold">John Smith</div>
-              <div className="text-gray-500">CEO, AVAIRA</div>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="flex items-center mb-4">
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-              </div>
-              <p className="text-gray-600 mb-6">
-                "Outstanding service and technical expertise. They helped us modernize our legacy systems with minimal disruption."
-              </p>
-              <div className="font-semibold">Sarah Johnson</div>
-              <div className="text-gray-500">CEO, CINETOON</div>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="flex items-center mb-4">
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                <Star className="h-5 w-5 text-yellow-400 fill-current" />
-              </div>
-              <p className="text-gray-600 mb-6">
-                "A true technology partner that understands our business needs. Their solutions have significantly improved our efficiency."
-              </p>
-              <div className="font-semibold">Michael Chen</div>
-              <div className="text-gray-500">Director, Global Solutions</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Testimonials />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
