@@ -6,9 +6,9 @@ import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 const testimonials = [
   {
     rating: 5,
-    text: "The team delivered an exceptional solution that transformed our business operations. Their expertise and professionalism are unmatched.",
-    name: "John Smith",
-    role: "CEO, AVAIRA"
+    text: "I recently had a website developed and I couldn’t be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback.The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I’m fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.",
+    name: "Mr .Chamathka Nimsara ",
+    role: "CEO, outbaze"
   },
   {
     rating: 5,
