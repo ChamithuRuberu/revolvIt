@@ -7,7 +7,11 @@ const projects = [
     title: 'AVAIRA',
     category: 'Web Development',
     image: '/portfolio/image.png',
-    results: ['30% reduction in cart abandonment', 'Improved page load times by 40%']
+    results: [
+      'Implemented smooth full-screen photo gallery with zoom capabilities',
+      'Integrated efficient Nodemailer system for instant customer notifications',
+      'Enhanced user experience with responsive image loading'
+    ],
   },
   {
     title: 'GYM Management System',
@@ -27,7 +31,7 @@ const projects = [
     image: '/portfolio/smart-city.jpg',
     results: ['Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
   },
-  
+
 ];
 
 export default function Portfolio() {
@@ -62,7 +66,7 @@ export default function Portfolio() {
                   {project.category}
                 </div>
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                
+
                 {/* Results */}
                 <div className="mb-4">
                   <h4 className="text-sm font-semibold mb-2">Key Results:</h4>

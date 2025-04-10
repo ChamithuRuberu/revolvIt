@@ -2,19 +2,35 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-// This would typically come from a database or CMS
-const projects = [
+interface Project {
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  link?: string;
+  results: string[];
+  challenge: string;
+  solution: string;
+  technologies: string[];
+  testimonial: string;
+}
+
+const projects: Project[] = [
   {
     title: 'AVAIRA',
     category: 'Web Development',
     image: '/portfolio/image.png',
-    description: 'Just launched a stunning new wedding website for AVAIRA by Green Code Solutions! this beautifully crafted site showcases elegant design and seamless functionality. From breathtaking galleries to easy planning tools, we\'ve created the perfect digital space for couples beginning their forever journey. ',
+    description: 'Just launched a stunning new wedding website for AVAIRA by Green Code Solutions! this beautifully crafted site showcases elegant design and seamless functionality. From breathtaking galleries to easy planning tools, we\'ve created the perfect digital space for couples beginning their forever journey.',
     link: 'https://avaira.com.au/',
-    results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%'],
+    results: [
+      'Implemented smooth full-screen photo gallery with zoom capabilities',
+      'Integrated efficient Nodemailer system for instant customer notifications',
+      'Enhanced user experience with responsive image loading'
+    ],
     challenge: 'The client needed a scalable e-commerce solution that could handle high traffic and provide a smooth user experience.',
     solution: 'We implemented a modern tech stack with Next.js, optimized performance, and integrated advanced analytics.',
     technologies: ['Next.js', 'Spring Boot', 'MySQL', 'AWS'],
-    testimonial: 'I recently had a website developed and I couldn’t be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback.The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I’m fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.'
+    testimonial: 'I recently had a website developed and I couldn\'t be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback. The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I\'m fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.'
   },
   {
     title: 'GYM Management System',
@@ -36,7 +52,7 @@ const projects = [
     challenge: 'The bank needed a modern, secure mobile banking solution that could handle complex financial transactions while maintaining high security standards.',
     solution: 'We developed a robust mobile app with end-to-end encryption, biometric authentication, and real-time transaction processing.',
     technologies: ['React Native', 'Node.js', 'MongoDB', 'AWS', 'Firebase'],
-    testimonial: 'The mobile banking app has significantly increased our customer engagement and satisfaction. The security features give our customers peace of mind.'
+    testimonial: 'The team behind Cinetoon\'s website did an outstanding job! They delivered a fast, responsive, and visually appealing site that perfectly represents our brand. Communication was smooth, Highly recommended for web design and development!'
   },
   {
     title: 'Smart City Dashboard',
@@ -125,7 +141,6 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
               <p className="text-gray-600 mb-8">
                 {project.description}
                 <br />
-                
                 {project.link && (
                   <a 
                     href={project.link}
@@ -140,7 +155,7 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
 
               <h2 className="text-2xl font-bold mb-4">Technologies Used</h2>
               <div className="flex flex-wrap gap-2 mb-8">
-                {project.technologies.map((tech, index) => (
+                {project.technologies.map((tech: string, index: number) => (
                   <span
                     key={index}
                     className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
@@ -157,7 +172,7 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
             <div className="bg-white rounded-xl shadow-sm p-6 sticky top-8 text-gray-700">
               <h3 className="text-xl font-bold mb-4">Key Results</h3>
               <ul className="space-y-3">
-                {project.results.map((result, index) => (
+                {project.results.map((result: string, index: number) => (
                   <li key={index} className="flex items-start">
                     <span className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-2"></span>
                     <span className="text-gray-600">{result}</span>
