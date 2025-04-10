@@ -8,13 +8,13 @@ const projects = [
     title: 'AVAIRA',
     category: 'Web Development',
     image: '/portfolio/image.png',
-    description: 'A modern e-commerce platform built with cutting-edge technologies to provide a seamless shopping experience.',
+    description: 'Just launched a stunning new wedding website for AVAIRA by Green Code Solutions! this beautifully crafted site showcases elegant design and seamless functionality. From breathtaking galleries to easy planning tools, we\'ve created the perfect digital space for couples beginning their forever journey. ',
     link: 'https://avaira.com.au/',
     results: ['50% increase in conversion rate', '30% reduction in cart abandonment', 'Improved page load times by 40%'],
     challenge: 'The client needed a scalable e-commerce solution that could handle high traffic and provide a smooth user experience.',
     solution: 'We implemented a modern tech stack with Next.js, optimized performance, and integrated advanced analytics.',
-    technologies: ['Next.js', 'React', 'Node.js', 'MongoDB', 'AWS'],
-    testimonial: 'The new platform has transformed our online business. The improved performance and user experience have led to significant growth in our sales.'
+    technologies: ['Next.js', 'Spring Boot', 'MySQL', 'AWS'],
+    testimonial: 'I recently had a website developed and I couldn’t be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback.The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I’m fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.'
   },
   {
     title: 'GYM Management System',
