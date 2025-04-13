@@ -108,7 +108,7 @@ export default function Services() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gray-950 py-16 mt-16 text-gray-800">
+      <div className="bg-gray-950 pb-10 md:py-16  text-gray-800">
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-8 text-gray-200 ">Need a Custom Solution?</h2>

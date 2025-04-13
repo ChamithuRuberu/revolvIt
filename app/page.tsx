@@ -27,9 +27,9 @@ export default function Home() {
             priority
           />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block bg-blue-500/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8">
-            <span className="text-blue-300">Innovating the Future of Software</span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+          <div className="inline-block bg-blue-500/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8 ">
+            <span className="text-blue-300 ">Innovating the Future of Software</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Building Digital Excellence with
@@ -44,14 +44,14 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="group bg-blue-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-600 transition-all duration-300 inline-flex items-center shadow-lg hover:shadow-xl"
+              className="group bg-blue-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-600 transition-all duration-300 inline-flex items-center justify-center shadow-lg hover:shadow-xl"
             >
               Start Your Project
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/portfolio"
-              className="group border-2 border-blue-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-400/10 transition-all duration-300 backdrop-blur-sm"
+              className="group border-2 border-blue-400 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-400/10 transition-all justify-center duration-300 backdrop-blur-sm"
             >
               View Our Work
             </Link>
