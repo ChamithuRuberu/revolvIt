@@ -25,12 +25,6 @@ const projects = [
     image: '/portfolio/banking.jpg',
     results: ['200,000+ downloads', 'Increased mobile banking adoption by 75%']
   },
-  {
-    title: 'Smart City Dashboard',
-    category: 'IoT Solutions',
-    image: '/portfolio/smart-city.jpg',
-    results: ['Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
-  },
 
 ];
 
