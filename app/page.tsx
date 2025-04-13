@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Code, Layout, Server, Cpu, Cloud, Shield, Zap, Database, Users, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Users, CheckCircle2 } from 'lucide-react';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 
