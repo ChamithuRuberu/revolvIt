@@ -84,11 +84,11 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-0 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
           {/* Contact Form */}
           <div>
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 pl-3">Schedule a Meeting</h2>
+          <h2 className="text-xl font-bold mb-6 text-gray-800 pl-3">Schedule a Meeting</h2>
           <div className="max-w-5xl p-0  font-[sans-serif] ">
               <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
               <div className="items-start shadow-sm relative overflow-hidden pr-12 ">
@@ -172,7 +172,7 @@ export default function Contact() {
                         : "bg-gradient-to-b from-black/70 via-black/90 to-black/80 hover:bg-black "
                         } transition-colors rounded-sm shadow-sm`}
                     >
-                      {loading ? "Sending..." : "Request Quote"}
+                      {loading ? "Sending..." : "Schedule A Meet"}
                     </button>
                   </div>
                 </form>
@@ -210,8 +210,7 @@ export default function Contact() {
                   <div className="ml-4">
                     <h3 className="font-semibold text-gray-600">Business Hours</h3>
                     <p className="text-gray-600">
-                      Monday - Friday: 9:00 AM - 6:00 PM<br />
-                      Saturday - Sunday: Closed
+                      Monday - Sunday: 9:00 AM - 6:00 PM<br />
                     </p>
                   </div>
                 </div>
