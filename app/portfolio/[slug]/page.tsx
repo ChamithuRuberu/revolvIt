@@ -55,38 +55,17 @@ const projects: Project[] = [
     testimonial: 'The team behind Cinetoon\'s website did an outstanding job! They delivered a fast, responsive, and visually appealing site that perfectly represents our brand. Communication was smooth, Highly recommended for web design and development!'
   },
   {
-    title: 'Smart City Dashboard',
+    title: 'Bedding.lk',
     category: 'IoT Solutions',
-    image: '/portfolio/smart-city.jpg',
+    image: '/portfolio/sample.png',
     description: 'An IoT-powered dashboard for monitoring and managing city infrastructure, including traffic, utilities, and public services.',
     results: ['20% reduction in energy consumption', 'Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors'],
     challenge: 'The city needed a centralized system to monitor and manage various urban services efficiently while reducing operational costs.',
     solution: 'We created an integrated IoT platform that connects various city services and provides real-time analytics and control capabilities.',
-    technologies: ['React', 'Node.js', 'IoT Sensors', 'AWS IoT', 'Grafana'],
+    technologies: ['React', 'AWS IoT', 'Grafana'],
     testimonial: 'The smart city dashboard has transformed how we manage our city services. The real-time insights have helped us make better decisions.'
   },
-  {
-    title: 'Supply Chain Platform',
-    category: 'Enterprise Solutions',
-    image: '/portfolio/supply-chain.jpg',
-    description: 'A blockchain-based supply chain management platform that ensures transparency and traceability across the entire supply chain.',
-    results: ['Reduced processing time by 40%', 'Improved supplier compliance by 65%', 'Enhanced inventory accuracy by 85%'],
-    challenge: 'The client needed a transparent and efficient supply chain management system that could track products from source to destination.',
-    solution: 'We implemented a blockchain-based solution with smart contracts and real-time tracking capabilities.',
-    technologies: ['React', 'Node.js', 'Blockchain', 'Ethereum', 'MongoDB'],
-    testimonial: 'The supply chain platform has given us complete visibility into our operations. The blockchain technology ensures trust and transparency.'
-  },
-  {
-    title: 'AI-Powered Analytics',
-    category: 'Data Analytics',
-    image: '/portfolio/analytics.jpg',
-    description: 'An advanced analytics platform that uses AI and machine learning to provide actionable business insights and predictive analytics.',
-    results: ['Increased revenue by 25%', 'Improved decision accuracy by 40%', 'Reduced operational costs by 30%'],
-    challenge: 'The client needed a sophisticated analytics solution that could process large amounts of data and provide predictive insights.',
-    solution: 'We developed an AI-powered platform that combines machine learning models with intuitive data visualization.',
-    technologies: ['Python', 'TensorFlow', 'React', 'Node.js', 'PostgreSQL'],
-    testimonial: 'The AI analytics platform has revolutionized our decision-making process. The predictive insights have been invaluable for our business growth.'
-  }
+  
 ];
 
 export default function CaseStudy({ params }: { params: { slug: string } }) {

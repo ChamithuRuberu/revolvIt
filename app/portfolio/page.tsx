@@ -14,10 +14,16 @@ const projects = [
     ],
   },
   {
-    title: 'GYM Management System',
+    title: 'FIT PRO System',
     category: 'Enterprise Solutions',
     image: '/portfolio/gym.png',
     results: ['Improved patient satisfaction by 45%', 'Streamlined administrative tasks']
+  },
+  {
+    title: 'Bedding.lk',
+    category: 'Web Development',
+    image: '/portfolio/sample.png',
+    results: ['Improved emergency response times by 35%', 'Real-time monitoring of 1000+ sensors']
   },
   {
     title: 'CINETOON',
@@ -25,6 +31,7 @@ const projects = [
     image: '/portfolio/banking.jpg',
     results: ['200,000+ downloads', 'Increased mobile banking adoption by 75%']
   },
+ 
 
 ];
 
@@ -47,12 +54,12 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div key={index} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <div className="relative h-64">
+              <div className="relative h-64 w-full">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  className="object-center"
                 />
               </div>
               <div className="p-6">
