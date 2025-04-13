@@ -136,23 +136,10 @@ export default function Contact() {
                       <option value="" disabled>
                         Select Service Type
                       </option>
-                      <option value="Cinematography">Cinematography
+                      <option value="Web Application Development">Web Application Development
                       </option>
-                      <option value="Photography">Photography</option>
-                      <option value="Photography & Cinematography">Photography & Cinematography</option>
-                    </select>
-                    <select
-                      name="planType"
-                      value={formData.planType}
-                      onChange={handleChange}
-                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-600"
-                    >
-                      <option value="" disabled>
-                        Select Your Plan
-                      </option>
-                      <option value="Basic Package">Basic Package</option>
-                      <option value="Standard Package">Standard Package</option>
-                      <option value="Premium Package">Premium Package</option>
+                      <option value="Enterprise Application Development">Enterprise Application Development</option>
+                      <option value="IT consulting">IT consulting</option>
                     </select>
                     <textarea
                       name="message"
