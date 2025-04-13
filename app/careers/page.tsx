@@ -30,19 +30,6 @@ const jobOpenings = [
     ]
   },
   {
-    title: 'DevOps Engineer',
-    location: 'Colombo, Sri Lanka (On-site)',
-    type: 'Full-time',
-    department: 'Operations',
-    description: 'Help us build and maintain robust infrastructure and deployment pipelines for our growing portfolio of applications.',
-    requirements: [
-      'Minimum 4 years of DevOps experience',
-      'Strong knowledge of containerization and orchestration',
-      'Experience with CI/CD pipelines and automation',
-      'Security-first mindset and experience with compliance'
-    ]
-  },
-  {
     title: 'Product Manager',
     location: 'Remote',
     type: 'Full-time',
@@ -53,45 +40,6 @@ const jobOpenings = [
       'Strong technical background and understanding',
       'Excellent stakeholder management skills',
       'Experience with agile methodologies'
-    ]
-  }
-];
-
-const benefits = [
-  {
-    title: 'Health & Wellness',
-    items: [
-      'Comprehensive health insurance',
-      'Dental and vision coverage',
-      'Mental health support',
-      'Gym membership reimbursement'
-    ]
-  },
-  {
-    title: 'Work-Life Balance',
-    items: [
-      'Flexible working hours',
-      'Remote work options',
-      'Unlimited PTO',
-      'Paid parental leave'
-    ]
-  },
-  {
-    title: 'Growth & Development',
-    items: [
-      'Professional development budget',
-      'Conference attendance',
-      'Online learning subscriptions',
-      'Mentorship programs'
-    ]
-  },
-  {
-    title: 'Team & Culture',
-    items: [
-      'Regular team events',
-      'Home office setup allowance',
-      'Annual company retreats',
-      'Recognition programs'
     ]
   }
 ];
