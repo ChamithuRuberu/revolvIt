@@ -2,66 +2,78 @@
 
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: '',
+    fullName: "",
+    email: "",
+    phone: "",
+    weddingDate: "",
+    serviceType: "",
+    planType: "", // Added for the second select element
+    message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string;
-  }>({ type: null, message: '' });
+
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: '' });
-    
-    try {
-      // Here you would typically handle the form submission
-      console.log('Form submitted:', formData);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: '',
-      });
-      
-      // Show success message
-      setSubmitStatus({
-        type: 'success',
-        message: 'Thank you for your message! We will get back to you soon.'
-      });
-    } catch (error) {
-      setSubmitStatus({
-        type: 'error',
-        message: 'Something went wrong. Please try again.'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setStatus(""); // Clear any previous status messages
+
+    try {
+      setLoading(true);
+      console.log("Form Data Being Sent:", formData); // Debugging line
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setStatus("We'll contact you within 24 hours, Thank you!");
+        toast.success("We'll contact you within 24 hours. Thank you!"); // Updated toast message
+        console.log(data.message);
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          weddingDate: "",
+          serviceType: "",
+          planType: "", // Reset this if added
+          message: "",
+        });
+      } else {
+        const errorData = await response.json();
+        setStatus(errorData.message || "An error occurred. Please try again.");
+        toast.error(
+          errorData.message || "An error occurred. Please try again." // Show error toast
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again."); // Show error toast
+    }
+    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16 bg-gray-100 overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,134 +84,112 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
           {/* Contact Form */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-            
-            {/* Status Messages */}
-            {submitStatus.type && (
-              <div className={`mb-6 p-4 rounded-lg ${
-                submitStatus.type === 'success' 
-                  ? 'bg-green-50 text-green-800 border border-green-200'
-                  : 'bg-red-50 text-red-800 border border-red-200'
-              }`}>
-                {submitStatus.message}
-              </div>
-            )}
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Enter your full name"
-                />
-              </div>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800 pl-3">Schedule a Meeting</h2>
+          <div className="max-w-5xl p-0  font-[sans-serif] ">
+              <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
+              <div className="items-start shadow-sm relative overflow-hidden pr-12 ">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="space-y-4">
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Your Full Name"
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-900"
+                    />
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="your@email.com"
-                />
-              </div>
+                    <input
+                      type="number"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-600"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email Address"
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 "
+                    />
+                    <input
+                      type="text"
+                      name="weddingDate"
+                      value={formData.weddingDate}
+                      onChange={handleChange}
+                      placeholder=" Date"
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-600"
+                    />
+                    <select
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-600"
+                    >
+                      <option value="" disabled>
+                        Select Service Type
+                      </option>
+                      <option value="Cinematography">Cinematography
+                      </option>
+                      <option value="Photography">Photography</option>
+                      <option value="Photography & Cinematography">Photography & Cinematography</option>
+                    </select>
+                    <select
+                      name="planType"
+                      value={formData.planType}
+                      onChange={handleChange}
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600 text-gray-600"
+                    >
+                      <option value="" disabled>
+                        Select Your Plan
+                      </option>
+                      <option value="Basic Package">Basic Package</option>
+                      <option value="Standard Package">Standard Package</option>
+                      <option value="Premium Package">Premium Package</option>
+                    </select>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell us more about your inquiries"
+                      className="px-4 py-3 w-full border-b border-gray-300 focus:border-colors-custom-beige outline-none bg-transparent placeholder-gray-600  text-gray-600"
+                    />
+                  </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="(Optional) Enter your phone number"
-                />
+                  <div className="flex justify-center mt-8">
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className={`w-48 px-8 py-3 text-sm font-light text-white ${loading
+                        ? "bg-gray-800 cursor-not-allowed"
+                        : "bg-gradient-to-b from-black/70 via-black/90 to-black/80 hover:bg-black "
+                        } transition-colors rounded-sm shadow-sm`}
+                    >
+                      {loading ? "Sending..." : "Request Quote"}
+                    </button>
+                  </div>
+                </form>
               </div>
-
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="(Optional) Enter your company name"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us about your project or inquiry"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full px-6 py-3 rounded-lg font-semibold text-white transition-all duration-200 ${
-                  isSubmitting 
-                    ? 'bg-blue-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700'
-                }`}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                  </span>
-                ) : 'Send Message'}
-              </button>
-            </form>
+            </div>
           </div>
 
           {/* Contact Information */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
-            <div className="bg-gray-50 p-8 rounded-xl text-gray-800">
+            <h2 className="text-2xl font-bold mb-6 text-gray-800 ">Get in Touch</h2>
+            <div className="bg-gray-50 p-8 rounded-xl ">
               <div className="space-y-6">
 
                 <div className="flex items-start">
                   <Phone className="h-6 w-6 text-blue-600 mt-1" />
                   <div className="ml-4">
-                    <h3 className="font-semibold">Phone</h3>
+                    <h3 className="font-semibold text-gray-600">Phone</h3>
                     <p className="text-gray-600">+ (94) 78 150 82 52</p>
                   </div>
                 </div>
@@ -207,10 +197,10 @@ export default function Contact() {
                 <div className="flex items-start">
                   <MapPin className="h-6 w-6 text-blue-600 mt-1" />
                   <div className="ml-4">
-                    <h3 className="font-semibold">Address</h3>
+                    <h3 className="font-semibold text-gray-600">Address</h3>
                     <p className="text-gray-600">
-                    Wewala, piliyandala <br />
-                    Colombo
+                      Wewala, piliyandala <br />
+                      Colombo
                     </p>
                   </div>
                 </div>
@@ -218,7 +208,7 @@ export default function Contact() {
                 <div className="flex items-start">
                   <Clock className="h-6 w-6 text-blue-600 mt-1" />
                   <div className="ml-4">
-                    <h3 className="font-semibold">Business Hours</h3>
+                    <h3 className="font-semibold text-gray-600">Business Hours</h3>
                     <p className="text-gray-600">
                       Monday - Friday: 9:00 AM - 6:00 PM<br />
                       Saturday - Sunday: Closed
@@ -227,22 +217,22 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-
-            {/* Map */}
-            <div className="mt-8">
-              <div className="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63389.40207872737!2d79.89510966767261!3d6.789603611051199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24f91d281cc5d%3A0xea4b2fcd3ce0e74e!2sPiliyandala!5e0!3m2!1sen!2slk!4v1743535860454!5m2!1sen!2slk" 
-                  width="600" 
-                  height="450" 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </div>
           </div>
         </div>
+        <div className="w-full mt-8">
+          <div className="w-full h-0 pb-[30.25%] relative rounded-xl overflow-hidden">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63389.40207872737!2d79.89510966767261!3d6.789603611051199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24f91d281cc5d%3A0xea4b2fcd3ce0e74e!2sPiliyandala!5e0!3m2!1sen!2slk!4v1743535860454!5m2!1sen!2slk"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+
       </div>
+
     </div>
   );
 } 
