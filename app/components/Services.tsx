@@ -1,12 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Code, Cloud, Smartphone, Database, Shield, Users, Layout, Server, Cpu
-} from "lucide-react";
-import { Inter } from "next/font/google";
-import Image from 'next/image';
-const inter = Inter({ subsets: ["latin"] });
+import { Code, Cloud, Shield, Layout, Server, Cpu } from "lucide-react";
 
 const services = [
   {
@@ -109,7 +104,7 @@ export default function Services() {
 
       {/* CTA Section */}
       <div className="bg-gray-950 pb-10 md:py-16  text-gray-800">
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-8 text-gray-200 ">Need a Custom Solution?</h2>
           <p className="text-xl text-gray-500 mb-8 max-w-3xl mx-auto">

@@ -91,7 +91,7 @@ export default function Contact() {
           <h2 className="text-xl font-bold mb-6 text-gray-800 pl-3">Schedule a Meeting</h2>
           <div className="max-w-5xl p-0  font-[sans-serif] ">
               <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
-              <div className="items-start shadow-sm relative overflow-hidden pr-12 ">
+              <div className="items-start relative overflow-hidden pr-12 ">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-4">
                     <input
