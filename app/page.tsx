@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3, Monitor } from 'lucide-react';
+import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3 } from 'lucide-react';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 

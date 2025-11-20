@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'queuebuster.co',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
     ],
     unoptimized: false,
   },

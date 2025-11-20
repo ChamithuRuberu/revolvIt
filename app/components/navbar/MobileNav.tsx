@@ -3,6 +3,7 @@
 import HomeNavItem from './HomeNavItem';
 import AboutNavItem from './AboutNavItem';
 import SolutionsNavItem from './SolutionsNavItem';
+import PricingNavItem from './PricingNavItem';
 import CareersNavItem from './CareersNavItem';
 import ContactUsNavItem from './ContactUsNavItem';
 
@@ -20,6 +21,7 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
         <HomeNavItem onClick={onClose} isMobile={true} />
         <AboutNavItem onClick={onClose} isMobile={true} />
         <SolutionsNavItem onClick={onClose} isMobile={true} />
+        <PricingNavItem onClick={onClose} isMobile={true} />
         <CareersNavItem onClick={onClose} isMobile={true} />
         <ContactUsNavItem onClick={onClose} isMobile={true} />
       </div>

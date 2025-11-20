@@ -3,6 +3,7 @@
 import HomeNavItem from './HomeNavItem';
 import AboutNavItem from './AboutNavItem';
 import SolutionsNavItem from './SolutionsNavItem';
+import PricingNavItem from './PricingNavItem';
 import CareersNavItem from './CareersNavItem';
 import ContactUsNavItem from './ContactUsNavItem';
 
@@ -13,6 +14,7 @@ const DesktopNav = () => {
         <HomeNavItem />
         <AboutNavItem />
         <SolutionsNavItem />
+        <PricingNavItem />
         <CareersNavItem />
         <ContactUsNavItem />
       </div>
