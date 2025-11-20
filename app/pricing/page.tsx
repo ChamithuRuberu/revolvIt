@@ -449,7 +449,7 @@ export default function Pricing() {
                         <strong>Market Price:</strong> LKR 45,000 - 65,000
                       </p>
                     </div>
-                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-white overflow-hidden">
                       <Image
                         src="/pricing/pos.webp"
                         alt="Minimum Specification Computer"
@@ -489,7 +489,7 @@ export default function Pricing() {
                         <strong>Market Price:</strong> LKR 85,000 - 120,000 (Touchscreen AIO)
                       </p>
                     </div>
-                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-white overflow-hidden">
                       <Image
                         src="/pricing/pos.webp"
                         alt="Recommended Specification Computer"
@@ -509,93 +509,94 @@ export default function Pricing() {
                 <h4 className="text-xl font-bold text-gray-900">Thermal Receipt Printer</h4>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Xprinter XP-58</h5>
-                      <p className="text-xs text-gray-600 mb-1">58mm • USB Interface</p>
-                      <p className="text-xs text-gray-500 mb-2">Compact 2-inch thermal printer. Ideal for small receipts and mobile POS systems. Low power consumption.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 20,500 - 28,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/Xprinter XP-58 .png"
                         alt="Xprinter XP-58"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">Xprinter XP-58</h5>
+                      <p className="text-xs text-gray-600 mb-1">58mm • USB Interface</p>
+                      <p className="text-xs text-gray-500 mb-2">Compact 2-inch thermal printer. Ideal for small receipts and mobile POS systems.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 20,500 - 28,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional-lg p-6 border-2 border-corporate-blue">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">XPrinter XP-K200L</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-gray-500 mb-2">⭐ Recommended • High-speed 80mm thermal printer with auto-cutter. Resume from cutter jam automatically. Optional sound and light alarm. Compatible with Windows, Linux, Android, iOS, macOS.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional-lg p-5 border-2 border-corporate-blue">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/XPrinter XP-K200L .jpg"
                         alt="XPrinter XP-K200L"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">XPrinter XP-K200L</h5>
+                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
+                      <p className="text-xs text-corporate-blue mb-1">⭐ Recommended</p>
+                      <p className="text-xs text-gray-500 mb-2">High-speed 80mm thermal printer with auto-cutter. Resume from jam automatically.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">POS-8220</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Network (LAN)</p>
-                      <p className="text-xs text-gray-500 mb-2">Network-enabled thermal printer with USB and LAN connectivity. Print speed: 230mm/s. Compatible with Windows, Linux, Android, iOS, macOS.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/POS-8220 .webp"
                         alt="POS-8220"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">POS-8220</h5>
+                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Network (LAN)</p>
+                      <p className="text-xs text-gray-500 mb-2">Network-enabled thermal printer. Print speed: 230mm/s. Multi-OS compatible.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">XPrinter XP-Q805K</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-gray-500 mb-2">Budget-friendly 80mm thermal printer. Print speed: 230mm/s. Wall mountable design. Supports ESC/POS commands. Compatible with Windows, Linux, Android, iOS, macOS.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 14,000 - 16,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/POSX805K.jpg"
                         alt="XPrinter XP-Q805K"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">XPrinter XP-Q805K</h5>
+                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
+                      <p className="text-xs text-gray-500 mb-2">Budget-friendly 80mm thermal printer. Print speed: 230mm/s. Wall mountable.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 14,000 - 16,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BELDON BNPP-991</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-gray-500 mb-2">Reliable 80mm thermal printer with fast printing up to 300mm/s. Supports ESC/POS commands. Compatible with Windows, Linux, Android, iOS, macOS, OPOS.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 16,900 - 18,900</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/BNPP-991-USB_0.jpeg"
                         alt="BELDON BNPP-991"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">BELDON BNPP-991</h5>
+                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
+                      <p className="text-xs text-gray-500 mb-2">Reliable 80mm thermal printer. Fast printing up to 300mm/s. Multi-OS compatible.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 16,900 - 18,900</p>
                     </div>
                   </div>
                 </div>
@@ -614,70 +615,72 @@ export default function Pricing() {
                 <h4 className="text-xl font-bold text-gray-900">Barcode Scanner</h4>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                <div className="bg-white rounded-xl shadow-professional p-4 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Honeywell 2D BARCODE READER 7120D</h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 60,000 - 70,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/ORBIT-BARCODE-preview.png"
-                        alt="Generic USB Scanner"
+                        alt="Honeywell 2D Barcode Reader 7120D"
                         fill
-                        className="object-fit"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">Honeywell 2D BARCODE READER 7120D</h5>
+                      <p className="text-xs text-gray-500 mb-2">2D imager scanner for QR codes and barcodes</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 60,000 - 70,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional-lg p-4 border-2 border-corporate-blue">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – 1D HANDHELD WIRELESS BN-BS207R</h5>
-                      <p className="text-xs text-gray-600 mb-2">⭐ Recommended</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 10,500 - 12,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional-lg p-5 border-2 border-corporate-blue">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/WhatsApp-Image-2024-04-03-at-11.13.45_b4f63462.jpg"
-                        alt="BELDON – 1D HANDHELD WIRELESS BARCODE SCANNER BN-BS207R"
+                        alt="BELDON 1D Handheld Wireless Barcode Scanner"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-1 text-sm leading-tight">BELDON 1D WIRELESS BN-BS207R</h5>
+                      <p className="text-xs text-corporate-blue mb-2">⭐ Recommended</p>
+                      <p className="text-xs text-gray-500 mb-2">Wireless handheld 1D barcode scanner</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 10,500 - 12,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – HANDHELD CCD BARCODE SCANNER BN-BS207I
-                      </h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 5,000 - 7,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/207I.webp"
-                        alt="Honeywell Voyager 1200g"
+                        alt="BELDON Handheld CCD Barcode Scanner"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON CCD SCANNER BN-BS207I</h5>
+                      <p className="text-xs text-gray-500 mb-2">Handheld CCD barcode scanner with USB</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 5,000 - 7,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – WIRELESS BARCODE SCANNER WITH CRADLE BASE (BN-9066RT)
-                      </h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 19,000 - 25,000</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/WIRELESS-BARCODE-SCANNER.webp"
-                        alt="Zebra DS2208"
+                        alt="BELDON Wireless Barcode Scanner with Cradle"
                         fill
-                        className="object-contain"
+                        className="object-contain p-2"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON WIRELESS SCANNER BN-9066RT</h5>
+                      <p className="text-xs text-gray-500 mb-2">Wireless scanner with charging cradle base</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 19,000 - 25,000</p>
                     </div>
                   </div>
                 </div>
@@ -696,74 +699,72 @@ export default function Pricing() {
                 <h4 className="text-xl font-bold text-gray-900">Additional Hardware (Optional)</h4>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Customer Display Pole</h5>
-                      <p className="text-sm text-gray-700 mb-2">VFD Display (2×20 characters)</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 12,000 - 18,000</p>
-                      <p className="text-xs text-gray-600 mt-2">Shows items and prices to customer</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/X-POS-Display-Pole.png"
                         alt="Customer Display Pole"
                         fill
-                        className="object-contain"
+                        className="object-contain p-0"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">Customer Display Pole</h5>
+                      <p className="text-xs text-gray-500 mb-2">VFD Display (2×20 characters). Shows items and prices to customer.</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 15,000 - 18,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">UPS (Backup Power)</h5>
-                      <p className="text-sm text-gray-700 mb-1">650VA: LKR 9,000 - 10,000</p>
-                      <p className="text-sm text-gray-700 mb-2">2000VA: LKR 130,000.00 - 147,000.00 </p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/PRO1201SFC-Super-Fast-Charging-Line-Interactive-UPS-650VA-Skyray-Electronics-Gadgets-Serendib-UPS-Sri-Lanka-300x300.png"
                         alt="UPS Backup Power"
                         fill
-                        className="object-contain"
+                        className="object-contain p-0"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">UPS (Backup Power)</h5>
+                      <p className="text-xs text-gray-500 mb-1">650VA: LKR 9,000 - 10,000</p>
+                      <p className="text-xs text-gray-500 mb-2">2000VA: LKR 130,000 - 147,000</p>
+                      <p className="text-sm font-semibold text-corporate-blue">From LKR 9,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BLUETOOTH BARCODE + RECEIPT BILL PRINTER XP-365B-BLU</h5>
-                      <p className="text-sm text-gray-700 mb-2">Basic model</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 25,000 - 35,000</p>
-                      <p className="text-xs text-gray-600 mt-2">For printing product labels</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
                         src="/pricing/365b.jpeg"
-                        alt="Barcode Label Printer"
+                        alt="Bluetooth Barcode Receipt Printer"
                         fill
-                        className="object-contain"
+                        className="object-contain p-0"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BLUETOOTH PRINTER XP-365B-BLU</h5>
+                      <p className="text-xs text-gray-500 mb-2">2-in-1 Bluetooth barcode + receipt printer</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 25,000 - 35,000</p>
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">BELDON HEAVY DUTY 5 NOTES CASH DRAWER</h5>
-                      <p className="text-sm text-gray-700 mb-2">Basic digital scale</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 9,500 - 14,000</p>
-                      <p className="text-xs text-gray-600 mt-2">For grocery/retail by weight</p>
-                    </div>
-                    <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
+                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
+                  <div className="flex flex-col gap-3">
+                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
                       <Image
-                        src="/pricing/e326f6ce-a74a-4081-b0f5-e3c7eaccd963.jpg"
-                        alt="Weighing Scale"
+                        src="/pricing/Copy_of_Daraz_Bell_Press_Orange_Akoya_White__85_-removebg-preview-1.webp"
+                        alt="BELDON Heavy Duty Cash Drawer"
                         fill
-                        className="object-contain"
+                        className="object-contain p-0"
                       />
+                    </div>
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON CASH DRAWER</h5>
+                      <p className="text-xs text-gray-500 mb-2">Heavy duty 5 notes cash drawer for secure storage</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 9,500 - 14,000</p>
                     </div>
                   </div>
                 </div>
@@ -795,7 +796,7 @@ export default function Pricing() {
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Barcode Scanner</td>
                     <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
-                    <td className="py-4 px-4 text-gray-600">USB barcode scanner + integration</td>
+                    <td className="py-4 px-4 text-gray-600">integration</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Additional Branch</td>
@@ -804,7 +805,7 @@ export default function Pricing() {
                   </tr>
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">SMS Module</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">25,000 + per SMS</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">3500.00 per month</td>
                     <td className="py-4 px-4 text-gray-600">Customer notifications</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
@@ -823,13 +824,8 @@ export default function Pricing() {
                     <td className="py-4 px-4 text-gray-600">Automatic cloud storage</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Weighing Scale</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
-                    <td className="py-4 px-4 text-gray-600">For grocery/retail by weight</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Customer Display</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">25,000</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
                     <td className="py-4 px-4 text-gray-600">Pole display for customers</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
@@ -837,11 +833,7 @@ export default function Pricing() {
                     <td className="py-4 px-4 font-semibold text-corporate-blue">30,000</td>
                     <td className="py-4 px-4 text-gray-600">Fingerprint authentication</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Accounting Integration</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">40,000</td>
-                    <td className="py-4 px-4 text-gray-600">Tally/QuickBooks sync</td>
-                  </tr>
+                
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Custom Feature</td>
                     <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
