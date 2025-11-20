@@ -243,7 +243,7 @@ export default function Pricing() {
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 14,500</span>
+                    <span>USB Barcode Scanner: LKR 12,000</span>
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
@@ -290,7 +290,7 @@ export default function Pricing() {
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 14,500</span>
+                    <span>USB Barcode Scanner: LKR 12,000</span>
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
@@ -331,7 +331,7 @@ export default function Pricing() {
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 14,500</span>
+                    <span>USB Barcode Scanner: LKR 12,000</span>
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
@@ -372,7 +372,7 @@ export default function Pricing() {
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 14,500</span>
+                    <span>USB Barcode Scanner: LKR 12,000</span>
                   </li>
                   <li className="flex items-start text-xs text-gray-700">
                     <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
@@ -403,7 +403,7 @@ export default function Pricing() {
                 Package with Computer (Optional)
               </h4>
               <p className="text-sm text-gray-700 mb-4">
-                Add a Basic PC (i3, 4GB RAM, 128GB SSD) to any package above for an additional <strong className="text-corporate-blue">LKR 45,000</strong>
+                Add a Basic PC (i3, 4GB RAM, 128GB SSD) to any package above for an additional <strong className="text-corporate-blue">LKR 30,000.00</strong>
               </p>
             </div>
           </div>
@@ -451,7 +451,7 @@ export default function Pricing() {
                     </div>
                     <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="/pricing/image.png"
+                        src="/pricing/pos.webp"
                         alt="Minimum Specification Computer"
                         fill
                         className="object-fill"
@@ -614,33 +614,33 @@ export default function Pricing() {
                 <h4 className="text-xl font-bold text-gray-900">Barcode Scanner</h4>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
+                <div className="bg-white rounded-xl shadow-professional p-4 border border-gray-100">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Generic USB Scanner</h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 3,500 - 5,000</p>
+                      <h5 className="font-semibold text-gray-900 mb-2">Honeywell 2D BARCODE READER 7120D</h5>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 60,000 - 70,000</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"
+                        src="/pricing/ORBIT-BARCODE-preview.png"
                         alt="Generic USB Scanner"
                         fill
-                        className="object-contain"
+                        className="object-fit"
                       />
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-professional-lg p-6 border-2 border-corporate-blue">
+                <div className="bg-white rounded-xl shadow-professional-lg p-4 border-2 border-corporate-blue">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Honeywell 1D Scanner</h5>
+                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – 1D HANDHELD WIRELESS BN-BS207R</h5>
                       <p className="text-xs text-gray-600 mb-2">⭐ Recommended</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 8,500 - 12,000</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 10,500 - 12,000</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"
-                        alt="Honeywell 1D Scanner"
+                        src="/pricing/WhatsApp-Image-2024-04-03-at-11.13.45_b4f63462.jpg"
+                        alt="BELDON – 1D HANDHELD WIRELESS BARCODE SCANNER BN-BS207R"
                         fill
                         className="object-contain"
                       />
@@ -650,12 +650,13 @@ export default function Pricing() {
                 <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Honeywell Voyager 1200g</h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
+                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – HANDHELD CCD BARCODE SCANNER BN-BS207I
+                      </h5>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 5,000 - 7,000</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"
+                        src="/pricing/207I.webp"
                         alt="Honeywell Voyager 1200g"
                         fill
                         className="object-contain"
@@ -666,12 +667,13 @@ export default function Pricing() {
                 <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Zebra DS2208</h5>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 25,000 - 30,000</p>
+                      <h5 className="font-semibold text-gray-900 mb-2">BELDON – WIRELESS BARCODE SCANNER WITH CRADLE BASE (BN-9066RT)
+                      </h5>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 19,000 - 25,000</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"
+                        src="/pricing/WIRELESS-BARCODE-SCANNER.webp"
                         alt="Zebra DS2208"
                         fill
                         className="object-contain"
@@ -704,7 +706,7 @@ export default function Pricing() {
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&q=80"
+                        src="/pricing/X-POS-Display-Pole.png"
                         alt="Customer Display Pole"
                         fill
                         className="object-contain"
@@ -716,12 +718,12 @@ export default function Pricing() {
                   <div className="flex gap-3">
                     <div className="flex-1">
                       <h5 className="font-semibold text-gray-900 mb-2">UPS (Backup Power)</h5>
-                      <p className="text-sm text-gray-700 mb-1">600VA: LKR 8,000 - 12,000</p>
-                      <p className="text-sm text-gray-700 mb-2">1000VA: LKR 15,000 - 20,000 ⭐</p>
+                      <p className="text-sm text-gray-700 mb-1">650VA: LKR 9,000 - 10,000</p>
+                      <p className="text-sm text-gray-700 mb-2">2000VA: LKR 130,000.00 - 147,000.00 </p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=500&q=80"
+                        src="/pricing/PRO1201SFC-Super-Fast-Charging-Line-Interactive-UPS-650VA-Skyray-Electronics-Gadgets-Serendib-UPS-Sri-Lanka-300x300.png"
                         alt="UPS Backup Power"
                         fill
                         className="object-contain"
@@ -732,14 +734,14 @@ export default function Pricing() {
                 <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Barcode Label Printer</h5>
+                      <h5 className="font-semibold text-gray-900 mb-2">BLUETOOTH BARCODE + RECEIPT BILL PRINTER XP-365B-BLU</h5>
                       <p className="text-sm text-gray-700 mb-2">Basic model</p>
                       <p className="text-sm font-semibold text-corporate-blue">LKR 25,000 - 35,000</p>
                       <p className="text-xs text-gray-600 mt-2">For printing product labels</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500&q=80"
+                        src="/pricing/365b.jpeg"
                         alt="Barcode Label Printer"
                         fill
                         className="object-contain"
@@ -750,14 +752,14 @@ export default function Pricing() {
                 <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
                   <div className="flex gap-3">
                     <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2">Weighing Scale</h5>
+                      <h5 className="font-semibold text-gray-900 mb-2">BELDON HEAVY DUTY 5 NOTES CASH DRAWER</h5>
                       <p className="text-sm text-gray-700 mb-2">Basic digital scale</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 8,000 - 15,000</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 9,500 - 14,000</p>
                       <p className="text-xs text-gray-600 mt-2">For grocery/retail by weight</p>
                     </div>
                     <div className="relative w-20 h-20 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden">
                       <Image
-                        src="https://images.unsplash.com/photo-1607613009820-a38f1e0a9d08?w=500&q=80"
+                        src="/pricing/e326f6ce-a74a-4081-b0f5-e3c7eaccd963.jpg"
                         alt="Weighing Scale"
                         fill
                         className="object-contain"
