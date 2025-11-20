@@ -10,7 +10,7 @@ interface SolutionsNavItemProps {
 
 const SolutionsNavItem = ({ onClick, isMobile = false }: SolutionsNavItemProps) => {
   const pathname = usePathname();
-  const isActive = pathname === '/portfolio';
+  const isActive = pathname === '/portfolio' || pathname.startsWith('/portfolio');
   
   const baseClasses = isMobile
     ? `block px-4 py-3 rounded-lg text-base font-medium transition-colors ${

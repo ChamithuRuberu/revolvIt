@@ -1,14 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Smartphone, Globe, ShoppingCart, CheckCircle2, ExternalLink, TrendingUp } from 'lucide-react';
+import { ArrowRight, Smartphone, Globe, ShoppingCart, CheckCircle2, ExternalLink, TrendingUp, Building2, Image as ImageIcon } from 'lucide-react';
 
 // Service categories with projects
 const services = [
   {
     id: 'pos',
-    name: 'POS Systems',
+    name: 'POS',
     icon: ShoppingCart,
     description: 'Complete Point of Sale solutions for retail and hospitality businesses.',
     projects: [
@@ -36,42 +37,52 @@ const services = [
     ],
   },
   {
-    id: 'websites',
-    name: 'Websites',
-    icon: Globe,
-    description: 'Modern, responsive websites built with cutting-edge technologies.',
+    id: 'enterprise',
+    name: 'Enterprise Solutions',
+    icon: Building2,
+    description: 'Scalable enterprise-grade solutions for large organizations.',
     projects: [
       {
-        title: 'AVAIRA',
+        title: 'Enterprise Management System',
         image: '/portfolio/image.png',
         features: [
-          'Smooth full-screen photo gallery with zoom',
-          'Efficient Nodemailer system for notifications',
-          'Enhanced user experience with responsive loading',
-          'SEO optimized for better rankings'
+          'Multi-branch management',
+          'Advanced analytics and reporting',
+          'Cloud infrastructure',
+          'API integrations',
+          '24/7 support and monitoring'
         ],
       },
+    ],
+  },
+  {
+    id: 'nft',
+    name: 'NFT web',
+    icon: ImageIcon,
+    description: 'NFT marketplace and web3 platform solutions.',
+    projects: [
       {
-        title: 'Bedding.lk',
-        image: '/portfolio/sample.png',
+        title: 'NFT Marketplace Platform',
+        image: '/portfolio/Gemini_Generated_Image_6g09cz6g09cz6g09.png',
         features: [
-          'Improved user engagement by 60%',
-          'Real-time product updates',
-          'Secure payment integration',
-          'Mobile-responsive design'
+          'Blockchain integration',
+          'Wallet connectivity',
+          'Smart contract deployment',
+          'Royalty system',
+          'Multi-chain support'
         ],
       },
     ],
   },
   {
     id: 'mobile',
-    name: 'Mobile Apps',
+    name: 'Mobile development',
     icon: Smartphone,
     description: 'Native and cross-platform mobile applications for iOS and Android.',
     projects: [
       {
         title: 'CINETOON',
-        image: '/portfolio/banking.jpg',
+        image: '/portfolio/Gemini_Generated_Image_5ev5q5ev5q5ev5q5.png',
         features: [
           '200,000+ downloads',
           'Increased mobile engagement by 75%',
@@ -84,6 +95,23 @@ const services = [
 ];
 
 export default function Portfolio() {
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+
+  const filteredServices = activeFilter 
+    ? services.filter(service => service.id === activeFilter)
+    : services;
+
+  const handleFilterClick = (categoryId: string | null) => {
+    setActiveFilter(categoryId);
+    // Scroll to top of services section
+    setTimeout(() => {
+      const servicesSection = document.getElementById('services-section');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -107,67 +135,114 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Services Sections */}
-      <section className="py-20 bg-white">
+      {/* Filter Section - Dashboard Style */}
+      <section className="py-6 bg-white border-b border-gray-200 sticky top-20 z-40 backdrop-blur-sm bg-white/95 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {services.map((service, serviceIndex) => {
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <button
+              onClick={() => handleFilterClick(null)}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
+                activeFilter === null
+                  ? 'bg-corporate-blue text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              All
+            </button>
+            {services.map((service) => {
+              const IconComponent = service.icon;
+              return (
+                <button
+                  key={service.id}
+                  onClick={() => handleFilterClick(service.id)}
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1.5 ${
+                    activeFilter === service.id
+                      ? 'bg-corporate-blue text-white shadow-sm'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <IconComponent className="h-3.5 w-3.5" />
+                  {service.name}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Sections - Dashboard Style */}
+      <section id="services-section" className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filteredServices.map((service, serviceIndex) => {
             const IconComponent = service.icon;
             return (
-              <div key={service.id} className={`mb-24 ${serviceIndex === services.length - 1 ? 'mb-0' : ''}`}>
-                {/* Service Header */}
-                <div className="mb-12">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
-                    <div className="p-4 bg-corporate-blue rounded-xl shadow-professional">
-                      <IconComponent className="h-8 w-8 text-white" />
+              <div key={service.id} id={service.id} className={`mb-16 scroll-mt-24 ${serviceIndex === filteredServices.length - 1 ? 'mb-0' : ''}`}>
+                {/* Service Header - Compact */}
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-corporate-blue rounded-lg shadow-sm">
+                      <IconComponent className="h-5 w-5 text-white" />
                     </div>
                     <div>
-                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                      <h2 className="text-xl font-bold text-gray-900">
                         {service.name}
                       </h2>
-                      <p className="text-lg text-gray-600 max-w-3xl">
+                      <p className="text-sm text-gray-500">
                         {service.description}
                       </p>
                     </div>
                   </div>
+                  <div className="text-sm text-gray-500 font-medium">
+                    {service.projects.length} {service.projects.length === 1 ? 'Project' : 'Projects'}
+                  </div>
                 </div>
 
-                {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Projects Grid - Dashboard Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {service.projects.map((project, projectIndex) => (
                     <div
                       key={projectIndex}
-                      className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 overflow-hidden border border-gray-100 group hover:-translate-y-1"
+                      className="bg-white rounded-lg border border-gray-200 hover:border-corporate-blue/50 hover:shadow-md transition-all duration-200 overflow-hidden group"
                     >
-                      <div className="relative h-64 w-full bg-gray-100 overflow-hidden">
+                      <div className="relative h-40 w-full bg-gray-100 overflow-hidden">
                         <Image
                           src={project.image}
                           alt={project.title}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="absolute top-2 right-2">
+                          <div className="bg-white/90 backdrop-blur-sm rounded px-2 py-1 text-xs font-semibold text-corporate-blue">
+                            {service.name}
+                          </div>
+                        </div>
                       </div>
-                      <div className="p-6">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                      <div className="p-4">
+                        <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-1">
                           {project.title}
                         </h3>
-                        <ul className="space-y-3 mb-6">
-                          {project.features.map((feature, featureIndex) => (
+                        <ul className="space-y-1.5 mb-4">
+                          {project.features.slice(0, 3).map((feature, featureIndex) => (
                             <li
                               key={featureIndex}
                               className="flex items-start text-gray-600"
                             >
-                              <CheckCircle2 className="h-5 w-5 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm leading-relaxed">{feature}</span>
+                              <CheckCircle2 className="h-3.5 w-3.5 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
+                              <span className="text-xs leading-snug line-clamp-1">{feature}</span>
                             </li>
                           ))}
+                          {project.features.length > 3 && (
+                            <li className="text-xs text-gray-400 pl-5.5">
+                              +{project.features.length - 3} more
+                            </li>
+                          )}
                         </ul>
                         <Link
                           href={`/portfolio/${project.title.toLowerCase().replace(/\s+/g, '-')}`}
-                          className="inline-flex items-center text-corporate-blue hover:text-corporate-blue-dark font-semibold text-sm group"
+                          className="inline-flex items-center text-corporate-blue hover:text-corporate-blue-dark font-medium text-xs group/link"
                         >
-                          View Case Study
-                          <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                          View Details
+                          <ExternalLink className="ml-1.5 h-3 w-3 group-hover/link:translate-x-0.5 transition-transform" />
                         </Link>
                       </div>
                     </div>
@@ -179,25 +254,43 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gray-50 border-t border-gray-200">
+      {/* Stats Section - Dashboard Style */}
+      <section className="py-12 bg-white border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div>
-              <div className="text-5xl md:text-6xl font-bold text-corporate-blue mb-3">
-                {services.reduce((sum, s) => sum + s.projects.length, 0)}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-br from-corporate-blue/5 to-corporate-blue/10 rounded-lg border border-corporate-blue/20 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-600">Total Projects</span>
+                <TrendingUp className="h-4 w-4 text-corporate-blue" />
               </div>
-              <div className="text-gray-600 font-medium text-lg">Total Projects</div>
-            </div>
-            <div>
-              <div className="text-5xl md:text-6xl font-bold text-corporate-blue mb-3">
-                {services.length}
+              <div className="text-3xl font-bold text-corporate-blue">
+                {filteredServices.reduce((sum, s) => sum + s.projects.length, 0)}
               </div>
-              <div className="text-gray-600 font-medium text-lg">Service Categories</div>
+              <div className="text-xs text-gray-500 mt-1">
+                Across all categories
+              </div>
             </div>
-            <div>
-              <div className="text-5xl md:text-6xl font-bold text-corporate-blue mb-3">100%</div>
-              <div className="text-gray-600 font-medium text-lg">Client Satisfaction</div>
+            <div className="bg-gradient-to-br from-corporate-blue/5 to-corporate-blue/10 rounded-lg border border-corporate-blue/20 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-600">Categories</span>
+                <Building2 className="h-4 w-4 text-corporate-blue" />
+              </div>
+              <div className="text-3xl font-bold text-corporate-blue">
+                {filteredServices.length}
+              </div>
+              <div className="text-xs text-gray-500 mt-1">
+                Active service types
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-corporate-blue/5 to-corporate-blue/10 rounded-lg border border-corporate-blue/20 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-600">Satisfaction</span>
+                <CheckCircle2 className="h-4 w-4 text-corporate-blue" />
+              </div>
+              <div className="text-3xl font-bold text-corporate-blue">100%</div>
+              <div className="text-xs text-gray-500 mt-1">
+                Client satisfaction rate
+              </div>
             </div>
           </div>
         </div>
