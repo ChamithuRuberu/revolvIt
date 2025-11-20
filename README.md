@@ -2,7 +2,35 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+### 2. Email Configuration
+
+Create a `.env.local` file in the root directory with your email credentials:
+
+```env
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASS=your-app-password
+```
+
+**For Gmail users:**
+1. Go to [Google Account Security](https://myaccount.google.com/security)
+2. Enable **2-Step Verification** (required for App Passwords)
+3. Go to **App Passwords** section
+4. Generate a new app password for "Mail"
+5. Copy the 16-character password and use it as `EMAIL_PASS`
+
+**Note:** Use an App Password, not your regular Gmail password.
+
+### 3. Run Development Server
 
 ```bash
 npm run dev

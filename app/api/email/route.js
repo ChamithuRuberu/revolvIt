@@ -19,8 +19,9 @@ export async function POST(req) {
     fullName,
     email,
     phone,
-    weddingDate,
-    serviceType,
+    posPackage,
+    completePackage,
+    addOnFeatures,
     message,
   } = await req.json();
 
@@ -29,6 +30,31 @@ export async function POST(req) {
       JSON.stringify({ message: "All fields are required" }),
       {
         status: 400,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  // Check if email credentials are configured
+  const hasEmailUser = !!process.env.EMAIL_USER;
+  const hasEmailPass = !!process.env.EMAIL_PASS;
+  
+  if (!hasEmailUser || !hasEmailPass) {
+    console.error("Email credentials not configured");
+    console.error("EMAIL_USER exists:", hasEmailUser);
+    console.error("EMAIL_PASS exists:", hasEmailPass);
+    console.error("All env vars:", Object.keys(process.env).filter(key => key.includes('EMAIL')));
+    
+    const missingVars = [];
+    if (!hasEmailUser) missingVars.push("EMAIL_USER");
+    if (!hasEmailPass) missingVars.push("EMAIL_PASS");
+    
+    return new Response(
+      JSON.stringify({ 
+        message: `Email service is not configured. Missing: ${missingVars.join(", ")}. Please create a .env.local file in the project root with EMAIL_USER and EMAIL_PASS variables.` 
+      }),
+      {
+        status: 500,
         headers: { "Content-Type": "application/json" },
       }
     );
@@ -44,16 +70,33 @@ export async function POST(req) {
     });
 
     const mailOptions = {
-      from: `"${fullName}" <${email}>`,
+      from: `"${fullName}" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
       to: "tcdruberu@gmail.com",
-      subject: `New Registration from ${fullName}`,
+      subject: `New POS System Inquiry from ${fullName}`,
       text: `
         Name: ${fullName}
         Email: ${email}
         Phone: ${phone}
-        Event Date: ${weddingDate}
-        Service Type: ${serviceType}
+        POS Package: ${posPackage || 'Not selected'}
+        Complete Package: ${completePackage || 'Not selected'}
+        Add-On Features: ${addOnFeatures || 'None'}
         Message: ${message}
+      `,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #0066cc;">New POS System Inquiry</h2>
+          <p><strong>Name:</strong> ${fullName}</p>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
+          <hr style="border: 1px solid #e0e0e0; margin: 20px 0;">
+          <p><strong>Message:</strong></p>
+          <p><strong>POS Package:</strong> ${posPackage || 'Not selected'}</p>
+          <p><strong>Complete Package:</strong> ${completePackage || 'Not selected'}</p>
+          <p><strong>Add-On Features:</strong> ${addOnFeatures || 'None'}</p>
+          <p><strong>Message:</strong></p>
+          <p style="white-space: pre-wrap;">${message}</p>
+        </div>
       `,
     };
 
@@ -68,8 +111,12 @@ export async function POST(req) {
     );
   } catch (error) {
     console.error("Error sending email:", error);
+    const errorMessage = error.message || "Failed to send email. Please check your email configuration.";
     return new Response(
-      JSON.stringify({ message: "Failed to send email", error }),
+      JSON.stringify({ 
+        message: errorMessage,
+        error: error.toString() 
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },

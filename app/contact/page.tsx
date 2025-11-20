@@ -9,9 +9,9 @@ export default function Contact() {
     fullName: "",
     email: "",
     phone: "",
-    weddingDate: "",
-    serviceType: "",
-    planType: "", // Added for the second select element
+    posPackage: "",
+    completePackage: "",
+    addOnFeatures: "",
     message: "",
   });
 
@@ -43,26 +43,34 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        const text = await response.text();
+        console.error("Failed to parse JSON response:", text);
+        setStatus("An error occurred. Please try again or contact us directly.");
+        toast.error("An error occurred. Please try again or contact us directly.");
+        return;
+      }
+      
       if (response.ok) {
-        const data = await response.json();
-        setStatus("We'll contact you within 24 hours, Thank you!");
-        toast.success("We'll contact you within 24 hours. Thank you!"); // Updated toast message
+        toast.success("We'll contact you within 24 hours. Thank you!");
         console.log(data.message);
         setFormData({
           fullName: "",
           email: "",
           phone: "",
-          weddingDate: "",
-          serviceType: "",
-          planType: "", // Reset this if added
+          posPackage: "",
+          completePackage: "",
+          addOnFeatures: "",
           message: "",
         });
       } else {
-        const errorData = await response.json();
-        setStatus(errorData.message || "An error occurred. Please try again.");
-        toast.error(
-          errorData.message || "An error occurred. Please try again." // Show error toast
-        );
+        const errorMessage = data?.message || "An error occurred. Please try again.";
+        setStatus(errorMessage);
+        toast.error(errorMessage);
+        console.error("Error response:", data);
       }
     } catch (error) {
       console.error(error);
@@ -79,7 +87,7 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Contact Us</h1>
           <p className="text-xl max-w-3xl text-blue-100">
-            Have a project in mind? Let's discuss how we can help you achieve your goals.
+            Get in touch with us to discuss your POS system needs. We'll help you choose the perfect package for your business.
           </p>
         </div>
       </div>
@@ -88,7 +96,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div className="bg-white rounded-xl shadow-professional p-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">Schedule a Meeting</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900">Request a Quote</h2>
             <div className="font-[sans-serif]">
               <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -121,39 +129,62 @@ export default function Contact() {
                     required
                     className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white placeholder-gray-400 text-gray-900 transition-all"
                   />
-                  <input
-                    type="date"
-                    name="weddingDate"
-                    value={formData.weddingDate}
-                    onChange={handleChange}
-                    placeholder="Date"
-                    className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white placeholder-gray-400 text-gray-900 transition-all"
-                  />
                   <select
-                    name="serviceType"
-                    value={formData.serviceType}
+                    name="posPackage"
+                    value={formData.posPackage}
                     onChange={handleChange}
-                    required
                     className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white text-gray-900 transition-all"
                   >
-                    <option value="" disabled>
-                      Select Service Type
+                    <option value="">
+                      Select POS Package (Optional)
                     </option>
-                    <option value="Web Application Development">Web Application Development</option>
-                    <option value="Enterprise Application Development">Enterprise Application Development</option>
-                    <option value="IT consulting">IT consulting</option>
+                    <option value="Basic POS System - LKR 75,000">Basic POS System - LKR 75,000</option>
+                    <option value="Standard POS System - LKR 120,000">Standard POS System - LKR 120,000 (Recommended)</option>
+                    <option value="Professional POS System - LKR 150,000">Professional POS System - LKR 150,000</option>
+                    <option value="Premium POS System - LKR 250,000">Premium POS System - LKR 250,000</option>
                   </select>
+                  <select
+                    name="completePackage"
+                    value={formData.completePackage}
+                    onChange={handleChange}
+                    className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white text-gray-900 transition-all"
+                  >
+                    <option value="">
+                      Select Complete Package with Hardware (Optional)
+                    </option>
+                    <option value="Package A - LKR 111,000">Package A - LKR 111,000 (Complete Basic Setup)</option>
+                    <option value="Package B - LKR 156,000">Package B - LKR 156,000 (Complete Standard Setup)</option>
+                    <option value="Package C - LKR 186,000">Package C - LKR 186,000 (Complete Professional Setup)</option>
+                    <option value="Package D - LKR 286,000">Package D - LKR 286,000 (Complete Premium Setup)</option>
+                  </select>
+                  <textarea
+                    name="addOnFeatures"
+                    value={formData.addOnFeatures}
+                    onChange={handleChange}
+                    placeholder="Add-On Features (Optional - e.g., Barcode Scanner, SMS Module, Customer Display, etc.)"
+                    rows={3}
+                    className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white placeholder-gray-400 text-gray-900 transition-all resize-none"
+                  />
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us more about your inquiries"
+                    placeholder="Tell us more about your business needs and requirements"
                     rows={4}
                     required
                     className="px-4 py-3 w-full border border-gray-300 rounded-lg focus:border-corporate-blue focus:ring-2 focus:ring-corporate-blue/20 outline-none bg-white placeholder-gray-400 text-gray-900 transition-all resize-none"
                   />
                 </div>
 
+                {status && (
+                  <div className={`mt-4 p-4 rounded-lg ${
+                    status.includes("Thank you") || status.includes("contact you")
+                      ? "bg-green-50 text-green-800 border border-green-200"
+                      : "bg-red-50 text-red-800 border border-red-200"
+                  }`}>
+                    <p className="text-sm font-medium">{status}</p>
+                  </div>
+                )}
                 <div className="flex justify-center mt-8">
                   <button
                     type="submit"
@@ -164,7 +195,7 @@ export default function Contact() {
                         : "bg-corporate-blue hover:bg-corporate-blue-dark"
                     }`}
                   >
-                    {loading ? "Sending..." : "Schedule A Meeting"}
+                    {loading ? "Sending..." : "Request Quote"}
                   </button>
                 </div>
               </form>
