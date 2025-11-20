@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 const testimonials = [
   {
     rating: 5,
-    text: "I recently had a website developed and I couldn’t be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback.The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I’m fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.",
-    name: "Mr .Chamathka Nimsara ",
+    text: "I recently had a website developed and I couldn't be happier with the experience. From start to finish, the communication was clear and consistent, which made the entire process smooth and stress-free. The team was extremely professional and always responsive to my questions and feedback.The project was completed on time, and the final result exceeded my expectations. Every detail I requested was implemented perfectly, and the site runs beautifully. I'm fully satisfied with the service and would highly recommend them to anyone looking for reliable and high-quality web development.",
+    name: "Mr. Chamathka Nimsara",
     role: "CEO, outbaze"
   },
   {
@@ -26,15 +26,18 @@ const testimonials = [
 
 const TestimonialCard = ({ testimonial }: { testimonial: { rating: number, text: string, name: string, role: string } }) => {
   return (
-    <div className="bg-gray-50 p-8 rounded-2xl hover:shadow-lg transition-shadow duration-300 h-full">
+    <div className="bg-white p-8 rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 h-full border border-gray-100 relative">
+      <Quote className="absolute top-6 right-6 h-12 w-12 text-corporate-blue/10" />
       <div className="flex items-center mb-4">
         {[...Array(testimonial.rating)].map((_, i) => (
           <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
         ))}
       </div>
-      <p className="text-gray-600 mb-6">{testimonial.text}</p>
-      <div className="font-semibold">{testimonial.name}</div>
-      <div className="text-gray-500">{testimonial.role}</div>
+      <p className="text-gray-600 mb-6 leading-relaxed relative z-10">{testimonial.text}</p>
+      <div className="border-t border-gray-100 pt-4">
+        <div className="font-semibold text-gray-900">{testimonial.name}</div>
+        <div className="text-sm text-gray-500">{testimonial.role}</div>
+      </div>
     </div>
   );
 };
@@ -61,12 +64,12 @@ export default function Testimonials() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Trusted by leading companies worldwide to deliver exceptional software solutions.
           </p>
         </div>
@@ -78,20 +81,32 @@ export default function Testimonials() {
             ))}
           </div>
           
-          <div className="flex justify-center items-center mt-8 gap-4">
+          <div className="flex justify-center items-center mt-12 gap-4">
             <button
               onClick={prevTestimonial}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="p-3 rounded-full bg-gray-100 hover:bg-corporate-blue hover:text-white transition-all duration-300 shadow-professional hover:shadow-professional-lg"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-6 w-6" />
+              <ChevronLeft className="h-5 w-5" />
             </button>
+            <div className="flex gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentIndex ? 'w-8 bg-corporate-blue' : 'w-2 bg-gray-300'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
             <button
               onClick={nextTestimonial}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="p-3 rounded-full bg-gray-100 hover:bg-corporate-blue hover:text-white transition-all duration-300 shadow-professional hover:shadow-professional-lg"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="h-6 w-6" />
+              <ChevronRight className="h-5 w-5" />
             </button>
           </div>
         </div>

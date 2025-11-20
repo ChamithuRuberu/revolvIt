@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Cloud, Shield, Layout, Server, Cpu } from "lucide-react";
+import { Code, Cloud, Shield, Layout, Server, Cpu, ArrowRight, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 
 const services = [
   {
@@ -56,15 +57,15 @@ const cardVariants = {
 };
 
 export default function Services() {
-
   return (
-    <div className="min-h-screen pt-10 pb-8">
-
+    <section className="py-20 bg-gray-50">
       {/* Header */}
-      <div className="text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
-          <p className="text-xl max-w-3xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Our Services
+          </h2>
+          <p className="text-lg text-gray-600">
             We offer a comprehensive range of software development and IT services
             to help your business thrive in the digital age.
           </p>
@@ -72,8 +73,8 @@ export default function Services() {
       </div>
 
       {/* Services Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-gray-700">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
@@ -82,17 +83,19 @@ export default function Services() {
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.2 }}
-                className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow p-8"
+                viewport={{ once: true, amount: 0.2 }}
+                className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border border-gray-100 group hover:-translate-y-1"
               >
-                <IconComponent className="h-12 w-12 text-blue-600 mb-6" />
-                <h2 className="text-2xl font-semibold mb-4">{service.title}</h2>
-                <p className="text-gray-600 mb-6">{service.description}</p>
-                <ul className="space-y-2">
+                <div className="inline-flex p-3 bg-blue-50 rounded-lg mb-6 group-hover:bg-corporate-blue group-hover:scale-110 transition-all duration-300">
+                  <IconComponent className="h-6 w-6 text-corporate-blue group-hover:text-white transition-colors" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                <ul className="space-y-3">
                   {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-gray-700">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                      {feature}
+                    <li key={featureIndex} className="flex items-start text-sm text-gray-700">
+                      <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -103,22 +106,22 @@ export default function Services() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gray-950 pb-10 md:py-16  text-gray-800">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-8 text-gray-200 ">Need a Custom Solution?</h2>
-          <p className="text-xl text-gray-500 mb-8 max-w-3xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <div className="bg-gradient-to-r from-corporate-blue to-corporate-blue-dark rounded-2xl p-12 text-center text-white shadow-professional-xl">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Need a Custom Solution?</h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
             We specialize in creating tailored solutions to meet your specific business needs.
             Let's discuss how we can help you achieve your goals.
           </p>
-          <a
+          <Link
             href="/contact"
-            className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center bg-white text-corporate-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-professional-lg hover:shadow-professional-xl transform hover:-translate-y-0.5"
           >
             Get in Touch
-          </a>
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

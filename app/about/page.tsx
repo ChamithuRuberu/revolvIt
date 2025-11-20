@@ -54,12 +54,12 @@ const values = [
 
 export default function About() {
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16 bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
+      <div className="bg-gradient-to-br from-corporate-blue to-corporate-blue-dark text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Green Code Solution</h1>
-          <p className="text-xl max-w-3xl">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">About Green Code Solution</h1>
+          <p className="text-xl max-w-3xl text-blue-100">
             We're a team of passionate technologists dedicated to creating innovative
             software solutions that drive business success.
           </p>
@@ -67,29 +67,29 @@ export default function About() {
       </div>
 
       {/* Our Story */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-            <p className="text-gray-400 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Our Story</h2>
+            <p className="text-gray-600 mb-4 leading-relaxed">
               Founded in 2020, Green Code Solution emerged from a vision to transform how businesses
               approach digital solutions. We recognized that many organizations struggled
               with digital transformation and needed a partner who could guide them through
               the process.
             </p>
-            <p className="text-gray-400 mb-4">
+            <p className="text-gray-600 mb-4 leading-relaxed">
               Today, we're proud to have helped numerous businesses across various
               industries achieve their digital goals. Our team has grown to include
               talented developers, designers, and consultants who share our passion
               for excellence and innovation.
             </p>
-            <p className="text-gray-400">
+            <p className="text-gray-600 leading-relaxed">
               We continue to evolve and adapt to the changing technology landscape,
               always staying ahead of the curve to provide our clients with the best
               possible solutions.
             </p>
           </div>
-          <div className="relative h-[400px] rounded-sm overflow-hidden">
+          <div className="relative h-[400px] rounded-xl overflow-hidden shadow-professional-lg">
             <Image
               src="/about/image.png"
               alt="Green Code Solution office"
@@ -101,19 +101,19 @@ export default function About() {
       </div>
 
       {/* Our Values */}
-      <div className="bg-gray-50 py-16 text-gray-700">
+      <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">Our Values</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-gray-900">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <div key={index} className="text-center">
-                  <div className="inline-block p-4 bg-blue-100 rounded-full mb-4">
-                    <IconComponent className="h-8 w-8 text-blue-600" />
+                <div key={index} className="text-center bg-white p-8 rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="inline-block p-4 bg-blue-50 rounded-xl mb-4">
+                    <IconComponent className="h-8 w-8 text-corporate-blue" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                  <p className="text-gray-600">{value.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </div>
               );
             })}
@@ -125,15 +125,15 @@ export default function About() {
 
       {/* CTA Section */}
       <Link href="/careers">
-        <div className="bg-blue-600 text-white py-16 mt-16">
+        <div className="bg-gradient-to-r from-corporate-blue to-corporate-blue-dark text-white py-20 mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold mb-8">Join Our Team</h2>
-            <p className="text-xl mb-8 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Team</h2>
+            <p className="text-xl mb-8 max-w-3xl mx-auto text-blue-100">
               We're always looking for talented individuals who share our passion for
               technology and innovation. Check out our current openings.
             </p>
             <a
-              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors"
+              className="inline-block bg-white text-corporate-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-professional-lg hover:shadow-professional-xl transform hover:-translate-y-0.5"
             >
               View Careers
             </a>
