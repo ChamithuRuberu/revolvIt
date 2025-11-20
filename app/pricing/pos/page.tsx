@@ -764,7 +764,7 @@ export default function POSPricing() {
                     <div className="flex-1">
                       <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON CASH DRAWER</h5>
                       <p className="text-xs text-gray-500 mb-2">Heavy duty 5 notes cash drawer for secure storage</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 9,500 - 14,000</p>
+                      <p className="text-sm font-semibold text-corporate-blue">LKR 14,000 - 15,000</p>
                     </div>
                   </div>
                 </div>
@@ -789,23 +789,19 @@ export default function POSPricing() {
                     <td className="py-4 px-4 text-gray-600">Beyond package limit</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Additional Terminal</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
-                    <td className="py-4 px-4 text-gray-600">Extra computer setup</td>
+                    <td className="py-4 px-4 text-gray-700">Additional Terminal - LOCAL</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">50% off Selected Package</td>
+                    <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
                   </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Barcode Scanner</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
-                    <td className="py-4 px-4 text-gray-600">integration</td>
-                  </tr>
+                  
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Additional Branch</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">35,000</td>
-                    <td className="py-4 px-4 text-gray-600">Per branch setup</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">10% off Selected Package</td>
+                    <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">SMS Module</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">3500.00 per month</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">3500/ month</td>
                     <td className="py-4 px-4 text-gray-600">Customer notifications</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
@@ -824,7 +820,7 @@ export default function POSPricing() {
                     <td className="py-4 px-4 text-gray-600">Automatic cloud storage</td>
                   </tr>
                   <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Customer Display</td>
+                    <td className="py-4 px-4 text-gray-700">Customer Pole Display</td>
                     <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
                     <td className="py-4 px-4 text-gray-600">Pole display for customers</td>
                   </tr>
@@ -833,7 +829,11 @@ export default function POSPricing() {
                     <td className="py-4 px-4 font-semibold text-corporate-blue">30,000</td>
                     <td className="py-4 px-4 text-gray-600">Fingerprint authentication</td>
                   </tr>
-                
+                  <tr className="hover:bg-gray-50">
+                    <td className="py-4 px-4 text-gray-700">Hardware Integration</td>
+                    <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
+                    <td className="py-4 px-4 text-gray-600">integration</td>
+                  </tr>
                   <tr className="hover:bg-gray-50">
                     <td className="py-4 px-4 text-gray-700">Custom Feature</td>
                     <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
