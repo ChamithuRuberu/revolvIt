@@ -28,7 +28,7 @@ export default function Home() {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                Advanced POS Systems for
+                Advanced Enterprise Systems For
                 <span className="block text-corporate-blue mt-2">
                   Modern Businesses
                 </span>

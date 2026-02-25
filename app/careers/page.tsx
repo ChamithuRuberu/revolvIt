@@ -1,50 +1,38 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, MapPin, Clock, Briefcase } from 'lucide-react';
-
-const jobOpenings = [
-  {
-    title: 'Senior Full Stack Developer',
-    location: 'Colombo, Sri Lanka (On-site)',
-    type: 'Full-time',
-    department: 'Engineering',
-    description: 'We are looking for an experienced Full Stack Developer to join our team and help build innovative solutions for our clients.',
-    requirements: [
-      'Minimum 5 years of experience in full-stack development',
-      'Strong proficiency in React, Spring Boot, and TypeScript',
-      'Experience with cloud platforms (AWS/Azure/GCP)',
-      'Excellent problem-solving and communication skills'
-    ]
-  },
-  {
-    title: 'UX/UI Designer',
-    location: 'Remote',
-    type: 'Full-time',
-    department: 'Design',
-    description: 'Join our design team to create beautiful and intuitive user experiences for web and mobile applications.',
-    requirements: [
-      'Minimum 3 years of experience in UX/UI design',
-      'Proficiency in Figma and design systems',
-      'Strong portfolio demonstrating web and mobile design work',
-      'Experience with user research and testing'
-    ]
-  },
-  {
-    title: 'Product Manager',
-    location: 'Remote',
-    type: 'Full-time',
-    department: 'Product',
-    description: 'Lead product strategy and development for our enterprise solutions, working closely with clients and development teams.',
-    requirements: [
-      'Minimum 5 years of product management experience',
-      'Strong technical background and understanding',
-      'Excellent stakeholder management skills',
-      'Experience with agile methodologies'
-    ]
-  }
-];
+import { ArrowRight, MapPin, Clock, Briefcase, Globe, ShieldCheck, Zap, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function Careers() {
+  const [data, setData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/portal');
+        const json = await res.json();
+        if (json.jobs) setData(json.jobs);
+      } catch (e) {
+        console.error('Failed to fetch jobs', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <Loader2 className="h-12 w-12 text-corporate-blue animate-spin" />
+      </div>
+    );
+  }
+
+  const jobOpenings = data || [];
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white">
       {/* Hero Section */}
@@ -62,21 +50,21 @@ export default function Careers() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Our Culture</h2>
-            <p className="text-gray-600 mb-4 leading-relaxed">
-              At Green Code Solution, we believe in fostering a culture of innovation,
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 border-l-4 border-corporate-blue pl-6">Our Culture</h2>
+            <p className="text-gray-600 mb-4 leading-relaxed text-lg">
+              At revolvIt, we believe in fostering a culture of innovation,
               collaboration, and continuous learning. Our team members are passionate
               about technology and committed to delivering excellence in everything we do.
             </p>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed text-lg">
               We value diversity, creativity, and open communication. When you join our
               team, you'll be part of an environment that encourages growth, supports
               your development, and celebrates your achievements.
             </p>
           </div>
-          <div className="relative h-[400px] rounded-xl overflow-hidden shadow-professional-lg">
+          <div className="relative h-[450px] rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
             <Image
-              src="/careers/2150165607.jpg"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
               alt="Team collaboration"
               fill
               className="object-cover"
@@ -85,12 +73,62 @@ export default function Careers() {
         </div>
       </div>
 
+      {/* Benefits Section */}
+      <div className="bg-corporate-blue text-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Work With Us?</h2>
+            <p className="text-blue-100 max-w-2xl mx-auto">We offer more than just a job. We offer a platform for you to excel and grow your career in a supportive environment.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: "Remote Flexibility", desc: "Work from anywhere with our flexible remote-first policy for many roles.", icon: Globe },
+              { title: "Global Projects", desc: "Work on exciting projects for clients across different industries worldwide.", icon: Briefcase },
+              { title: "Health & Wellness", desc: "Comprehensive health insurance and wellness programs for you and family.", icon: ShieldCheck },
+              { title: "Learning Fund", desc: "Dedicated budget for your certifications, books, and professional growth.", icon: Zap }
+            ].map((benefit, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:bg-white/20 transition-all">
+                <benefit.icon className="h-10 w-10 mb-6 text-blue-300" />
+                <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
+                <p className="text-blue-100 text-sm leading-relaxed">{benefit.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Hiring Process */}
+      <div className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center text-gray-900">Our Hiring Process</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            {/* Connection Line */}
+            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gray-100 -z-10"></div>
+            {[
+              { step: "01", title: "Apply", desc: "Submit your CV and portfolio through our portal." },
+              { step: "02", title: "Review", desc: "Our team reviews your profile within 48 hours." },
+              { step: "03", title: "Technical", desc: "Showcase your skills in a practical interview." },
+              { step: "04", title: "Offer", desc: "Get a competitive offer and join the family." }
+            ].map((step, i) => (
+              <div key={i} className="text-center">
+                <div className="w-24 h-24 rounded-full bg-white border-4 border-corporate-blue flex items-center justify-center mx-auto mb-6 shadow-professional text-2xl font-black text-corporate-blue">
+                  {step.step}
+                </div>
+                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
       {/* Job Openings */}
       <div className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-gray-900">Open Positions</h2>
           <div className="grid grid-cols-1 gap-6">
-            {jobOpenings.map((job, index) => (
+            {jobOpenings.map((job: any, index: number) => (
               <div key={index} className="bg-white p-8 rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 border border-gray-100 hover:-translate-y-1">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                   <div>
@@ -122,7 +160,7 @@ export default function Careers() {
                 <div>
                   <h4 className="font-semibold mb-3 text-gray-900">Requirements:</h4>
                   <ul className="space-y-2">
-                    {job.requirements.map((requirement, reqIndex) => (
+                    {job.requirements.map((requirement: string, reqIndex: number) => (
                       <li key={reqIndex} className="flex items-start text-gray-600">
                         <span className="w-2 h-2 bg-corporate-blue rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
                         <span className="text-sm">{requirement}</span>

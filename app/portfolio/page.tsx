@@ -1,105 +1,56 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Smartphone, Globe, ShoppingCart, CheckCircle2, ExternalLink, TrendingUp, Building2, Image as ImageIcon } from 'lucide-react';
+import { ArrowRight, Smartphone, Globe, ShoppingCart, CheckCircle2, ExternalLink, TrendingUp, Building2, Image as ImageIcon, Loader2 } from 'lucide-react';
 
 // Service categories with projects
-const services = [
-  {
-    id: 'pos',
-    name: 'POS',
-    icon: ShoppingCart,
-    description: 'Complete Point of Sale solutions for retail and hospitality businesses.',
-    projects: [
-      {
-        title: 'Kumara Enterprises',
-        image: '/portfolio/kumara_pos.png',
-        features: [
-          'User Management & Customer Management',
-          'Order Processing & Order History',
-          'Product Management',
-          'Loyalty Card System',
-          'Order creation with item details'
-        ],
-      },
-      {
-        title: 'FIT PRO System',
-        image: '/portfolio/gym.png',
-        features: [
-          'Improved customer satisfaction by 45%',
-          'Streamlined administrative tasks',
-          'Real-time inventory tracking',
-          'Comprehensive reporting system'
-        ],
-      },
-    ],
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise Solutions',
-    icon: Building2,
-    description: 'Scalable enterprise-grade solutions for large organizations.',
-    projects: [
-      {
-        title: 'Enterprise Management System',
-        image: '/portfolio/image.png',
-        features: [
-          'Multi-branch management',
-          'Advanced analytics and reporting',
-          'Cloud infrastructure',
-          'API integrations',
-          '24/7 support and monitoring'
-        ],
-      },
-    ],
-  },
-  {
-    id: 'nft',
-    name: 'NFT web',
-    icon: ImageIcon,
-    description: 'NFT marketplace and web3 platform solutions.',
-    projects: [
-      {
-        title: 'NFT Marketplace Platform',
-        image: '/portfolio/Gemini_Generated_Image_6g09cz6g09cz6g09.png',
-        features: [
-          'Blockchain integration',
-          'Wallet connectivity',
-          'Smart contract deployment',
-          'Royalty system',
-          'Multi-chain support'
-        ],
-      },
-    ],
-  },
-  {
-    id: 'mobile',
-    name: 'Mobile development',
-    icon: Smartphone,
-    description: 'Native and cross-platform mobile applications for iOS and Android.',
-    projects: [
-      {
-        title: 'CINETOON',
-        image: '/portfolio/Gemini_Generated_Image_5ev5q5ev5q5ev5q5.png',
-        features: [
-          '200,000+ downloads',
-          'Increased mobile engagement by 75%',
-          'Seamless user experience',
-          'Real-time synchronization'
-        ],
-      },
-    ],
-  },
-];
-
 export default function Portfolio() {
+  const [data, setData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
-  const filteredServices = activeFilter 
-    ? services.filter(service => service.id === activeFilter)
-    : services;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/portal');
+        const json = await res.json();
+        if (json.portfolio) setData(json.portfolio);
+      } catch (e) {
+        console.error('Failed to fetch portfolio', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <Loader2 className="h-12 w-12 text-corporate-blue animate-spin" />
+      </div>
+    );
+  }
+
+  const rawProjects = data || [];
+
+  const categories = [
+    { id: 'pos', name: 'POS', icon: ShoppingCart, description: 'Complete Point of Sale solutions for retail and hospitality businesses.' },
+    { id: 'enterprise', name: 'Enterprise Solutions', icon: Building2, description: 'Scalable enterprise-grade solutions for large organizations.' },
+    { id: 'nft', name: 'NFT web', icon: ImageIcon, description: 'NFT marketplace and web3 platform solutions.' },
+    { id: 'mobile', name: 'Mobile development', icon: Smartphone, description: 'Native and cross-platform mobile applications for iOS and Android.' },
+  ];
+
+  const dynamicServices = categories.map(cat => ({
+    ...cat,
+    projects: rawProjects.filter((p: any) => p.category === cat.name || p.category === cat.id)
+  })).filter(s => s.projects.length > 0);
+
+  const filteredServices = activeFilter
+    ? dynamicServices.filter(service => service.id === activeFilter)
+    : dynamicServices;
 
   const handleFilterClick = (categoryId: string | null) => {
     setActiveFilter(categoryId);
@@ -141,25 +92,23 @@ export default function Portfolio() {
           <div className="flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => handleFilterClick(null)}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${
-                activeFilter === null
-                  ? 'bg-corporate-blue text-white shadow-sm'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 ${activeFilter === null
+                ? 'bg-corporate-blue text-white shadow-sm'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
             >
               All
             </button>
-            {services.map((service) => {
+            {categories.map((service) => {
               const IconComponent = service.icon;
               return (
                 <button
                   key={service.id}
                   onClick={() => handleFilterClick(service.id)}
-                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1.5 ${
-                    activeFilter === service.id
-                      ? 'bg-corporate-blue text-white shadow-sm'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                  className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1.5 ${activeFilter === service.id
+                    ? 'bg-corporate-blue text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
                 >
                   <IconComponent className="h-3.5 w-3.5" />
                   {service.name}
@@ -199,7 +148,7 @@ export default function Portfolio() {
 
                 {/* Projects Grid - Dashboard Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                  {service.projects.map((project, projectIndex) => (
+                  {service.projects.map((project: any, projectIndex: number) => (
                     <div
                       key={projectIndex}
                       className="bg-white rounded-lg border border-gray-200 hover:border-corporate-blue/50 hover:shadow-md transition-all duration-200 overflow-hidden group"
@@ -222,7 +171,7 @@ export default function Portfolio() {
                           {project.title}
                         </h3>
                         <ul className="space-y-1.5 mb-4">
-                          {project.features.slice(0, 3).map((feature, featureIndex) => (
+                          {project.features.slice(0, 3).map((feature: string, featureIndex: number) => (
                             <li
                               key={featureIndex}
                               className="flex items-start text-gray-600"

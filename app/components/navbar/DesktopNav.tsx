@@ -6,7 +6,6 @@ import SolutionsNavItem from './SolutionsNavItem';
 import PricingNavItem from './PricingNavItem';
 import CareersNavItem from './CareersNavItem';
 import ContactUsNavItem from './ContactUsNavItem';
-
 const DesktopNav = () => {
   return (
     <div className="hidden md:block">
