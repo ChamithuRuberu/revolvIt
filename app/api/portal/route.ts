@@ -2,14 +2,12 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import PortalData from '@/models/PortalData';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
-    console.log('GET /api/portal started');
     try {
-        console.log('Connecting to DB...');
         await connectDB();
-        console.log('DB connected, querying data...');
         const data = await PortalData.findOne().sort({ createdAt: -1 });
-        console.log('Query successful, found data:', !!data);
 
         if (!data) {
             // Return default data if none exists
