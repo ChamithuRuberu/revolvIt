@@ -252,15 +252,15 @@ export default function Portal() {
                 </header>
 
                 {/* Dynamic Content Area */}
-                <div className="flex-1 overflow-y-auto p-8 lg:p-12">
+                <div className="flex-1 overflow-y-auto p-2 sm:p-3">
                     <div className="max-w-7xl mx-auto">
                         {activeTab === 'dashboard' && (
                             <div className="space-y-10">
                                 {/* Action Hero */}
-                                <div className="bg-corporate-blue rounded-[2.5rem] p-10 text-white shadow-2xl shadow-blue-100 overflow-hidden relative group">
-                                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                                <div className="bg-corporate-blue rounded-3xl p-6 text-white shadow-2xl shadow-blue-100 overflow-hidden relative group">
+                                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
                                         <div>
-                                            <div className="bg-white/20 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold mb-6">
+                                            <div className="bg-white/20 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold mb-4">
                                                 <Zap className="h-3 w-3 text-blue-200" />
                                                 SYSTEM HEALTH: 100% OPERATIONAL
                                             </div>
@@ -297,11 +297,11 @@ export default function Portal() {
                                 </div>
 
                                 {/* Premium Stats Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                     {stats?.map((stat: any, i: number) => {
                                         const StatIcon = IconMap[stat.icon] || TrendingUp;
                                         return (
-                                            <div key={i} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                                            <div key={i} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
                                                 <div className="flex items-center justify-between mb-6">
                                                     <div className={`${stat.bg} ${stat.color} p-4 rounded-2xl group-hover:scale-110 transition-transform`}>
                                                         <StatIcon className="h-7 w-7" />
@@ -317,11 +317,11 @@ export default function Portal() {
                                     })}
                                 </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                                     {/* Specialized Services Table */}
                                     <div className="lg:col-span-2">
-                                        <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden">
-                                            <div className="p-8 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
+                                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                                            <div className="p-5 sm:p-6 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
                                                 <div>
                                                     <h3 className="font-black text-gray-900 text-lg tracking-tight">System Infrastructure</h3>
                                                     <p className="text-xs text-gray-400 font-bold mt-1 uppercase tracking-widest">Active nodes & Deployment Status</p>
@@ -329,7 +329,7 @@ export default function Portal() {
                                             </div>
                                             <div className="divide-y divide-gray-50">
                                                 {services?.map((service: any, i: number) => (
-                                                    <div key={i} className="p-8 flex items-center justify-between hover:bg-gray-50 transition-colors group">
+                                                    <div key={i} className="p-5 sm:p-6 flex items-center justify-between hover:bg-gray-50 transition-colors group">
                                                         <div className="flex items-center gap-5">
                                                             <div className="h-14 w-14 rounded-2xl bg-gray-100 flex items-center justify-center text-corporate-blue group-hover:bg-corporate-blue group-hover:text-white transition-colors duration-300 font-black text-xl">
                                                                 {service.name.charAt(0)}
@@ -360,8 +360,8 @@ export default function Portal() {
                                     </div>
 
                                     {/* Utility Panel */}
-                                    <div className="space-y-10">
-                                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-[2rem] p-10 text-center relative overflow-hidden group">
+                                    <div className="space-y-6">
+                                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-center relative overflow-hidden group">
                                             <div className="relative z-10">
                                                 <div className="bg-white/10 backdrop-blur-md p-5 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:scale-110 transition-transform">
                                                     <HelpCircle className="h-10 w-10 text-white" />
@@ -384,10 +384,10 @@ export default function Portal() {
                         )}
 
                         {activeTab === 'management' && (
-                            <div className="max-w-5xl mx-auto animate-fadeInUp pb-20">
+                            <div className="max-w-7xl mx-auto animate-fadeInUp pb-10">
                                 {/* CMS Sub-Navigation */}
-                                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm mb-6 sticky top-[73px] z-20">
-                                    <div className="flex items-center gap-2 p-2 overflow-x-auto scrollbar-hide">
+                                <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-4 sticky top-0 z-20">
+                                    <div className="flex items-center gap-1 p-1 overflow-x-auto scrollbar-hide">
                                         {[
                                             { id: 'hero', label: 'Hero', icon: Zap },
                                             { id: 'solutions', label: 'Solutions', icon: Building2 },
@@ -403,12 +403,12 @@ export default function Portal() {
                                                 key={tab.id}
                                                 type="button"
                                                 onClick={() => setCmsSection(tab.id)}
-                                                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 ${cmsSection === tab.id
-                                                    ? 'bg-corporate-blue text-white shadow-lg shadow-blue-100'
-                                                    : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                                                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider whitespace-nowrap transition-all duration-200 ${cmsSection === tab.id
+                                                    ? 'bg-corporate-blue text-white shadow-md shadow-blue-100'
+                                                    : 'text-gray-400 hover:bg-gray-50 hover:text-gray-600'
                                                     }`}
                                             >
-                                                <tab.icon className="h-3.5 w-3.5" />
+                                                <tab.icon className="h-3 w-3" />
                                                 {tab.label}
                                             </button>
                                         ))}
@@ -416,15 +416,15 @@ export default function Portal() {
                                 </div>
 
                                 <form onSubmit={handleCMSUpdate}>
-                                    <div className="bg-white rounded-[2rem] border border-gray-100 shadow-xl overflow-hidden">
+                                    <div className="bg-white rounded-xl border border-gray-100 shadow-xl overflow-hidden">
 
                                         {/* ── HERO SECTION ── */}
                                         {cmsSection === 'hero' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
-                                                <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-5 lg:p-6 space-y-4">
+                                                <div className="flex items-center gap-3 mb-2">
                                                     <div className="bg-blue-50 p-2.5 rounded-xl"><Zap className="h-5 w-5 text-corporate-blue" /></div>
                                                     <div>
-                                                        <h3 className="font-black text-gray-900 text-lg">Hero Section</h3>
+                                                        <h3 className="font-black text-gray-900 text-base">Hero Section</h3>
                                                         <p className="text-xs text-gray-400 font-medium">Update your homepage banner content</p>
                                                     </div>
                                                 </div>
@@ -465,7 +465,7 @@ export default function Portal() {
 
                                         {/* ── SOLUTIONS SECTION ── */}
                                         {cmsSection === 'solutions' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-blue-50 p-2.5 rounded-xl"><Building2 className="h-5 w-5 text-corporate-blue" /></div>
@@ -509,7 +509,7 @@ export default function Portal() {
 
                                         {/* ── PRICING SECTION ── */}
                                         {cmsSection === 'pricing' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-green-50 p-2.5 rounded-xl"><DollarSign className="h-5 w-5 text-green-600" /></div>
@@ -560,7 +560,7 @@ export default function Portal() {
 
                                         {/* ── CAREERS SECTION ── */}
                                         {cmsSection === 'careers' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-purple-50 p-2.5 rounded-xl"><Briefcase className="h-5 w-5 text-purple-600" /></div>
@@ -613,7 +613,7 @@ export default function Portal() {
 
                                         {/* ── PORTFOLIO SECTION ── */}
                                         {cmsSection === 'portfolio' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-indigo-50 p-2.5 rounded-xl"><Globe className="h-5 w-5 text-indigo-600" /></div>
@@ -672,7 +672,7 @@ export default function Portal() {
 
                                         {/* ── WEBSITE SERVICES SECTION ── */}
                                         {cmsSection === 'services' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-cyan-50 p-2.5 rounded-xl"><Code className="h-5 w-5 text-cyan-600" /></div>
@@ -720,7 +720,7 @@ export default function Portal() {
 
                                         {/* ── TESTIMONIALS SECTION ── */}
                                         {cmsSection === 'testimonials' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-amber-50 p-2.5 rounded-xl"><Star className="h-5 w-5 text-amber-500" /></div>
@@ -765,7 +765,7 @@ export default function Portal() {
 
                                         {/* ── COMPANY VALUES SECTION ── */}
                                         {cmsSection === 'values' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-emerald-50 p-2.5 rounded-xl"><Trophy className="h-5 w-5 text-emerald-600" /></div>
@@ -782,7 +782,7 @@ export default function Portal() {
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     {formData.values.map((value: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group">
                                                             <button type="button" onClick={() => { const updated = [...formData.values]; updated.splice(idx, 1); setFormData({ ...formData, values: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <input type="text" value={value.title}
@@ -804,7 +804,7 @@ export default function Portal() {
 
                                         {/* ── TEAM MEMBERS SECTION ── */}
                                         {cmsSection === 'team' && (
-                                            <div className="p-8 lg:p-10 space-y-6">
+                                            <div className="p-6 lg:p-8 space-y-5">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-violet-50 p-2.5 rounded-xl"><Users className="h-5 w-5 text-violet-600" /></div>
@@ -821,7 +821,7 @@ export default function Portal() {
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     {formData.team.map((member: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative group space-y-3">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-2">
                                                             <button type="button" onClick={() => { const updated = [...formData.team]; updated.splice(idx, 1); setFormData({ ...formData, team: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <div className="grid grid-cols-2 gap-3">
