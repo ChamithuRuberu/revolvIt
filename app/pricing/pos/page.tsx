@@ -2,9 +2,38 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 export default function POSPricing() {
+  const [data, setData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/portal');
+        const json = await res.json();
+        if (json.pricing) setData(json.pricing);
+      } catch (e) {
+        console.error('Failed to fetch pricing', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <Loader2 className="h-12 w-12 text-corporate-blue animate-spin" />
+      </div>
+    );
+  }
+
+  const pricingPlans = data || [];
+
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white">
       {/* Hero Section */}
@@ -22,203 +51,37 @@ export default function POSPricing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-            {/* Package 1: Basic */}
-            <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border border-gray-100">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic POS System</h3>
-                <div className="text-3xl font-bold text-corporate-blue mb-1">LKR 75,000</div>
-                <p className="text-sm text-gray-600">Perfect for small shops and startups</p>
+            {pricingPlans.map((plan: any, index: number) => (
+              <div key={index} className={`bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border ${plan.isRecommended ? 'border-2 border-corporate-blue relative' : 'border-gray-100'}`}>
+                {plan.isRecommended && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-corporate-blue text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                      <Star className="h-4 w-4" />
+                      Recommended
+                    </span>
+                  </div>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.title}</h3>
+                  <div className="text-3xl font-bold text-corporate-blue mb-1">LKR {plan.price}</div>
+                  <p className="text-sm text-gray-600">{plan.description}</p>
+                </div>
+                <ul className="space-y-3 mb-8 text-sm text-gray-700">
+                  {plan.features.map((feature: string, fIndex: number) => (
+                    <li key={fIndex} className="flex items-start">
+                      <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/contact"
+                  className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
+                >
+                  Get Started
+                </Link>
               </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 2 user accounts</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 1000 products</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Basic POS & Billing</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Inventory Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Basic Reports</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>2 hours training</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>12 months support</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact"
-                className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Package 2: Standard - Recommended */}
-            <div className="bg-white rounded-xl shadow-professional-lg hover:shadow-professional-xl transition-all duration-300 p-8 border-2 border-corporate-blue relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-corporate-blue text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                  <Star className="h-4 w-4" />
-                  Recommended
-                </span>
-              </div>
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Standard POS System</h3>
-                <div className="text-3xl font-bold text-corporate-blue mb-1">LKR 120,000</div>
-                <p className="text-sm text-gray-600">Best value for growing businesses</p>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 5 user accounts</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Unlimited products</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Barcode scanner support</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Customer Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Returns & Refunds</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Advanced Reports</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 2 terminals</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>4 hours training</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact"
-                className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Package 3: Professional */}
-            <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border border-gray-100">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Professional POS System</h3>
-                <div className="text-3xl font-bold text-corporate-blue mb-1">LKR 150,000</div>
-                <p className="text-sm text-gray-600">Perfect for expanding businesses</p>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 10 user accounts</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Supplier Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Purchase Order Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Credit Sales Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Expense Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Cloud Backup</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>6 hours training</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Priority support</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact"
-                className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Package 4: Premium */}
-            <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border border-gray-100">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Premium POS System</h3>
-                <div className="text-3xl font-bold text-corporate-blue mb-1">LKR 250,000</div>
-                <p className="text-sm text-gray-600">Complete enterprise solution</p>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Multi-store (2 branches)</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Loyalty Points Program</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Advanced Analytics</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Employee Management</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Accounting Integration</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Up to 5 terminals</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>8 hours training</span>
-                </li>
-                <li className="flex items-start text-sm text-gray-700">
-                  <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                  <span>Dedicated support</span>
-                </li>
-              </ul>
-              <Link
-                href="/contact"
-                className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
-              >
-                Get Started
-              </Link>
-            </div>
+            ))}
           </div>
 
           {/* Complete Package Pricing (With Hardware) */}
@@ -411,7 +274,7 @@ export default function POSPricing() {
           {/* Hardware Requirements */}
           <div>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Hardware Requirements & Recommendations</h3>
-            
+
             {/* Computer Requirements */}
             <div className="mb-12">
               <div className="flex items-center gap-3 mb-6">
@@ -771,82 +634,82 @@ export default function POSPricing() {
               </div>
             </div>
             {/* Add-on Features */}
-          <div className="mb-20 mt-16">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Add-On Features</h3>
-            <div className="bg-white rounded-xl shadow-professional p-8 overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200">
-                    <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
-                    <th className="text-left py-4 px-4 font-semibold text-gray-900">Price (LKR)</th>
-                    <th className="text-left py-4 px-4 font-semibold text-gray-900">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Additional User License</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">3,000/user</td>
-                    <td className="py-4 px-4 text-gray-600">Beyond package limit</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Additional Terminal - LOCAL</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">50% off Selected Package</td>
-                    <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
-                  </tr>
-                  
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Additional Branch</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">10% off Selected Package</td>
-                    <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">SMS Module</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">3500/ month</td>
-                    <td className="py-4 px-4 text-gray-600">Customer notifications</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">WhatsApp Integration</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">20,000</td>
-                    <td className="py-4 px-4 text-gray-600">Receipt via WhatsApp</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Mobile App</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">85,000</td>
-                    <td className="py-4 px-4 text-gray-600">Android app for reports</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Cloud Backup</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">2,500/month</td>
-                    <td className="py-4 px-4 text-gray-600">Automatic cloud storage</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Customer Pole Display</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
-                    <td className="py-4 px-4 text-gray-600">Pole display for customers</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Biometric Login</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">30,000</td>
-                    <td className="py-4 px-4 text-gray-600">Fingerprint authentication</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Hardware Integration</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
-                    <td className="py-4 px-4 text-gray-600">integration</td>
-                  </tr>
-                  <tr className="hover:bg-gray-50">
-                    <td className="py-4 px-4 text-gray-700">Custom Feature</td>
-                    <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
-                    <td className="py-4 px-4 text-gray-600">Based on requirements</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="mb-20 mt-16">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Add-On Features</h3>
+              <div className="bg-white rounded-xl shadow-professional p-8 overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
+                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Price (LKR)</th>
+                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Additional User License</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">3,000/user</td>
+                      <td className="py-4 px-4 text-gray-600">Beyond package limit</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Additional Terminal - LOCAL</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">50% off Selected Package</td>
+                      <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
+                    </tr>
+
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Additional Branch</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">10% off Selected Package</td>
+                      <td className="py-4 px-4 text-gray-600">+ Hardware Cost</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">SMS Module</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">3500/ month</td>
+                      <td className="py-4 px-4 text-gray-600">Customer notifications</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">WhatsApp Integration</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">20,000</td>
+                      <td className="py-4 px-4 text-gray-600">Receipt via WhatsApp</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Mobile App</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">85,000</td>
+                      <td className="py-4 px-4 text-gray-600">Android app for reports</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Cloud Backup</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">2,500/month</td>
+                      <td className="py-4 px-4 text-gray-600">Automatic cloud storage</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Customer Pole Display</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
+                      <td className="py-4 px-4 text-gray-600">Pole display for customers</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Biometric Login</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">30,000</td>
+                      <td className="py-4 px-4 text-gray-600">Fingerprint authentication</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Hardware Integration</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
+                      <td className="py-4 px-4 text-gray-600">integration</td>
+                    </tr>
+                    <tr className="hover:bg-gray-50">
+                      <td className="py-4 px-4 text-gray-700">Custom Feature</td>
+                      <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
+                      <td className="py-4 px-4 text-gray-600">Based on requirements</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-          </div>
-          
+
         </div>
-        
+
       </section>
 
       {/* CTA Section */}
