@@ -75,6 +75,31 @@ export async function GET() {
                     { title: 'UX/UI Designer', location: 'Remote', type: 'Full-time', department: 'Design', description: 'Join our design team to create beautiful and intuitive user experiences for web and mobile applications.', requirements: ['Minimum 3 years experience', 'Proficiency in Figma', 'Web and mobile design portfolio', 'User research and testing'] },
                     { title: 'Product Manager', location: 'Remote', type: 'Full-time', department: 'Product', description: 'Lead product strategy and development for our enterprise solutions, working closely with clients and development teams.', requirements: ['Minimum 5 years experience', 'Strong technical background', 'Excellent stakeholder management', 'Agile methodologies'] }
                 ],
+                websiteServices: [
+                    { icon: 'Code', title: 'Software Development', description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices.', features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices', 'API Development'] },
+                    { icon: 'Layout', title: 'UI/UX Design', description: 'User-centered design solutions that create engaging and intuitive interfaces.', features: ['User Interface Design', 'User Experience Design', 'Wireframing', 'Design Systems'] },
+                    { icon: 'Server', title: 'Web Development', description: 'Modern web applications built with Next.js and Spring Boot.', features: ['Full-stack Development', 'RESTful APIs', 'Real-time Applications'] },
+                    { icon: 'Cloud', title: 'Cloud Services', description: 'Comprehensive cloud solutions leveraging AWS, Azure, and Google Cloud.', features: ['Cloud Migration', 'Container Orchestration', 'DevOps & CI/CD'] },
+                    { icon: 'Shield', title: 'Security & Compliance', description: 'Enterprise-grade security solutions to protect your applications and data.', features: ['Security Audits', 'Penetration Testing', 'Compliance'] },
+                    { icon: 'Cpu', title: 'Custom Software Solutions', description: 'Robust backend solutions using Spring Boot and modern technologies.', features: ['Database Design', 'Performance Optimization'] }
+                ],
+                testimonials: [
+                    { rating: 5, text: "I recently had a website developed and I couldn't be happier with the experience. The team was extremely professional.", name: 'Mr. Chamathka Nimsara', role: 'CEO, outbaze' },
+                    { rating: 5, text: "The team behind Cinetoon's website did an outstanding job! They delivered a fast, responsive site.", name: 'Mr. Thathsara Dananjana', role: 'CEO, CINETOON' },
+                    { rating: 5, text: "A true technology partner that understands our business needs. Their solutions have significantly improved our efficiency.", name: 'Michael Chen', role: 'Director, Global Solutions' }
+                ],
+                values: [
+                    { icon: 'Trophy', title: 'Excellence', description: 'We strive for excellence in everything we do, from code quality to client service.' },
+                    { icon: 'Target', title: 'Innovation', description: 'Constantly exploring new technologies and approaches to solve complex problems.' },
+                    { icon: 'Users', title: 'Collaboration', description: 'Working together with our clients to achieve the best possible outcomes.' },
+                    { icon: 'Rocket', title: 'Growth', description: 'Committed to continuous learning and professional development.' }
+                ],
+                team: [
+                    { name: 'Chamithu Ruberu', role: 'CEO & Founder', image: '/team/john-smith.jpg', bio: 'With over 5 years of experience in software development and business leadership.' },
+                    { name: 'Sarah Johnson', role: 'CTO', image: '/team/sarah-johnson.jpg', bio: 'Expert in cloud architecture and emerging technologies.' },
+                    { name: 'Michael Chen', role: 'Lead Developer', image: '/team/michael-chen.jpg', bio: 'Full-stack developer with a passion for clean code and innovation.' },
+                    { name: 'Emily Brown', role: 'UX Director', image: '/team/emily-brown.jpg', bio: 'Creating user-centered designs that drive engagement and satisfaction.' }
+                ],
                 portfolio: [
                     { title: 'Kumara Enterprises', category: 'POS', image: '/portfolio/kumara_pos.png', description: 'Comprehensive POS implementation for a retail chain.', features: ['User Management', 'Order Processing', 'Product Management', 'Loyalty Card System'], link: '', technologies: ['Next.js', 'PostgreSQL'] },
                     { title: 'FIT PRO System', category: 'POS', image: '/portfolio/gym.png', description: 'Gym management and billing system.', features: ['Customer Satisfaction focus', 'Administrative tasks automation', 'Inventory tracking'], link: '', technologies: ['React', 'Node.js'] },
@@ -85,7 +110,45 @@ export async function GET() {
             });
         }
 
-        return NextResponse.json(data);
+        // Merge defaults for any missing sections
+        const result = data.toObject ? data.toObject() : data;
+
+        const defaults: Record<string, any[]> = {
+            websiteServices: [
+                { icon: 'Code', title: 'Software Development', description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices.', features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices', 'API Development'] },
+                { icon: 'Layout', title: 'UI/UX Design', description: 'User-centered design solutions that create engaging and intuitive interfaces.', features: ['User Interface Design', 'User Experience Design', 'Wireframing', 'Design Systems'] },
+                { icon: 'Server', title: 'Web Development', description: 'Modern web applications built with Next.js and Spring Boot.', features: ['Full-stack Development', 'RESTful APIs', 'Real-time Applications'] },
+                { icon: 'Cloud', title: 'Cloud Services', description: 'Comprehensive cloud solutions leveraging AWS, Azure, and Google Cloud.', features: ['Cloud Migration', 'Container Orchestration', 'DevOps & CI/CD'] },
+                { icon: 'Shield', title: 'Security & Compliance', description: 'Enterprise-grade security solutions to protect your applications and data.', features: ['Security Audits', 'Penetration Testing', 'Compliance'] },
+                { icon: 'Cpu', title: 'Custom Software Solutions', description: 'Robust backend solutions using Spring Boot and modern technologies.', features: ['Database Design', 'Performance Optimization'] }
+            ],
+            testimonials: [
+                { rating: 5, text: "I recently had a website developed and I couldn't be happier with the experience. The team was extremely professional.", name: 'Mr. Chamathka Nimsara', role: 'CEO, outbaze' },
+                { rating: 5, text: "The team behind Cinetoon's website did an outstanding job! They delivered a fast, responsive site.", name: 'Mr. Thathsara Dananjana', role: 'CEO, CINETOON' },
+                { rating: 5, text: "A true technology partner that understands our business needs. Their solutions have significantly improved our efficiency.", name: 'Michael Chen', role: 'Director, Global Solutions' }
+            ],
+            values: [
+                { icon: 'Trophy', title: 'Excellence', description: 'We strive for excellence in everything we do, from code quality to client service.' },
+                { icon: 'Target', title: 'Innovation', description: 'Constantly exploring new technologies and approaches to solve complex problems.' },
+                { icon: 'Users', title: 'Collaboration', description: 'Working together with our clients to achieve the best possible outcomes.' },
+                { icon: 'Rocket', title: 'Growth', description: 'Committed to continuous learning and professional development.' }
+            ],
+            team: [
+                { name: 'Chamithu Ruberu', role: 'CEO & Founder', image: '/team/john-smith.jpg', bio: 'With over 5 years of experience in software development and business leadership.' },
+                { name: 'Sarah Johnson', role: 'CTO', image: '/team/sarah-johnson.jpg', bio: 'Expert in cloud architecture and emerging technologies.' },
+                { name: 'Michael Chen', role: 'Lead Developer', image: '/team/michael-chen.jpg', bio: 'Full-stack developer with a passion for clean code and innovation.' },
+                { name: 'Emily Brown', role: 'UX Director', image: '/team/emily-brown.jpg', bio: 'Creating user-centered designs that drive engagement and satisfaction.' }
+            ],
+        };
+
+        // Fill in any missing/empty arrays with defaults
+        for (const [key, defaultValue] of Object.entries(defaults)) {
+            if (!result[key] || result[key].length === 0) {
+                result[key] = defaultValue;
+            }
+        }
+
+        return NextResponse.json(result);
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }

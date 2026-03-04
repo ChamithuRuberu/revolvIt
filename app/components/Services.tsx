@@ -1,47 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Code, Cloud, Shield, Layout, Server, Cpu, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Code, Cloud, Shield, Layout, Server, Cpu, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import Link from "next/link";
 
-const services = [
-  {
-    icon: Code,
-    title: 'Software Development',
-    description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices. We specialize in creating scalable, maintainable, and efficient applications.',
-    features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices Architecture', 'API Development', 'Code Quality & Testing']
-  },
-  {
-    icon: Layout,
-    title: 'UI/UX Design',
-    description: 'User-centered design solutions that create engaging and intuitive interfaces. We focus on creating beautiful, accessible, and user-friendly experiences.',
-    features: ['User Interface Design', 'User Experience Design', 'Wireframing & Prototyping', 'Design Systems', 'Accessibility Compliance']
-  },
-  {
-    icon: Server,
-    title: 'Web Development',
-    description: 'Modern web applications built with Next.js and Spring Boot. We create fast, secure, and scalable web solutions that deliver exceptional user experiences.',
-    features: ['Design Systems', 'Full-stack Development', 'RESTful APIs', 'Real-time Applications']
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud Services',
-    description: 'Comprehensive cloud solutions leveraging AWS, Azure, and Google Cloud. We help businesses migrate, optimize, and manage their cloud infrastructure.',
-    features: ['Cloud Migration', 'Container Orchestration', 'Serverless Architecture', 'Cloud Security', 'DevOps & CI/CD']
-  },
-  {
-    icon: Shield,
-    title: 'Security & Compliance',
-    description: 'Enterprise-grade security solutions to protect your applications and data. We ensure your systems meet industry standards and best practices.',
-    features: ['Security Audits', 'Penetration Testing', 'Compliance Management', 'Data Protection', 'Security Monitoring']
-  },
-  {
-    icon: Cpu,
-    title: 'Custom Software Solutions',
-    description: 'Robust backend solutions using Spring Boot and modern backend technologies. We build scalable and secure server-side applications.',
-    features: ['Database Design', 'Performance Optimization']
-  },
-];
+const IconMap: Record<string, any> = { Code, Cloud, Shield, Layout, Server, Cpu };
 
 // Motion variants for cards
 const cardVariants = {
@@ -57,6 +21,46 @@ const cardVariants = {
 };
 
 export default function Services() {
+  const [services, setServices] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/portal');
+        const json = await res.json();
+        if (json.websiteServices && json.websiteServices.length > 0) {
+          setServices(json.websiteServices);
+        } else {
+          // Fallback defaults
+          setServices([
+            { icon: 'Code', title: 'Software Development', description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices.', features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices Architecture', 'API Development', 'Code Quality & Testing'] },
+            { icon: 'Layout', title: 'UI/UX Design', description: 'User-centered design solutions that create engaging and intuitive interfaces.', features: ['User Interface Design', 'User Experience Design', 'Wireframing & Prototyping', 'Design Systems', 'Accessibility Compliance'] },
+            { icon: 'Server', title: 'Web Development', description: 'Modern web applications built with Next.js and Spring Boot.', features: ['Design Systems', 'Full-stack Development', 'RESTful APIs', 'Real-time Applications'] },
+            { icon: 'Cloud', title: 'Cloud Services', description: 'Comprehensive cloud solutions leveraging AWS, Azure, and Google Cloud.', features: ['Cloud Migration', 'Container Orchestration', 'Serverless Architecture', 'Cloud Security', 'DevOps & CI/CD'] },
+            { icon: 'Shield', title: 'Security & Compliance', description: 'Enterprise-grade security solutions to protect your applications and data.', features: ['Security Audits', 'Penetration Testing', 'Compliance Management', 'Data Protection', 'Security Monitoring'] },
+            { icon: 'Cpu', title: 'Custom Software Solutions', description: 'Robust backend solutions using Spring Boot and modern backend technologies.', features: ['Database Design', 'Performance Optimization'] },
+          ]);
+        }
+      } catch (e) {
+        console.error('Failed to fetch services', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="h-10 w-10 text-corporate-blue animate-spin" />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 bg-gray-50">
       {/* Header */}
@@ -75,8 +79,8 @@ export default function Services() {
       {/* Services Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
+          {services.map((service: any, index: number) => {
+            const IconComponent = IconMap[service.icon] || Code;
             return (
               <motion.div
                 key={index}
@@ -92,7 +96,7 @@ export default function Services() {
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
                 <ul className="space-y-3">
-                  {service.features.map((feature, featureIndex) => (
+                  {(service.features || []).map((feature: string, featureIndex: number) => (
                     <li key={featureIndex} className="flex items-start text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
                       <span>{feature}</span>
@@ -111,7 +115,7 @@ export default function Services() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Need a Custom Solution?</h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
             We specialize in creating tailored solutions to meet your specific business needs.
-            Let's discuss how we can help you achieve your goals.
+            Let&apos;s discuss how we can help you achieve your goals.
           </p>
           <Link
             href="/contact"

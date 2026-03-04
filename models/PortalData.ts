@@ -17,6 +17,13 @@ const ServiceSchema = new Schema({
     usage: String,
 });
 
+const WebsiteServiceSchema = new Schema({
+    title: String,
+    description: String,
+    icon: String,
+    features: [String],
+});
+
 const SolutionsSchema = new Schema({
     title: String,
     description: String,
@@ -55,6 +62,26 @@ const PortfolioProjectSchema = new Schema({
     testimonial: String,
 });
 
+const TestimonialSchema = new Schema({
+    rating: Number,
+    text: String,
+    name: String,
+    role: String,
+});
+
+const ValueSchema = new Schema({
+    icon: String,
+    title: String,
+    description: String,
+});
+
+const TeamMemberSchema = new Schema({
+    name: String,
+    role: String,
+    image: String,
+    bio: String,
+});
+
 const PortalDataSchema = new Schema({
     user: {
         name: String,
@@ -68,10 +95,14 @@ const PortalDataSchema = new Schema({
     },
     stats: [StatSchema],
     services: [ServiceSchema],
+    websiteServices: [WebsiteServiceSchema],
     solutions: [SolutionsSchema],
     pricing: [PricingSchema],
     jobs: [JobSchema],
     portfolio: [PortfolioProjectSchema],
+    testimonials: [TestimonialSchema],
+    values: [ValueSchema],
+    team: [TeamMemberSchema],
 }, { timestamps: true });
 
 const PortalData = models.PortalData || model('PortalData', PortalDataSchema);
