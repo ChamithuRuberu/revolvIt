@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
         // Validate against environment variables
         const isValid =
-            email === (process.env.PORTAL_USER || 'admin') &&
+            email === (process.env.PORTAL_USER || 'admin@gmail.com') &&
             password === (process.env.PORTAL_PASS || 'admin');
 
         if (!isValid) {
