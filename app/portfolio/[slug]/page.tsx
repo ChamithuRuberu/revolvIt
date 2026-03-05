@@ -65,7 +65,7 @@ const projects: Project[] = [
     technologies: ['React', 'AWS IoT', 'Grafana'],
     testimonial: 'The smart city dashboard has transformed how we manage our city services. The real-time insights have helped us make better decisions.'
   },
-  
+
 ];
 
 export default function CaseStudy({ params }: { params: { slug: string } }) {
@@ -121,7 +121,7 @@ export default function CaseStudy({ params }: { params: { slug: string } }) {
                 {project.description}
                 <br />
                 {project.link && (
-                  <a 
+                  <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"

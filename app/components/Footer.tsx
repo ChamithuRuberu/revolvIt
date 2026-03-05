@@ -15,29 +15,29 @@ const Footer = () => {
               Innovative software solutions for modern businesses. We transform ideas into powerful digital experiences.
             </p>
             <div className="flex space-x-4 pt-2">
-              <Link 
-                href="https://facebook.com" 
+              <Link
+                href="https://facebook.com"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-corporate-blue transition-colors group"
                 aria-label="Facebook"
               >
                 <Facebook size={18} className="group-hover:text-white" />
               </Link>
-              <Link 
-                href="https://twitter.com" 
+              <Link
+                href="https://twitter.com"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-corporate-blue transition-colors group"
                 aria-label="Twitter"
               >
                 <Twitter size={18} className="group-hover:text-white" />
               </Link>
-              <Link 
-                href="https://linkedin.com" 
+              <Link
+                href="https://linkedin.com"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-corporate-blue transition-colors group"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={18} className="group-hover:text-white" />
               </Link>
-              <Link 
-                href="https://instagram.com" 
+              <Link
+                href="https://instagram.com"
                 className="p-2 bg-gray-800 rounded-lg hover:bg-corporate-blue transition-colors group"
                 aria-label="Instagram"
               >

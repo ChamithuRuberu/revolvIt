@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
     LayoutDashboard,
     Settings,
@@ -89,6 +90,7 @@ export default function Portal() {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const router = useRouter();
 
     // CMS sub-section tab
     const [cmsSection, setCmsSection] = useState('hero');
@@ -146,6 +148,16 @@ export default function Portal() {
             toast.error('Failed to save changes');
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            const res = await fetch('/api/logout', { method: 'POST' });
+            if (res.ok) router.push('/login');
+        } catch (error) {
+            console.error('Logout failed:', error);
+            router.push('/login');
         }
     };
 
@@ -217,10 +229,13 @@ export default function Portal() {
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Current Plan</p>
                         <p className="text-sm font-black text-gray-900">Enterprise Pro +</p>
                     </div>
-                    <Link href="/login" className="flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50 rounded-xl transition-colors">
+                    <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+                    >
                         <LogOut className="h-5 w-5" />
                         Secure Logout
-                    </Link>
+                    </button>
                 </div>
             </aside>
 
@@ -672,40 +687,41 @@ export default function Portal() {
 
                                         {/* ── WEBSITE SERVICES SECTION ── */}
                                         {cmsSection === 'services' && (
-                                            <div className="p-4 lg:p-5 space-y-3">
+                                            <div className="p-5 lg:p-6 space-y-4">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-cyan-50 p-2.5 rounded-xl"><Code className="h-5 w-5 text-cyan-600" /></div>
                                                         <div>
                                                             <h3 className="font-black text-gray-900 text-lg">Website Services</h3>
-                                                            <p className="text-xs text-gray-400 font-medium">Services displayed on your homepage</p>
+                                                            <p className="text-xs text-gray-400 font-medium">Standard packages offered to clients</p>
                                                         </div>
                                                     </div>
                                                     <button type="button"
-                                                        onClick={() => setFormData({ ...formData, websiteServices: [...formData.websiteServices, { icon: 'Code', title: 'New Service', description: '', features: [] }] })}
+                                                        onClick={() => setFormData({ ...formData, websiteServices: [...formData.websiteServices, { name: '', price: '', description: '', features: [], link: '' }] })}
                                                         className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Service
                                                     </button>
                                                 </div>
                                                 <div className="space-y-4">
                                                     {formData.websiteServices.map((service: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
                                                             <div className="absolute top-3 left-5"><span className="text-[10px] font-black uppercase tracking-widest text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full">Service #{idx + 1}</span></div>
                                                             <button type="button" onClick={() => { const updated = [...formData.websiteServices]; updated.splice(idx, 1); setFormData({ ...formData, websiteServices: updated }); }}
-                                                                className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
-                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 mt-6">
-                                                                <input type="text" value={service.title}
-                                                                    onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].title = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
-                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Service Title" />
-                                                                <select value={service.icon}
-                                                                    onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].icon = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
-                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold">
-                                                                    {Object.keys(IconMap).map(k => <option key={k} value={k}>{k}</option>)}
-                                                                </select>
+                                                                className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                                                                <input type="text" value={service.name}
+                                                                    onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].name = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Service Name" />
+                                                                <input type="text" value={service.price}
+                                                                    onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].price = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Price" />
                                                             </div>
                                                             <textarea value={service.description}
                                                                 onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].description = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3 min-h-[70px]" placeholder="Service Description" />
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold min-h-[70px]" placeholder="Service Description" />
+                                                            <input type="text" value={service.link}
+                                                                onChange={(e) => { const updated = [...formData.websiteServices]; updated[idx].link = e.target.value; setFormData({ ...formData, websiteServices: updated }); }}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Link" />
                                                             <div>
                                                                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Features (one per line)</label>
                                                                 <textarea value={(service.features || []).join('\n')}
@@ -720,7 +736,7 @@ export default function Portal() {
 
                                         {/* ── TESTIMONIALS SECTION ── */}
                                         {cmsSection === 'testimonials' && (
-                                            <div className="p-4 lg:p-5 space-y-3">
+                                            <div className="p-5 lg:p-6 space-y-4">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-amber-50 p-2.5 rounded-xl"><Star className="h-5 w-5 text-amber-500" /></div>
@@ -737,11 +753,11 @@ export default function Portal() {
                                                 </div>
                                                 <div className="space-y-4">
                                                     {formData.testimonials.map((testimonial: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
                                                             <div className="absolute top-3 left-5"><span className="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Testimonial #{idx + 1}</span></div>
                                                             <button type="button" onClick={() => { const updated = [...formData.testimonials]; updated.splice(idx, 1); setFormData({ ...formData, testimonials: updated }); }}
-                                                                className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
-                                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 mt-6">
+                                                                className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6">
                                                                 <input type="text" value={testimonial.name}
                                                                     onChange={(e) => { const updated = [...formData.testimonials]; updated[idx].name = e.target.value; setFormData({ ...formData, testimonials: updated }); }}
                                                                     className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Client Name" />
@@ -765,7 +781,7 @@ export default function Portal() {
 
                                         {/* ── COMPANY VALUES SECTION ── */}
                                         {cmsSection === 'values' && (
-                                            <div className="p-4 lg:p-5 space-y-3">
+                                            <div className="p-5 lg:p-6 space-y-4">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-emerald-50 p-2.5 rounded-xl"><Trophy className="h-5 w-5 text-emerald-600" /></div>
@@ -782,15 +798,15 @@ export default function Portal() {
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     {formData.values.map((value: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
                                                             <button type="button" onClick={() => { const updated = [...formData.values]; updated.splice(idx, 1); setFormData({ ...formData, values: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <input type="text" value={value.title}
                                                                 onChange={(e) => { const updated = [...formData.values]; updated[idx].title = e.target.value; setFormData({ ...formData, values: updated }); }}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3" placeholder="Value Title" />
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Value Title" />
                                                             <select value={value.icon}
                                                                 onChange={(e) => { const updated = [...formData.values]; updated[idx].icon = e.target.value; setFormData({ ...formData, values: updated }); }}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3">
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold">
                                                                 {Object.keys(IconMap).map(k => <option key={k} value={k}>{k}</option>)}
                                                             </select>
                                                             <textarea value={value.description}
@@ -804,7 +820,7 @@ export default function Portal() {
 
                                         {/* ── TEAM MEMBERS SECTION ── */}
                                         {cmsSection === 'team' && (
-                                            <div className="p-6 lg:p-8 space-y-5">
+                                            <div className="p-5 lg:p-6 space-y-4">
                                                 <div className="flex items-center justify-between mb-4">
                                                     <div className="flex items-center gap-3">
                                                         <div className="bg-violet-50 p-2.5 rounded-xl"><Users className="h-5 w-5 text-violet-600" /></div>
@@ -821,7 +837,7 @@ export default function Portal() {
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     {formData.team.map((member: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-2">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
                                                             <button type="button" onClick={() => { const updated = [...formData.team]; updated.splice(idx, 1); setFormData({ ...formData, team: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <div className="grid grid-cols-2 gap-3">
