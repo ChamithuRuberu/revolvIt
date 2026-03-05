@@ -189,7 +189,7 @@ export default function Portal() {
                         <div className="bg-corporate-blue text-white p-1.5 rounded-lg">
                             <Zap className="h-6 w-6 fill-current" />
                         </div>
-                        revolv<span className="text-gray-900">It</span>
+                        Green Code<span className="text-gray-900"> Solution</span>
                     </Link>
                 </div>
 

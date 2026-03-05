@@ -52,7 +52,7 @@ export default function Careers() {
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 border-l-4 border-corporate-blue pl-6">Our Culture</h2>
             <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-              At revolvIt, we believe in fostering a culture of innovation,
+              At Green Code Solution, we believe in fostering a culture of innovation,
               collaboration, and continuous learning. Our team members are passionate
               about technology and committed to delivering excellence in everything we do.
             </p>

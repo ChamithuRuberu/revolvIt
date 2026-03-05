@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
-const SECRET_KEY = Buffer.from(process.env.JWT_SECRET || 'revolvit_admin_portal_secret_2026');
+const SECRET_KEY = Buffer.from(process.env.JWT_SECRET || 'greencodesolution_admin_portal_secret_2026');
 
 export async function POST(request: Request) {
     try {
@@ -10,8 +10,8 @@ export async function POST(request: Request) {
 
         // Validate against environment variables
         const isValid =
-            email === (process.env.PORTAL_USER || 'admin@revolvit.lk') &&
-            password === (process.env.PORTAL_PASS || 'revolvit2026');
+            email === (process.env.PORTAL_USER || 'admin') &&
+            password === (process.env.PORTAL_PASS || 'admin');
 
         if (!isValid) {
             return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });

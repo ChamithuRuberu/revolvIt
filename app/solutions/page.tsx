@@ -136,7 +136,7 @@ export default function Solutions() {
             {/* Key Benefits */}
             <section className="py-24 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-16">Why Businesses Choose revolvIt</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-16">Why Businesses Choose Green Code Solution</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                             <div className="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
@@ -191,7 +191,7 @@ export default function Solutions() {
             <section className="py-24 relative overflow-hidden">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                     <h2 className="text-4xl font-extrabold text-gray-900 mb-8">Ready to revolutionize your business model?</h2>
-                    <p className="text-xl text-gray-600 mb-12">Join hundreds of businesses that have scaled with revolvIt solutions.</p>
+                    <p className="text-xl text-gray-600 mb-12">Join hundreds of businesses that have scaled with Green Code Solution solutions.</p>
                     <Link href="/contact" className="inline-flex items-center gap-2 bg-corporate-blue text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-corporate-blue-dark transition-all transform hover:scale-105 shadow-professional-xl">
                         Get a Free Consultation <ArrowRight className="h-6 w-6" />
                     </Link>

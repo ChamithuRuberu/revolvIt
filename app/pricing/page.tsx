@@ -669,7 +669,7 @@ export default function Pricing() {
                     <tr className="hover:bg-gray-50">
                       <td className="py-4 px-4 text-gray-700">Data Migration</td>
                       <td className="py-4 px-4 font-semibold text-corporate-blue">Custom</td>
-                      <td className="py-4 px-4 text-gray-600">Old system to revolvIt migration</td>
+                      <td className="py-4 px-4 text-gray-600">Old system to Green Code Solution migration</td>
                     </tr>
                     <tr className="hover:bg-gray-50">
                       <td className="py-4 px-4 text-gray-700">Additional Branch</td>

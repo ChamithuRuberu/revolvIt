@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-const SECRET_KEY = Buffer.from(process.env.JWT_SECRET || 'revolvit_admin_portal_secret_2026');
+const SECRET_KEY = Buffer.from(process.env.JWT_SECRET || 'greencodesolution_admin_portal_secret_2026');
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
