@@ -10,11 +10,13 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
     try {
       const res = await fetch('/api/login', {
@@ -30,9 +32,9 @@ export default function Login() {
       }
 
       router.push('/portal');
-    } catch (error: any) {
-      console.error('Login error:', error);
-      alert(error.message || 'Invalid credentials. Please try again.');
+    } catch (err: any) {
+      console.error('Login error:', err);
+      setError(err.message || 'Invalid credentials. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -54,6 +56,22 @@ export default function Login() {
             Sign in to manage your solutions and support
           </p>
         </div>
+
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md animate-fadeIn">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <ShieldCheck className="h-5 w-5 text-red-500" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700 font-medium">
+                  {error}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
