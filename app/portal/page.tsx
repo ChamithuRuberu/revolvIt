@@ -185,12 +185,6 @@ export default function Portal() {
             {/* Sidebar */}
             <aside className="w-72 bg-white border-r border-gray-200 hidden lg:flex flex-col sticky top-0 h-screen">
                 <div className="p-8">
-                    <Link href="/" className="text-2xl font-black text-corporate-blue tracking-tighter flex items-center gap-2">
-                        <div className="bg-corporate-blue text-white p-1.5 rounded-lg">
-                            <Zap className="h-6 w-6 fill-current" />
-                        </div>
-                        Green Code<span className="text-gray-900"> Solution</span>
-                    </Link>
                 </div>
 
                 <nav className="flex-1 px-6 space-y-2 mt-4">
@@ -332,69 +326,6 @@ export default function Portal() {
                                     })}
                                 </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                                    {/* Specialized Services Table */}
-                                    <div className="lg:col-span-2">
-                                        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-                                            <div className="p-5 sm:p-6 border-b border-gray-50 flex items-center justify-between bg-gray-50/30">
-                                                <div>
-                                                    <h3 className="font-black text-gray-900 text-lg tracking-tight">System Infrastructure</h3>
-                                                    <p className="text-xs text-gray-400 font-bold mt-1 uppercase tracking-widest">Active nodes & Deployment Status</p>
-                                                </div>
-                                            </div>
-                                            <div className="divide-y divide-gray-50">
-                                                {services?.map((service: any, i: number) => (
-                                                    <div key={i} className="p-5 sm:p-6 flex items-center justify-between hover:bg-gray-50 transition-colors group">
-                                                        <div className="flex items-center gap-5">
-                                                            <div className="h-14 w-14 rounded-2xl bg-gray-100 flex items-center justify-center text-corporate-blue group-hover:bg-corporate-blue group-hover:text-white transition-colors duration-300 font-black text-xl">
-                                                                {service.name.charAt(0)}
-                                                            </div>
-                                                            <div>
-                                                                <p className="text-base font-black text-gray-900 tracking-tight">{service.name}</p>
-                                                                <div className="flex items-center gap-3 mt-1.5">
-                                                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{service.type}</span>
-                                                                    <span className="h-1 w-1 bg-gray-300 rounded-full"></span>
-                                                                    <span className="text-[10px] font-black text-corporate-blue uppercase tracking-widest">{service.usage} Resources Used</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="text-right">
-                                                            <div className="flex items-center gap-2 justify-end mb-2">
-                                                                <span className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></span>
-                                                                <span className="text-xs font-black text-gray-900 uppercase">Operational</span>
-                                                            </div>
-                                                            <p className="text-[11px] font-bold text-gray-400 flex items-center gap-1.5 justify-end">
-                                                                <Clock className="h-3 w-3" />
-                                                                Next Sync: {service.expiry}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Utility Panel */}
-                                    <div className="space-y-6">
-                                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-center relative overflow-hidden group">
-                                            <div className="relative z-10">
-                                                <div className="bg-white/10 backdrop-blur-md p-5 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:scale-110 transition-transform">
-                                                    <HelpCircle className="h-10 w-10 text-white" />
-                                                </div>
-                                                <h3 className="font-black text-white text-2xl mb-4">Enterprise Support</h3>
-                                                <p className="text-gray-400 font-medium mb-10 leading-relaxed text-sm">
-                                                    Direct line to your dedicated solution architect. Standard response time: &lt; 15 mins.
-                                                </p>
-                                                <Link href="/contact" className="block w-full bg-white text-gray-900 py-4.5 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-xl">
-                                                    Open Priority Channel
-                                                </Link>
-                                            </div>
-                                            <div className="absolute top-0 right-0 p-8 opacity-5">
-                                                <ShieldCheck className="h-48 w-48 text-white" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         )}
 
