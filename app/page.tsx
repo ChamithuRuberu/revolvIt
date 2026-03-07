@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3, UserPlus, Database, Rocket } from 'lucide-react';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 
@@ -17,27 +18,32 @@ export default function Home() {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}></div>
         </div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="text-center lg:text-left animate-fadeInUp">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center lg:text-left"
+            >
               <div className="inline-flex items-center gap-2 bg-blue-50 text-corporate-blue px-4 py-2 rounded-full text-sm font-medium mb-6">
                 <ShoppingCart className="h-4 w-4" />
                 <span>Complete POS Solutions</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Advanced Enterprise Systems For
                 <span className="block text-corporate-blue mt-2">
                   Modern Businesses
                 </span>
               </h1>
-              
+
               <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 Complete Point of Sale solutions with order processing, inventory management, and customer loyalty systems to streamline your business operations.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
                   href="/contact"
@@ -65,10 +71,15 @@ export default function Home() {
                   <span>Secure & Reliable</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Content - Hero Image */}
-            <div className="relative animate-fadeIn">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
               <div className="relative h-[400px] lg:h-[600px] rounded-2xl overflow-hidden ">
                 <Image
                   src="https://queuebuster.co/_next/image?url=%2Fassets%2FEnterprise%2Fhero-img.png&w=3840&q=75"
@@ -80,31 +91,54 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-corporate-blue/4 via-transparent to-transparent pointer-events-none"></div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-white border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-corporate-blue mb-2">10+</div>
-              <div className="text-gray-600 font-medium">Projects Completed</div>
+      {/* Get Started Section */}
+      <section className="py-20 bg-gray-50/50 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">Get Started in Minutes</h2>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-corporate-blue/20"></span>
+              <p className="text-corporate-blue font-bold uppercase tracking-wider text-[10px]">Simple Setup, Powerful Results</p>
+              <span className="h-px w-8 bg-corporate-blue/20"></span>
             </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-corporate-blue mb-2">5+</div>
-              <div className="text-gray-600 font-medium">Enterprise Clients</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-corporate-blue mb-2">99.9%</div>
-              <div className="text-gray-600 font-medium">Uptime</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-corporate-blue mb-2">24/7</div>
-              <div className="text-gray-600 font-medium">Support</div>
-            </div>
+            <p className="text-gray-500 font-medium text-sm">Get your business up and running with Poze in three easy steps</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              { id: '01', icon: UserPlus, title: 'Sign Up & Setup', desc: 'Create your account in under 2 minutes. No credit card required for the 14-day trial. Configure your business settings with our intuitive wizard.' },
+              { id: '02', icon: Database, title: 'Import Your Data', desc: 'Easily import your existing products, customers, and inventory. Our team helps migrate your data from any previous system seamlessly.' },
+              { id: '03', icon: Rocket, title: 'Start Selling', desc: 'Begin processing transactions immediately. Access training resources and onboarding support to master all features quickly.' }
+            ].map((step, index) => (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white p-8 rounded-2xl border border-gray-200/60 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center text-center relative group"
+              >
+                <div className="w-9 h-9 bg-corporate-blue/10 text-corporate-blue rounded-lg flex items-center justify-center font-bold text-xs mb-6">{step.id}</div>
+                <div className="mb-4 text-corporate-blue transition-transform duration-300 group-hover:scale-110">
+                  <step.icon className="h-7 w-7" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed font-medium">
+                  {step.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -113,9 +147,15 @@ export default function Home() {
       <Testimonials />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-corporate-blue to-corporate-blue-dark text-white">
+      <section className="py-20 bg-gradient-to-r from-corporate-blue to-corporate-blue-dark text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Build Your Digital Solution?
             </h2>
@@ -129,7 +169,7 @@ export default function Home() {
               Start Your Project
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

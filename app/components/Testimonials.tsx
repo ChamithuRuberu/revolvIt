@@ -1,11 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote, Loader2 } from 'lucide-react';
 
 const TestimonialCard = ({ testimonial }: { testimonial: { rating: number, text: string, name: string, role: string } }) => {
   return (
-    <div className="bg-white p-8 rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 h-full border border-gray-100 relative">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="bg-white p-8 rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 h-full border border-gray-100 relative"
+    >
       <Quote className="absolute top-6 right-6 h-12 w-12 text-corporate-blue/10" />
       <div className="flex items-center mb-4">
         {[...Array(testimonial.rating)].map((_, i) => (
@@ -17,7 +24,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: { rating: number, text:
         <div className="font-semibold text-gray-900">{testimonial.name}</div>
         <div className="text-sm text-gray-500">{testimonial.role}</div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -92,25 +99,38 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             What Our Clients Say
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Trusted by leading companies worldwide to deliver exceptional software solutions.
           </p>
-        </div>
+        </motion.div>
 
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {getVisibleTestimonials().map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {getVisibleTestimonials().map((testimonial, index) => (
+                <TestimonialCard key={`${currentIndex}-${index}`} testimonial={testimonial} />
+              ))}
+            </AnimatePresence>
           </div>
 
-          <div className="flex justify-center items-center mt-12 gap-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex justify-center items-center mt-12 gap-4"
+          >
             <button
               onClick={prevTestimonial}
               className="p-3 rounded-full bg-gray-100 hover:bg-corporate-blue hover:text-white transition-all duration-300 shadow-professional hover:shadow-professional-lg"
@@ -136,9 +156,9 @@ export default function Testimonials() {
             >
               <ChevronRight className="h-5 w-5" />
             </button>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
-} 
+}
