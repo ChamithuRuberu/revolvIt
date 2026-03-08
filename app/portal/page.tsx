@@ -187,7 +187,7 @@ export default function Portal() {
             toast.dismiss(toastId);
             if (result.success) {
                 const updated = [...formData.hardware];
-                updated[idx].image = result.url;
+                updated[idx] = { ...updated[idx], image: result.url };
                 const newFormData = { ...formData, hardware: updated };
                 setFormData(newFormData);
                 setData(newFormData);
@@ -223,7 +223,7 @@ export default function Portal() {
             toast.dismiss(toastId);
             if (result.success) {
                 const updated = [...(formData.hardwareHero || [])];
-                updated[idx].image = result.url;
+                updated[idx] = { ...updated[idx], image: result.url };
                 const newFormData = { ...formData, hardwareHero: updated };
                 setFormData(newFormData);
                 setData(newFormData);

@@ -11,6 +11,11 @@ export async function middleware(request: NextRequest) {
     const isProtected = pathname.startsWith('/portal') || pathname.startsWith('/api/portal');
 
     if (isProtected) {
+        // Allow public read access to /api/portal for the frontend
+        if (request.method === 'GET' && pathname === '/api/portal') {
+            return NextResponse.next();
+        }
+
         const token = request.cookies.get('portal_token')?.value;
 
         if (!token) {
