@@ -1,13 +1,26 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3, UserPlus, Database, Rocket } from 'lucide-react';
+import { ArrowRight, CheckCircle2, TrendingUp, Shield, Zap, Users, ShoppingCart, CreditCard, BarChart3, UserPlus, Database, Rocket, Globe } from 'lucide-react';
 import Services from './components/Services';
 import Testimonials from './components/Testimonials';
 
 export default function Home() {
+  const [brands, setBrands] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch('/api/portal')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.brands) {
+          setBrands(data.brands);
+        }
+      })
+      .catch(err => console.error('Error fetching brands:', err));
+  }, []);
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
@@ -96,6 +109,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Brand Logo Marquee Section */}
+      {brands.length > 0 && (
+        <section className="py-20 bg-white border-y border-gray-100 overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="text-center max-w-2xl mx-auto mb-12"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">Powering Global Success</h2>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-px w-8 bg-corporate-blue/20"></span>
+              <p className="text-corporate-blue font-bold uppercase tracking-wider text-[10px]">Our ecosystem</p>
+              <span className="h-px w-8 bg-corporate-blue/20"></span>
+            </div>
+          </motion.div>
+          <div className="flex justify-center flex-wrap gap-10 md:gap-20 items-center px-6 max-w-6xl mx-auto">
+            {brands.map((brand: any, idx: number) => (
+              <div key={idx} className="inline-flex items-center justify-center transition-all duration-500 cursor-pointer py-6 group/brand">
+                <img
+                  src={brand.logo}
+                  alt={brand.name}
+                  className="h-24 md:h-36 w-auto object-contain max-w-[220px] md:max-w-[300px] transform transition-all group-hover/brand:scale-110"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Get Started Section */}
       <section className="py-20 bg-gray-50/50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -106,7 +150,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-center max-w-2xl mx-auto mb-12"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">Get Started in Minutes</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">Get Started in Minutes</h2>
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="h-px w-8 bg-corporate-blue/20"></span>
               <p className="text-corporate-blue font-bold uppercase tracking-wider text-[10px]">Simple Setup, Powerful Results</p>

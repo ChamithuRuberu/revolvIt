@@ -37,6 +37,16 @@ module.exports = {
         'professional-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
         'professional-xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+        'scroll': 'scroll 40s linear infinite',
+      },
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(calc(-100% - 2rem))' },
+        },
+      },
       spacing: {
         '18': '4.5rem',
         '88': '22rem',

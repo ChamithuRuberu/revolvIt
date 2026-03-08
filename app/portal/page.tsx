@@ -43,7 +43,12 @@ import {
     Cpu,
     Trophy,
     Target,
-    Rocket
+    Rocket,
+    Menu,
+    X,
+    LayoutGrid,
+    Activity,
+    Database
 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -82,11 +87,15 @@ const IconMap: Record<string, any> = {
     Cpu,
     Trophy,
     Target,
-    Rocket
+    Rocket,
+    LayoutGrid,
+    Activity,
+    Database
 };
 
 export default function Portal() {
     const [activeTab, setActiveTab] = useState('dashboard');
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -107,7 +116,9 @@ export default function Portal() {
         portfolio: [],
         testimonials: [],
         values: [],
-        team: []
+        team: [],
+        brands: [],
+        hardware: []
     });
 
     useEffect(() => {
@@ -161,6 +172,33 @@ export default function Portal() {
         }
     };
 
+    const handleHardwareImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const formDataPayload = new FormData();
+        formDataPayload.append('file', file);
+        try {
+            const toastId = toast.loading('Uploading image...');
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formDataPayload
+            });
+            const result = await res.json();
+            toast.dismiss(toastId);
+            if (result.success) {
+                const updated = [...formData.hardware];
+                updated[idx].image = result.url;
+                setFormData({ ...formData, hardware: updated });
+                toast.success('Image uploaded');
+            } else {
+                toast.error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        }
+    };
+
     const handleCMSUpdate = (e: React.FormEvent) => {
         e.preventDefault();
         handleSave(formData);
@@ -183,45 +221,58 @@ export default function Portal() {
         <div className="min-h-screen bg-[#f8fafc] flex">
             <ToastContainer position="bottom-right" theme="colored" />
             {/* Sidebar */}
-            <aside className="w-72 bg-white border-r border-gray-200 hidden lg:flex flex-col sticky top-0 h-screen">
-                <div className="p-8">
+            {/* Sidebar Overlay for Mobile */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-all"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
+            {/* Sidebar */}
+            <aside className={`
+                fixed lg:sticky top-0 left-0 z-50 h-screen bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out
+                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+                w-72 flex flex-col
+            `}>
+                <div className="p-8 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 bg-corporate-blue rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-blue-100">R</div>
+                        <span className="font-black text-gray-900 tracking-tight text-xl">revolvIt</span>
+                    </div>
+                    <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden p-2 text-gray-400">
+                        <X className="h-6 w-6" />
+                    </button>
                 </div>
 
                 <nav className="flex-1 px-6 space-y-2 mt-4">
-                    <button
-                        onClick={() => setActiveTab('dashboard')}
-                        className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === 'dashboard' ? 'bg-corporate-blue text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:bg-gray-50'}`}
-                    >
-                        <LayoutDashboard className="h-5 w-5" />
-                        Control Center
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('management')}
-                        className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === 'management' ? 'bg-corporate-blue text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:bg-gray-50'}`}
-                    >
-                        <Edit className="h-5 w-5" />
-                        Manage Content
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('inventory')}
-                        className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === 'inventory' ? 'bg-corporate-blue text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:bg-gray-50'}`}
-                    >
-                        <Package className="h-5 w-5" />
-                        Inventory Sync
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('analytics')}
-                        className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === 'analytics' ? 'bg-corporate-blue text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:bg-gray-50'}`}
-                    >
-                        <BarChart3 className="h-5 w-5" />
-                        Live Analytics
-                    </button>
+                    {[
+                        { id: 'dashboard', label: 'Control Center', icon: LayoutGrid },
+                        { id: 'management', label: 'Manage Content', icon: Edit },
+                        { id: 'inventory', label: 'Inventory Sync', icon: Package },
+                        { id: 'analytics', label: 'Live Analytics', icon: BarChart3 }
+                    ].map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <button
+                                key={item.id}
+                                onClick={() => { setActiveTab(item.id); setIsSidebarOpen(false); }}
+                                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === item.id ? 'bg-corporate-blue text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:bg-gray-50'}`}
+                            >
+                                <Icon className="h-5 w-5" />
+                                {item.label}
+                            </button>
+                        );
+                    })}
                 </nav>
 
                 <div className="p-6 border-t border-gray-100">
                     <div className="bg-gray-50 rounded-2xl p-4 mb-4">
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Current Plan</p>
-                        <p className="text-sm font-black text-gray-900">Enterprise Pro +</p>
+                        <div className="flex items-center gap-2">
+                            <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <p className="text-sm font-black text-gray-900">Enterprise Pro +</p>
+                        </div>
                     </div>
                     <button
                         onClick={handleLogout}
@@ -236,11 +287,14 @@ export default function Portal() {
             {/* Main Content */}
             <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Header */}
-                <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 py-5 px-8 flex items-center justify-between sticky top-0 z-30">
-                    <div className="flex items-center gap-4">
-                        <h1 className="text-xl font-black text-gray-900 capitalize tracking-tight">{activeTab}</h1>
-                        <span className="h-5 w-px bg-gray-200"></span>
-                        <p className="text-sm text-gray-500 font-medium hidden sm:block">Welcome back to your workspace</p>
+                <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 py-4 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                        <button onClick={() => setIsSidebarOpen(true)} className="lg:hidden p-2 text-gray-400 hover:text-corporate-blue bg-gray-50 rounded-lg transition-colors">
+                            <Menu className="h-6 w-6" />
+                        </button>
+                        <h1 className="text-lg sm:text-xl font-black text-gray-900 capitalize tracking-tight">{activeTab}</h1>
+                        <span className="h-5 w-px bg-gray-200 hidden sm:block"></span>
+                        <p className="text-xs sm:text-sm text-gray-500 font-medium hidden sm:block">Welcome back to your workspace</p>
                     </div>
 
                     <div className="flex items-center gap-6">
@@ -264,68 +318,153 @@ export default function Portal() {
                 <div className="flex-1 overflow-y-auto p-2 sm:p-3">
                     <div className="max-w-7xl mx-auto">
                         {activeTab === 'dashboard' && (
-                            <div className="space-y-10">
-                                {/* Action Hero */}
-                                <div className="bg-corporate-blue rounded-3xl p-6 text-white shadow-2xl shadow-blue-100 overflow-hidden relative group">
-                                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start pb-10">
+                                {/* Action Hero - Main Highlight */}
+                                <div className="xl:col-span-8 bg-corporate-blue rounded-3xl p-6 sm:p-8 text-white shadow-2xl shadow-blue-100 overflow-hidden relative group min-h-[400px]">
+                                    <div className="relative z-10 flex flex-col justify-between h-full">
                                         <div>
-                                            <div className="bg-white/20 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold mb-4">
+                                            <div className="bg-white/20 backdrop-blur-md border border-white/20 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold mb-6">
                                                 <Zap className="h-3 w-3 text-blue-200" />
                                                 SYSTEM HEALTH: 100% OPERATIONAL
                                             </div>
-                                            <h2 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">{welcome?.title}</h2>
-                                            <p className="text-blue-100/80 text-lg max-w-xl leading-relaxed font-semibold">
+                                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-6 leading-tight max-w-2xl">{welcome?.title}</h2>
+                                            <p className="text-blue-100/80 text-base sm:text-lg max-w-xl leading-relaxed font-semibold mb-8">
                                                 {welcome?.description}
                                             </p>
-                                            <div className="flex flex-wrap gap-4 mt-10">
-                                                <button className="bg-white text-corporate-blue px-8 py-4 rounded-2xl font-black text-sm hover:scale-105 transition-transform shadow-xl">
-                                                    Generate Sales Report
-                                                </button>
-                                                <button className="bg-blue-500/30 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-2xl font-black text-sm hover:bg-white/10 transition-colors">
-                                                    Manage Terminal Group
-                                                </button>
-                                            </div>
                                         </div>
-                                        <div className="relative h-64 lg:h-80 w-full hidden lg:block">
-                                            {welcome?.image && (
-                                                <Image
-                                                    src={welcome.image}
-                                                    alt="POS Terminal Analytics"
-                                                    fill
-                                                    className="object-cover rounded-3xl shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700"
-                                                />
-                                            )}
-                                            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-3xl shadow-2xl text-corporate-blue animate-bounce">
-                                                <TrendingUp className="h-8 w-8" />
-                                            </div>
+                                        <div className="flex flex-wrap gap-4 mt-auto">
+                                            <button className="bg-white text-corporate-blue px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-black text-xs sm:text-sm hover:scale-105 transition-transform shadow-xl">
+                                                Generate Sales Report
+                                            </button>
+                                            <button className="bg-blue-500/30 backdrop-blur-md border border-white/20 text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-black text-xs sm:text-sm hover:bg-white/10 transition-colors">
+                                                Manage Terminals
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-                                        <LayoutDashboard className="h-[30rem] w-[30rem]" />
+                                    {welcome?.image && (
+                                        <div className="absolute top-0 right-0 w-full h-full lg:w-1/2 opacity-20 lg:opacity-30 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+                                            <Image
+                                                src={welcome.image}
+                                                alt="Analytics Background"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="absolute -bottom-10 -right-10 p-12 opacity-5 pointer-events-none transition-transform duration-700 group-hover:rotate-12">
+                                        <LayoutDashboard className="h-96 w-96 font-black" />
                                     </div>
                                 </div>
 
-                                {/* Premium Stats Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* Quick Actions Link / Secondary Stats - Chained Bento Style */}
+                                <div className="xl:col-span-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-6">
+                                    <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group overflow-hidden relative">
+                                        <div className="relative z-10">
+                                            <div className="h-14 w-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                                <Star className="h-7 w-7 text-amber-600" />
+                                            </div>
+                                            <h3 className="text-xl font-black text-gray-900 mb-2">New Reviews</h3>
+                                            <p className="text-sm text-gray-400 font-bold mb-6">4 new testimonials awaiting approval in the CMS portal.</p>
+                                        </div>
+                                        <button
+                                            onClick={() => setActiveTab('management')}
+                                            className="relative z-10 flex items-center gap-2 text-corporate-blue font-black text-sm group-hover:gap-3 transition-all"
+                                        >
+                                            Review Now <ChevronRight className="h-4 w-4" />
+                                        </button>
+                                        <div className="absolute -top-6 -right-6 text-gray-50 opacity-50 group-hover:text-amber-50 transition-colors">
+                                            <Star className="h-32 w-32" />
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all relative group overflow-hidden">
+                                        <div className="relative z-10">
+                                            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Active Sessions</p>
+                                            <div className="flex items-end gap-3 mb-6">
+                                                <p className="text-4xl font-black text-gray-900">1,200+</p>
+                                                <span className="text-xs font-black text-green-600 bg-green-50 px-2 py-1 rounded-md mb-1">+8%</span>
+                                            </div>
+                                            <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                                                <div className="bg-corporate-blue h-full w-[85%] rounded-full"></div>
+                                            </div>
+                                            <p className="text-[10px] text-gray-400 font-bold mt-3 uppercase tracking-wider">Storage Capacity: 85% used</p>
+                                        </div>
+                                        <Database className="absolute -bottom-8 -right-8 h-32 w-32 text-gray-50 group-hover:scale-110 transition-transform" />
+                                    </div>
+                                </div>
+
+                                {/* Dynamic Stats - Responsive Chain Grid */}
+                                <div className="xl:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                     {stats?.map((stat: any, i: number) => {
                                         const StatIcon = IconMap[stat.icon] || TrendingUp;
                                         return (
-                                            <div key={i} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
-                                                <div className="flex items-center justify-between mb-6">
-                                                    <div className={`${stat.bg} ${stat.color} p-4 rounded-2xl group-hover:scale-110 transition-transform`}>
-                                                        <StatIcon className="h-7 w-7" />
+                                            <div key={i} className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+                                                <div>
+                                                    <div className="flex items-center justify-between mb-8">
+                                                        <div className={`${stat.bg} ${stat.color} p-4 rounded-2xl group-hover:scale-110 transition-transform shadow-md`}>
+                                                            <StatIcon className="h-7 w-7" />
+                                                        </div>
+                                                        <span className="text-xs font-black text-green-600 bg-green-50 px-3 py-1.5 rounded-full border border-green-100">
+                                                            {stat.growth}
+                                                        </span>
                                                     </div>
-                                                    <span className="text-xs font-black text-green-600 bg-green-50 px-3 py-1.5 rounded-full">
-                                                        {stat.growth}
-                                                    </span>
+                                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-3">{stat.label}</p>
+                                                    <p className="text-3xl font-black text-gray-900 tracking-tight">{stat.value}</p>
                                                 </div>
-                                                <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">{stat.label}</p>
-                                                <p className="text-3xl font-black text-gray-900 mt-2 tracking-tight">{stat.value}</p>
+                                                <div className="mt-6 flex items-center justify-between">
+                                                    <div className="flex -space-x-2">
+                                                        {[1, 2, 3].map(x => (
+                                                            <div key={x} className="h-6 w-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[8px] font-bold text-gray-400">
+                                                                {x}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">View Details</p>
+                                                </div>
                                             </div>
                                         );
                                     })}
                                 </div>
 
+                                {/* Bonus "Chained" Stats - Like Infrastructure Status */}
+                                <div className="xl:col-span-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                    <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm lg:col-span-2 flex flex-col sm:flex-row items-center gap-8 group">
+                                        <div className="flex-1 text-center sm:text-left">
+                                            <h3 className="text-xl font-black text-gray-900 mb-2">Global Infrastructure</h3>
+                                            <p className="text-sm text-gray-400 font-bold mb-4">Your POS network is distributed across 6 regions with low latency synchronization.</p>
+                                            <div className="flex flex-wrap justify-center sm:justify-start gap-3">
+                                                {['US-East', 'EU-West', 'AS-South', 'AU-East'].map(region => (
+                                                    <span key={region} className="px-3 py-1.5 bg-gray-50 border border-gray-100 rounded-lg text-[10px] font-black text-gray-500 uppercase tracking-widest">{region}</span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="h-32 w-32 relative shrink-0">
+                                            <div className="absolute inset-0 border-[10px] border-blue-50 rounded-full"></div>
+                                            <div className="absolute inset-0 border-[10px] border-corporate-blue rounded-full border-t-transparent animate-spin-slow"></div>
+                                            <div className="absolute inset-0 flex items-center justify-center flex-col">
+                                                <p className="text-xl font-black text-corporate-blue">94%</p>
+                                                <p className="text-[8px] font-black text-gray-400 uppercase">Load</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-gradient-to-br from-corporate-gray to-gray-800 p-8 rounded-3xl text-white shadow-xl flex flex-col justify-between group overflow-hidden relative">
+                                        <div className="relative z-10">
+                                            <h3 className="text-lg font-black mb-1">Advanced Terminal Sync</h3>
+                                            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-6">Real-time Data Stream</p>
+                                            <div className="flex items-center gap-2 text-green-400 mb-8">
+                                                <Activity className="h-4 w-4 animate-pulse" />
+                                                <span className="text-[10px] font-black uppercase tracking-widest">Active Connection</span>
+                                            </div>
+                                        </div>
+                                        <button className="relative z-10 w-full py-3 bg-white/10 hover:bg-white/20 border border-white/10 rounded-2xl text-xs font-black transition-all">
+                                            Open Monitoring Console
+                                        </button>
+                                        <div className="absolute -bottom-10 -right-10 opacity-10 rotate-45 group-hover:rotate-12 transition-transform duration-1000">
+                                            <Cloud className="h-64 w-64" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
@@ -344,6 +483,8 @@ export default function Portal() {
                                             { id: 'testimonials', label: 'Testimonials', icon: Star },
                                             { id: 'values', label: 'Values', icon: Trophy },
                                             { id: 'team', label: 'Team', icon: Users },
+                                            { id: 'brands', label: 'Brands', icon: Globe },
+                                            { id: 'hardware', label: 'Hardware', icon: Monitor },
                                         ].map(tab => (
                                             <button
                                                 key={tab.id}
@@ -426,9 +567,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Solution
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.solutions.map((solution: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <button type="button" onClick={() => { const updated = [...formData.solutions]; updated.splice(idx, 1); setFormData({ ...formData, solutions: updated }); }}
                                                                 className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -470,9 +611,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Plan
                                                     </button>
                                                 </div>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.pricing.map((plan: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <button type="button" onClick={() => { const updated = [...formData.pricing]; updated.splice(idx, 1); setFormData({ ...formData, pricing: updated }); }}
                                                                 className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <input type="text" value={plan.title}
@@ -521,9 +662,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Job
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.jobs.map((job: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <button type="button" onClick={() => { const updated = [...formData.jobs]; updated.splice(idx, 1); setFormData({ ...formData, jobs: updated }); }}
                                                                 className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
@@ -574,9 +715,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Project
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.portfolio.map((project: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group">
+                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <div className="absolute top-3 left-5"><span className="text-[10px] font-black uppercase tracking-widest text-corporate-blue bg-blue-50 px-3 py-1 rounded-full">Project #{idx + 1}</span></div>
                                                             <button type="button" onClick={() => { const updated = [...formData.portfolio]; updated.splice(idx, 1); setFormData({ ...formData, portfolio: updated }); }}
                                                                 className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
@@ -587,10 +728,12 @@ export default function Portal() {
                                                                 <select value={project.category}
                                                                     onChange={(e) => { const updated = [...formData.portfolio]; updated[idx].category = e.target.value; setFormData({ ...formData, portfolio: updated }); }}
                                                                     className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold">
-                                                                    <option value="POS">POS</option>
-                                                                    <option value="Enterprise Solutions">Enterprise Solutions</option>
-                                                                    <option value="NFT web">NFT web</option>
+                                                                    <option value="POS Desktop POS">POS Desktop POS</option>
+                                                                    <option value="Desktop + Cloud">Desktop + Cloud</option>
+                                                                    <option value="Cloud Base Enterprise">Cloud Base Enterprise</option>
+                                                                    <option value="Software & Apps">Software & Apps</option>
                                                                     <option value="Mobile development">Mobile development</option>
+                                                                    <option value="NFT web">NFT web</option>
                                                                 </select>
                                                             </div>
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
@@ -633,9 +776,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Service
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.websiteServices.map((service: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3 break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <div className="absolute top-3 left-5"><span className="text-[10px] font-black uppercase tracking-widest text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full">Service #{idx + 1}</span></div>
                                                             <button type="button" onClick={() => { const updated = [...formData.websiteServices]; updated.splice(idx, 1); setFormData({ ...formData, websiteServices: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
@@ -682,9 +825,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Testimonial
                                                     </button>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.testimonials.map((testimonial: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3 break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <div className="absolute top-3 left-5"><span className="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-full">Testimonial #{idx + 1}</span></div>
                                                             <button type="button" onClick={() => { const updated = [...formData.testimonials]; updated.splice(idx, 1); setFormData({ ...formData, testimonials: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
@@ -727,9 +870,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Value
                                                     </button>
                                                 </div>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.values.map((value: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3 break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <button type="button" onClick={() => { const updated = [...formData.values]; updated.splice(idx, 1); setFormData({ ...formData, values: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <input type="text" value={value.title}
@@ -766,9 +909,9 @@ export default function Portal() {
                                                         <PlusCircle className="h-3.5 w-3.5" /> Add Member
                                                     </button>
                                                 </div>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
                                                     {formData.team.map((member: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3 break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
                                                             <button type="button" onClick={() => { const updated = [...formData.team]; updated.splice(idx, 1); setFormData({ ...formData, team: updated }); }}
                                                                 className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
                                                             <div className="grid grid-cols-2 gap-3">
@@ -790,6 +933,147 @@ export default function Portal() {
                                                 </div>
                                             </div>
                                         )}
+
+                                        {/* ── BRANDS SECTION ── */}
+                                        {cmsSection === 'brands' && (
+                                            <div className="p-5 lg:p-6 space-y-4">
+                                                <div className="flex items-center justify-between mb-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="bg-orange-50 p-2.5 rounded-xl"><Globe className="h-5 w-5 text-orange-600" /></div>
+                                                        <div>
+                                                            <h3 className="font-black text-gray-900 text-lg">Partner Brands</h3>
+                                                            <p className="text-xs text-gray-400 font-medium">Logos shown in the scrolling marquee</p>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                        onClick={() => setFormData({ ...formData, brands: [...formData.brands, { name: '', logo: '' }] })}
+                                                        className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
+                                                        <PlusCircle className="h-3.5 w-3.5" /> Add Brand
+                                                    </button>
+                                                </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                                    {formData.brands.map((brand: any, idx: number) => (
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group space-y-3">
+                                                            <button type="button" onClick={() => { const updated = [...formData.brands]; updated.splice(idx, 1); setFormData({ ...formData, brands: updated }); }}
+                                                                className="absolute top-3 right-3 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            <input type="text" value={brand.name}
+                                                                onChange={(e) => { const updated = [...formData.brands]; updated[idx].name = e.target.value; setFormData({ ...formData, brands: updated }); }}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Brand Name" />
+                                                            <input type="text" value={brand.logo}
+                                                                onChange={(e) => { const updated = [...formData.brands]; updated[idx].logo = e.target.value; setFormData({ ...formData, brands: updated }); }}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Logo Link (SVG preferred)" />
+                                                            <div className="h-16 w-full flex items-center justify-center bg-white rounded-lg p-2">
+                                                                {brand.logo ? <img src={brand.logo} alt="Preview" className="h-full object-contain" /> : <p className="text-[10px] font-bold text-gray-300">NO PREVIEW</p>}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* ── HARDWARE SECTION ── */}
+                                        {cmsSection === 'hardware' && (
+                                            <div className="p-4 lg:p-5 space-y-3">
+                                                {/* Categories Section */}
+                                                <div className="flex items-center justify-between mb-4 border-t border-gray-100 pt-3">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="bg-blue-50 p-2.5 rounded-xl"><Monitor className="h-5 w-5 text-corporate-blue" /></div>
+                                                        <div>
+                                                            <h3 className="font-black text-gray-900 text-lg">Hardware Categories</h3>
+                                                            <p className="text-xs text-gray-400 font-medium">Manage categories for filtering products</p>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                        onClick={() => setFormData({ ...formData, hardwareCategories: [...(formData.hardwareCategories || []), { id: `cat_${Date.now()}`, name: 'New Category', icon: 'Package' }] })}
+                                                        className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
+                                                        <PlusCircle className="h-3.5 w-3.5" /> Add Category
+                                                    </button>
+                                                </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                                                    {(formData.hardwareCategories || []).map((cat: any, idx: number) => (
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-4 border border-gray-100 relative group flex gap-3 shadow-sm items-center hover:shadow-md transition-shadow">
+                                                            <button type="button" onClick={() => { const updated = [...(formData.hardwareCategories || [])]; updated.splice(idx, 1); setFormData({ ...formData, hardwareCategories: updated }); }}
+                                                                className="absolute top-2 right-2 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            <input type="text" value={cat.id} onChange={(e) => { const updated = [...formData.hardwareCategories]; updated[idx].id = e.target.value; setFormData({ ...formData, hardwareCategories: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-1/3" placeholder="ID (e.g. pos)" />
+                                                            <input type="text" value={cat.name} onChange={(e) => { const updated = [...formData.hardwareCategories]; updated[idx].name = e.target.value; setFormData({ ...formData, hardwareCategories: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-1/3" placeholder="Category Name" />
+                                                            <select value={cat.icon} onChange={(e) => { const updated = [...formData.hardwareCategories]; updated[idx].icon = e.target.value; setFormData({ ...formData, hardwareCategories: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-1/3">
+                                                                {Object.keys(IconMap).map(k => <option key={k} value={k}>{k}</option>)}
+                                                            </select>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                <div className="flex items-center justify-between mb-4 border-t border-gray-100 pt-6">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="bg-blue-50 p-2.5 rounded-xl"><Monitor className="h-5 w-5 text-corporate-blue" /></div>
+                                                        <div>
+                                                            <h3 className="font-black text-gray-900 text-lg">Hardware Catalog</h3>
+                                                            <p className="text-xs text-gray-400 font-medium">Manage POS terminals, printers, and scanners</p>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                        onClick={() => setFormData({ ...formData, hardware: [...(formData.hardware || []), { category: 'pos', name: '', model: '', price: '', description: '', specs: [], image: '', tag: '', onSale: false }] })}
+                                                        className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
+                                                        <PlusCircle className="h-3.5 w-3.5" /> Add Hardware
+                                                    </button>
+                                                </div>
+                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
+                                                    {(formData.hardware || []).map((item: any, idx: number) => (
+                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
+                                                            <button type="button" onClick={() => { const updated = [...formData.hardware]; updated.splice(idx, 1); setFormData({ ...formData, hardware: updated }); }}
+                                                                className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                                                                <input type="text" value={item.name}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].name = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Product Name" />
+                                                                <input type="text" value={item.model}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].model = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Model Number" />
+                                                            </div>
+                                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                                                                <select value={item.category}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].category = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold">
+                                                                    {(formData.hardwareCategories || []).map((cat: any) => (
+                                                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                                                    ))}
+                                                                </select>
+                                                                <input type="text" value={item.price}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].price = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Price (LKR)" />
+                                                                <input type="text" value={item.tag}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].tag = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Tag (Optional)" />
+                                                            </div>
+                                                            <textarea value={item.description}
+                                                                onChange={(e) => { const updated = [...formData.hardware]; updated[idx].description = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3 min-h-[60px]" placeholder="Product Description" />
+                                                            <div className="flex items-center gap-2 mb-3">
+                                                                <input type="text" value={item.image}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].image = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Image URL" />
+                                                                <label className="cursor-pointer bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 hover:text-corporate-blue hover:border-corporate-blue transition-colors whitespace-nowrap">
+                                                                    Upload
+                                                                    <input type="file" className="hidden" accept="image/*" onChange={(e) => handleHardwareImageUpload(e, idx)} />
+                                                                </label>
+                                                            </div>
+                                                            <div className="flex items-center gap-2 mb-3">
+                                                                <input type="checkbox" checked={item.onSale || false}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].onSale = e.target.checked; setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="rounded border-gray-300 text-corporate-blue focus:ring-corporate-blue" />
+                                                                <label className="text-xs font-bold text-gray-500 uppercase">Show 'Sale' badge</label>
+                                                            </div>
+                                                            <div>
+                                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Specifications (one per line)</label>
+                                                                <textarea value={(item.specs || []).join('\n')}
+                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].specs = e.target.value.split('\n'); setFormData({ ...formData, hardware: updated }); }}
+                                                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold min-h-[80px]" placeholder="Spec 1\nSpec 2\nSpec 3" />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Publish Button — always visible */}
@@ -806,8 +1090,8 @@ export default function Portal() {
 
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 }
 

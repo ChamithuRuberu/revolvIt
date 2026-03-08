@@ -1,9 +1,10 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package, Loader2 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package, Loader2, Info, ChevronDown, Sparkles, Building2, Smartphone, ShieldCheck } from 'lucide-react';
 
 export default function Pricing() {
   const [data, setData] = useState<any>(null);
@@ -26,794 +27,492 @@ export default function Pricing() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <Loader2 className="h-12 w-12 text-corporate-blue animate-spin" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <Loader2 className="h-12 w-12 text-corporate-blue animate-spin mb-4" />
+        <p className="text-gray-400 font-medium animate-pulse">Configuring elite solutions...</p>
       </div>
     );
   }
 
-  const pricingPlans = data || [];
+  const pricingPlans = data || [
+    {
+      title: 'Desktop Core',
+      price: '25,000',
+      description: '100% Offline performance for single-station retail.',
+      isRecommended: false,
+      features: [
+        'Works 100% Offline',
+        'Lifetime License (No Monthly Fees)',
+        'Inventory Management',
+        'Sales & PDF Reports',
+        'Support for All Printers/Scanners',
+        'Staff Performance Tracking'
+      ]
+    },
+    {
+      title: 'Hybrid Professional',
+      price: '45,000',
+      description: 'Local reliability with cloud-sync & mobile access.',
+      isRecommended: true,
+      features: [
+        'Cloud-Sync Technology',
+        'Mobile Sales Dashboard',
+        'Automated Cloud Backups',
+        'WhatsApp/Sms Receipts',
+        'Customer Loyalty System',
+        'Includes All Desktop Features'
+      ]
+    },
+    {
+      title: 'Enterprise Cloud',
+      price: '85,000',
+      description: 'Centralized management for multi-branch chains.',
+      isRecommended: false,
+      features: [
+        'Unlimited Branch Support',
+        'Centralized Inventory Control',
+        'Advanced AI Analytics',
+        'Multi-Warehouse Logistics',
+        'Dedicated API Access',
+        'Priority 2-Hour Support'
+      ]
+    },
+    {
+      title: 'Restaurant Elite',
+      price: '55,000',
+      description: 'Tailored for cafes and high-volume dining.',
+      isRecommended: false,
+      features: [
+        'KOT Kitchen Printing',
+        'Table Management Grid',
+        'Recipe/Ingredient Costing',
+        'Waiter App Integration',
+        'Split-Bill & Dynamic Tax',
+        'QR Menu Ordering'
+      ]
+    }
+  ];
+
+  const comparisonFeatures = [
+    { name: 'Works Offline', basic: true, standard: true, pro: 'Hybrid', premium: true },
+    { name: 'Lifetime License', basic: true, standard: true, pro: true, premium: true },
+    { name: 'Mobile Dashboard', basic: false, standard: 'Rs. 5k/year', pro: true, premium: true },
+    { name: 'Multi-store Sync', basic: false, standard: false, pro: true, premium: true },
+    { name: 'AI Chatbot Support', basic: true, standard: true, pro: true, premium: true },
+    { name: 'WhatsApp Receipts', basic: 'Module', standard: 'Included', pro: true, premium: true },
+    { name: 'Multi-user Access', basic: 'Limited', standard: true, pro: true, premium: true },
+    { name: 'Staff App', basic: false, standard: false, pro: 'Optional', premium: true },
+  ];
+
+  const hardwareBundles = [
+    {
+      id: 'A',
+      name: 'Essential Starter',
+      price: '95,000',
+      description: 'Best for small boutiques and start-up grocers.',
+      includes: ['POS Software Desktop', 'XPrinter XP-58 Mobile', 'Beldon 1D Wired Scanner', 'Cash Drawer Starter'],
+      popular: false
+    },
+    {
+      id: 'B',
+      name: 'Retail Pro Bundle',
+      price: '145,000',
+      description: 'The standard choice for growing supermarkets.',
+      includes: ['POS Software Hybrid', 'Beldon 80mm High-Speed Printer', 'Beldon 1D Wireless Scanner', 'Heavy-Duty Cash Drawer'],
+      popular: true
+    },
+    {
+      id: 'C',
+      name: 'Restaurant Bundle',
+      price: '185,000',
+      description: 'Complete setup for cafes and dining outlets.',
+      includes: ['POS Kitchen Integration', 'Dual KOT Printers', 'Android Touch Terminal', 'Receipt Printer Elite'],
+      popular: false
+    },
+    {
+      id: 'D',
+      name: 'Supermarket Elite',
+      price: '320,000',
+      description: 'Ultimate multi-terminal hardware infrastructure.',
+      includes: ['POS Multi-Branch License', 'Zebra DS9308 2D Desktop', 'Dual 80mm Printers', 'UPS 1000VA Backup'],
+      popular: false
+    }
+  ];
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-corporate-blue to-corporate-blue-dark text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Pricing & Packages</h1>
-          <p className="text-xl max-w-3xl text-blue-100">
-            Choose the perfect POS solution for your business needs. All packages include installation, training, and support.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-slate-50/50">
+      {/* Hero Section - Elite Branding */}
+      <section className="relative pt-32 pb-24 overflow-hidden bg-white">
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-blue-50/70 rounded-full blur-3xl opacity-50 select-none pointer-events-none transition-all duration-1000"></div>
 
-      {/* Pricing Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-            {pricingPlans.map((plan: any, index: number) => (
-              <div key={index} className={`bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-8 border ${plan.isRecommended ? 'border-2 border-corporate-blue relative' : 'border-gray-100'}`}>
-                {plan.isRecommended && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-corporate-blue text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                      <Star className="h-4 w-4" />
-                      Recommended
-                    </span>
-                  </div>
-                )}
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.title}</h3>
-                  <div className="text-3xl font-bold text-corporate-blue mb-1">LKR {plan.price}</div>
-                  <p className="text-sm text-gray-600">{plan.description}</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-2 bg-corporate-blue/5 text-corporate-blue px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-8 border border-corporate-blue/10"
+          >
+            <ShieldCheck className="h-4 w-4" />
+            <span>Professional Solutions · One-time Purchase</span>
+          </motion.div>
+
+          <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 tracking-tighter leading-tight max-w-5xl mx-auto">
+            Transparent Pricing for <span className="text-corporate-blue">Unstoppable Growth.</span>
+          </h1>
+
+          <p className="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium mb-12">
+            No hidden monthly fees for core operations. From simple 100% offline desktop versions to advanced multi-branch cloud ecosystems, choose the stability your business deserves.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link href="#pricing-grid" className="bg-corporate-blue px-8 py-4 rounded-xl text-white font-black hover:shadow-2xl hover:shadow-blue-500/20 transition-all active:scale-95">
+              View Licensing Plans
+            </Link>
+            <Link href="#hardware-bundles" className="text-gray-900 border-2 border-gray-200 px-8 py-4 rounded-xl font-black hover:bg-gray-50 transition-all">
+              Explore Hardware Bundles
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Cards Grid */}
+      <section id="pricing-grid" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {pricingPlans.map((plan: any, index: number) => (
+            <motion.div
+              key={plan.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`relative bg-white rounded-[2rem] p-8 border ${plan.isRecommended ? 'border-2 border-corporate-blue ring-8 ring-corporate-blue/5' : 'border-gray-100'} transition-all hover:shadow-2xl flex flex-col`}
+            >
+              {plan.isRecommended && (
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-corporate-blue text-white px-5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap">
+                  <Star className="h-3.5 w-3.5 fill-white" />
+                  Most Popular
                 </div>
-                <ul className="space-y-3 mb-8 text-sm text-gray-700">
-                  {plan.features.map((feature: string, fIndex: number) => (
-                    <li key={fIndex} className="flex items-start">
-                      <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-3 mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
+              )}
+
+              <div className="mb-8">
+                <h3 className="text-xl font-black text-gray-900 mb-1">{plan.title}</h3>
+                <p className="text-sm text-gray-400 font-bold mb-6">{plan.description}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-black text-gray-400 uppercase">LKR</span>
+                  <span className="text-5xl font-black text-gray-900 tracking-tighter">{plan.price}</span>
+                </div>
+                <div className="text-[10px] font-black text-corporate-blue uppercase tracking-widest mt-2">One-time License Fee</div>
+              </div>
+
+              <div className="flex-1 space-y-4 mb-10">
+                <div className="text-xs font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">What's Included</div>
+                <ul className="space-y-3.5">
+                  {plan.features.map((feature: string) => (
+                    <li key={feature} className="flex items-start gap-3 text-sm text-gray-600 font-bold leading-snug">
+                      <div className="mt-0.5 h-4 w-4 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="h-2.5 w-2.5 text-corporate-blue" />
+                      </div>
+                      {feature}
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href="/contact"
-                  className="block w-full text-center bg-corporate-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300"
-                >
-                  Get Started
+              </div>
+
+              <Link
+                href="/contact"
+                className={`w-full py-4 rounded-2xl font-black text-sm text-center transition-all active:scale-95 ${plan.isRecommended ? 'bg-corporate-blue text-white shadow-xl shadow-blue-500/20' : 'bg-slate-100 text-gray-900 hover:bg-slate-200'}`}
+              >
+                Get Started Today
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Professional Comparison table */}
+      <section className="py-24 bg-white border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tighter">Compare our Capabilities</h2>
+            <p className="text-gray-500 font-bold">Deep dive into the features that power your business.</p>
+          </div>
+
+          <div className="overflow-x-auto rounded-[2rem] border border-gray-200 shadow-xl overflow-hidden">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50 border-b border-gray-200">
+                  <th className="py-8 px-8 text-sm font-black text-gray-400 uppercase tracking-widest">Business Requirements</th>
+                  <th className="py-8 px-6 text-center text-sm font-black text-gray-900 uppercase tracking-widest">Basic</th>
+                  <th className="py-8 px-6 text-center text-sm font-black text-gray-900 uppercase tracking-widest">Standard</th>
+                  <th className="py-8 px-6 text-center text-sm font-black text-gray-900 uppercase tracking-widest">Pro</th>
+                  <th className="py-8 px-6 text-center text-sm font-black text-gray-900 uppercase tracking-widest">Premium</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {comparisonFeatures.map((item) => (
+                  <tr key={item.name} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="py-6 px-8 text-base font-bold text-gray-700">{item.name}</td>
+                    {[item.basic, item.standard, item.pro, item.premium].map((val, i) => (
+                      <td key={i} className="py-6 px-6 text-center">
+                        {typeof val === 'boolean' ? (
+                          val ? (
+                            <CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" />
+                          ) : (
+                            <div className="h-1 w-4 bg-slate-200 rounded-full mx-auto" />
+                          )
+                        ) : (
+                          <span className="text-xs font-black text-corporate-blue uppercase">{val}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Complete Hardware Bundles - New Section */}
+      <section id="hardware-bundles" className="py-24 bg-slate-50/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
+                <Package className="h-3.5 w-3.5" />
+                Done-for-you Setup
+              </div>
+              <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tighter">All-in-One POS Bundles</h2>
+              <p className="text-gray-500 font-bold leading-relaxed">Everything you need to start ringing up sales—hardware, software, and onsite expert installation. No tech experience required.</p>
+            </div>
+            <div className="bg-white p-2 rounded-2xl border border-gray-200 flex items-center gap-2">
+              <span className="px-4 text-xs font-black text-gray-400 uppercase tracking-widest">Pricing Model</span>
+              <div className="bg-corporate-blue px-6 py-2 rounded-xl text-white text-xs font-black tracking-widest">One-time Payment</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {hardwareBundles.map((bundle) => (
+              <div key={bundle.id} className="group bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-2xl transition-all relative overflow-hidden flex flex-col">
+                {bundle.popular && (
+                  <div className="absolute right-0 top-0 mt-4 -mr-8 rotate-45 bg-amber-400 text-white px-10 py-1 text-[10px] font-black uppercase tracking-widest shadow-lg">
+                    Best Value
+                  </div>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-black text-gray-900 mb-2">Package {bundle.id}</h3>
+                  <div className="text-sm font-bold text-gray-400 leading-snug">{bundle.description}</div>
+                </div>
+
+                <div className="mb-8">
+                  <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">Total Bundle Cost</div>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xs font-black text-gray-400 uppercase">LKR</span>
+                    <span className="text-4xl font-black text-gray-900 tracking-tighter">{bundle.price}</span>
+                  </div>
+                </div>
+
+                <div className="flex-1 mb-8">
+                  <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <div className="h-1 w-4 bg-blue-500 rounded-full"></div>
+                    Included Equipment
+                  </div>
+                  <ul className="space-y-2.5">
+                    {bundle.includes.map((item) => (
+                      <li key={item} className="flex items-center gap-2 text-xs font-bold text-gray-700">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-blue-100 fill-corporate-blue" />
+                        {item}
+                      </li>
+                    ))}
+                    <li className="flex items-center gap-2 text-xs font-bold text-gray-700">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-100 fill-corporate-blue" />
+                      On-Site Installation
+                    </li>
+                    <li className="flex items-center gap-2 text-xs font-bold text-gray-700">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-100 fill-corporate-blue" />
+                      On-Site Staff Training
+                    </li>
+                  </ul>
+                </div>
+
+                <Link href="/contact" className="group-hover:bg-corporate-blue group-hover:text-white border-2 border-gray-100 rounded-2xl py-4 text-center text-sm font-black transition-all">
+                  Configure This Package
                 </Link>
               </div>
             ))}
           </div>
 
-          {/* Complete Package Pricing (With Hardware) */}
-          <div className="mb-20">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Complete Package Pricing (With Hardware)</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {/* Package A: Complete Basic Setup */}
-              <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-6 border border-gray-100">
-                <div className="mb-4">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Package A</h4>
-                  <div className="text-2xl font-bold text-corporate-blue mb-1">LKR 111,000</div>
-                  <p className="text-xs text-gray-600">Complete Basic Setup</p>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Basic POS Software: LKR 75,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>XPrinter XP-K200L: LKR 18,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 12,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Thermal Paper Rolls (20): LKR 3,500</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Installation & Training</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>12 months support</span>
-                  </li>
-                </ul>
-                <Link
-                  href="/contact"
-                  className="block w-full text-center bg-corporate-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300 text-sm"
-                >
-                  Get Started
-                </Link>
+          <div className="mt-12 bg-white rounded-3xl border border-gray-200 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-6">
+              <div className="bg-slate-50 p-6 rounded-2xl">
+                <Monitor className="h-10 w-10 text-corporate-blue" />
               </div>
-
-              {/* Package B: Complete Standard Setup */}
-              <div className="bg-white rounded-xl shadow-professional-lg hover:shadow-professional-xl transition-all duration-300 p-6 border-2 border-corporate-blue relative">
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-corporate-blue text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                    <Star className="h-3 w-3" />
-                    Popular
-                  </span>
-                </div>
-                <div className="mb-4">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Package B</h4>
-                  <div className="text-2xl font-bold text-corporate-blue mb-1">LKR 156,000</div>
-                  <p className="text-xs text-gray-600">Complete Standard Setup</p>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Standard POS Software: LKR 120,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>XPrinter XP-K200L: LKR 18,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 12,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Thermal Paper Rolls (20): LKR 3,500</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Installation & Training</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>12 months support</span>
-                  </li>
-                </ul>
-                <Link
-                  href="/contact"
-                  className="block w-full text-center bg-corporate-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300 text-sm"
-                >
-                  Get Started
-                </Link>
-              </div>
-
-              {/* Package C: Complete Professional Setup */}
-              <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-6 border border-gray-100">
-                <div className="mb-4">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Package C</h4>
-                  <div className="text-2xl font-bold text-corporate-blue mb-1">LKR 186,000</div>
-                  <p className="text-xs text-gray-600">Complete Professional Setup</p>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Professional POS Software: LKR 150,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>XPrinter XP-K200L: LKR 18,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 12,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Thermal Paper Rolls (20): LKR 3,500</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Installation & Training</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>12 months support</span>
-                  </li>
-                </ul>
-                <Link
-                  href="/contact"
-                  className="block w-full text-center bg-corporate-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300 text-sm"
-                >
-                  Get Started
-                </Link>
-              </div>
-
-              {/* Package D: Complete Premium Setup */}
-              <div className="bg-white rounded-xl shadow-professional hover:shadow-professional-lg transition-all duration-300 p-6 border border-gray-100">
-                <div className="mb-4">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">Package D</h4>
-                  <div className="text-2xl font-bold text-corporate-blue mb-1">LKR 286,000</div>
-                  <p className="text-xs text-gray-600">Complete Premium Setup</p>
-                </div>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Premium POS Software: LKR 250,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>XPrinter XP-K200L: LKR 18,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>USB Barcode Scanner: LKR 12,000</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Thermal Paper Rolls (20): LKR 3,500</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>Installation & Training</span>
-                  </li>
-                  <li className="flex items-start text-xs text-gray-700">
-                    <CheckCircle2 className="h-3 w-3 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                    <span>12 months support</span>
-                  </li>
-                </ul>
-                <Link
-                  href="/contact"
-                  className="block w-full text-center bg-corporate-blue text-white px-4 py-2 rounded-lg font-semibold hover:bg-corporate-blue-dark transition-all duration-300 text-sm"
-                >
-                  Get Started
-                </Link>
+              <div>
+                <h4 className="text-xl font-black text-gray-900 mb-1 leading-none">Need a Computer/PC?</h4>
+                <p className="text-sm font-bold text-gray-400">Add a high-performance business desktop to any bundle.</p>
               </div>
             </div>
-
-            {/* Package with Computer Option */}
-            <div className="bg-gradient-to-r from-corporate-blue/10 to-corporate-blue/5 rounded-xl p-6 border border-corporate-blue/20">
-              <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Monitor className="h-5 w-5 text-corporate-blue" />
-                Package with Computer (Optional)
-              </h4>
-              <p className="text-sm text-gray-700 mb-4">
-                Add a Basic PC (i3, 4GB RAM, 128GB SSD) to any package above for an additional <strong className="text-corporate-blue">LKR 30,000.00</strong>
-              </p>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Added Investment</div>
+                <div className="text-2xl font-black text-corporate-blue uppercase">LKR 30,000</div>
+              </div>
+              <Link href="/contact" className="bg-gray-900 text-white px-8 py-4 rounded-xl font-black text-sm active:scale-95 transition-all">
+                Add to Quote
+              </Link>
             </div>
           </div>
-
-          {/* Hardware Requirements */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Hardware Requirements & Recommendations</h3>
-
-            {/* Computer Requirements */}
-            <div className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
-                <Monitor className="h-6 w-6 text-corporate-blue" />
-                <h4 className="text-xl font-bold text-gray-900">Computer/PC Requirements</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-4">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-4">Minimum Specification</h5>
-                      <ul className="space-y-2 text-sm text-gray-700">
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Processor: Intel Core i3 or equivalent</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>RAM: 4GB DDR3/DDR4</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Storage: 128GB SSD or 500GB HDD</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Display: 15.6" or larger monitor</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>OS: Windows 10 (64-bit) or Windows 11</span>
-                        </li>
-                      </ul>
-                      <p className="mt-4 text-sm text-gray-600">
-                        <strong>Market Price:</strong> LKR 45,000 - 65,000
-                      </p>
-                    </div>
-                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-white overflow-hidden">
-                      <Image
-                        src="/pricing/pos.webp"
-                        alt="Minimum Specification Computer"
-                        fill
-                        className="object-fill"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-6 border border-gray-100">
-                  <div className="flex gap-4">
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-4">Recommended Specification</h5>
-                      <ul className="space-y-2 text-sm text-gray-700">
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Processor: Intel Core i5 or Ryzen 5</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>RAM: 8GB DDR4</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Storage: 256GB SSD</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>Display: 19" monitor or touchscreen</span>
-                        </li>
-                        <li className="flex items-start">
-                          <CheckCircle2 className="h-4 w-4 text-corporate-blue mr-2 mt-0.5 flex-shrink-0" />
-                          <span>OS: Windows 10/11 Pro</span>
-                        </li>
-                      </ul>
-                      <p className="mt-4 text-sm text-gray-600">
-                        <strong>Market Price:</strong> LKR 85,000 - 120,000 (Touchscreen AIO)
-                      </p>
-                    </div>
-                    <div className="relative w-32 h-32 flex-shrink-0 rounded-lg bg-white overflow-hidden">
-                      <Image
-                        src="/pricing/pos.webp"
-                        alt="Recommended Specification Computer"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Thermal Printer */}
-            <div className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
-                <Printer className="h-6 w-6 text-corporate-blue" />
-                <h4 className="text-xl font-bold text-gray-900">Thermal Receipt Printer</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/Xprinter XP-58 .png"
-                        alt="Xprinter XP-58"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">Xprinter XP-58</h5>
-                      <p className="text-xs text-gray-600 mb-1">58mm • USB Interface</p>
-                      <p className="text-xs text-gray-500 mb-2">Compact 2-inch thermal printer. Ideal for small receipts and mobile POS systems.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 20,500 - 28,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional-lg p-5 border-2 border-corporate-blue">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/XPrinter XP-K200L .jpg"
-                        alt="XPrinter XP-K200L"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">XPrinter XP-K200L</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-corporate-blue mb-1">⭐ Recommended</p>
-                      <p className="text-xs text-gray-500 mb-2">High-speed 80mm thermal printer with auto-cutter. Resume from jam automatically.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/POS-8220 .webp"
-                        alt="POS-8220"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">POS-8220</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Network (LAN)</p>
-                      <p className="text-xs text-gray-500 mb-2">Network-enabled thermal printer. Print speed: 230mm/s. Multi-OS compatible.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 18,000 - 22,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/POSX805K.jpg"
-                        alt="XPrinter XP-Q805K"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">XPrinter XP-Q805K</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-gray-500 mb-2">Budget-friendly 80mm thermal printer. Print speed: 230mm/s. Wall mountable.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 14,000 - 16,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/BNPP-991-USB_0.jpeg"
-                        alt="BELDON BNPP-991"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm">BELDON BNPP-991</h5>
-                      <p className="text-xs text-gray-600 mb-1">80mm • USB • Auto Cutter</p>
-                      <p className="text-xs text-gray-500 mb-2">Reliable 80mm thermal printer. Fast printing up to 300mm/s. Multi-OS compatible.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 16,900 - 18,900</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl shadow-professional p-4 border border-gray-100">
-                <p className="text-sm text-gray-600 text-center">
-                  <strong>Features:</strong> Paper width: 80mm (recommended) or 58mm • USB interface • Auto-cutter optional • Speed: 150-250mm/sec
-                </p>
-              </div>
-            </div>
-
-            {/* Barcode Scanner */}
-            <div className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
-                <ScanLine className="h-6 w-6 text-corporate-blue" />
-                <h4 className="text-xl font-bold text-gray-900">Barcode Scanner</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/ORBIT-BARCODE-preview.png"
-                        alt="Honeywell 2D Barcode Reader 7120D"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">Honeywell 2D BARCODE READER 7120D</h5>
-                      <p className="text-xs text-gray-500 mb-2">2D imager scanner for QR codes and barcodes</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 60,000 - 70,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional-lg p-5 border-2 border-corporate-blue">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/WhatsApp-Image-2024-04-03-at-11.13.45_b4f63462.jpg"
-                        alt="BELDON 1D Handheld Wireless Barcode Scanner"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-1 text-sm leading-tight">BELDON 1D WIRELESS BN-BS207R</h5>
-                      <p className="text-xs text-corporate-blue mb-2">⭐ Recommended</p>
-                      <p className="text-xs text-gray-500 mb-2">Wireless handheld 1D barcode scanner</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 10,500 - 12,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/207I.webp"
-                        alt="BELDON Handheld CCD Barcode Scanner"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON CCD SCANNER BN-BS207I</h5>
-                      <p className="text-xs text-gray-500 mb-2">Handheld CCD barcode scanner with USB</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 5,000 - 7,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/WIRELESS-BARCODE-SCANNER.webp"
-                        alt="BELDON Wireless Barcode Scanner with Cradle"
-                        fill
-                        className="object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON WIRELESS SCANNER BN-9066RT</h5>
-                      <p className="text-xs text-gray-500 mb-2">Wireless scanner with charging cradle base</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 19,000 - 25,000</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl shadow-professional p-4 border border-gray-100">
-                <p className="text-sm text-gray-600 text-center">
-                  <strong>Features:</strong> 1D barcode support • USB connection (plug and play) • 100+ scans per second • Works with EAN-13, UPC, Code-128
-                </p>
-              </div>
-            </div>
-
-            {/* Additional Hardware */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <Package className="h-6 w-6 text-corporate-blue" />
-                <h4 className="text-xl font-bold text-gray-900">Additional Hardware (Optional)</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/X-POS-Display-Pole.png"
-                        alt="Customer Display Pole"
-                        fill
-                        className="object-contain p-0"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">Customer Display Pole</h5>
-                      <p className="text-xs text-gray-500 mb-2">VFD Display (2×20 characters). Shows items and prices to customer.</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 15,000 - 18,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/PRO1201SFC-Super-Fast-Charging-Line-Interactive-UPS-650VA-Skyray-Electronics-Gadgets-Serendib-UPS-Sri-Lanka-300x300.png"
-                        alt="UPS Backup Power"
-                        fill
-                        className="object-contain p-0"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">UPS (Backup Power)</h5>
-                      <p className="text-xs text-gray-500 mb-1">650VA: LKR 9,000 - 10,000</p>
-                      <p className="text-xs text-gray-500 mb-2">2000VA: LKR 130,000 - 147,000</p>
-                      <p className="text-sm font-semibold text-corporate-blue">From LKR 9,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/365b.jpeg"
-                        alt="Bluetooth Barcode Receipt Printer"
-                        fill
-                        className="object-contain p-0"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BLUETOOTH PRINTER XP-365B-BLU</h5>
-                      <p className="text-xs text-gray-500 mb-2">2-in-1 Bluetooth barcode + receipt printer</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 25,000 - 35,000</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-xl shadow-professional p-5 border border-gray-100">
-                  <div className="flex flex-col gap-3">
-                    <div className="relative w-full h-32 rounded-lg bg-white overflow-hidden mb-2">
-                      <Image
-                        src="/pricing/Copy_of_Daraz_Bell_Press_Orange_Akoya_White__85_-removebg-preview-1.webp"
-                        alt="BELDON Heavy Duty Cash Drawer"
-                        fill
-                        className="object-contain p-0"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-gray-900 mb-2 text-sm leading-tight">BELDON CASH DRAWER</h5>
-                      <p className="text-xs text-gray-500 mb-2">Heavy duty 5 notes cash drawer for secure storage</p>
-                      <p className="text-sm font-semibold text-corporate-blue">LKR 9,500 - 14,000</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Add-on Features */}
-            <div className="mb-20 mt-16">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Add-On Features</h3>
-              <div className="bg-white rounded-xl shadow-professional p-8 overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
-                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Price (LKR)</th>
-                      <th className="text-left py-4 px-4 font-semibold text-gray-900">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Additional User License</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">3,000/user</td>
-                      <td className="py-4 px-4 text-gray-600">Beyond package limit</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Additional Terminal</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
-                      <td className="py-4 px-4 text-gray-600">Extra computer setup</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Barcode Scanner</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">8,500</td>
-                      <td className="py-4 px-4 text-gray-600">integration</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Multi-Channel Sync</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">25,000</td>
-                      <td className="py-4 px-4 text-gray-600">Online/Offline inventory sync</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Data Migration</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">Custom</td>
-                      <td className="py-4 px-4 text-gray-600">Old system to Green Code Solution migration</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Additional Branch</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">35,000</td>
-                      <td className="py-4 px-4 text-gray-600">Per branch setup</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">SMS Module</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">3500.00 per month</td>
-                      <td className="py-4 px-4 text-gray-600">Customer notifications</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">WhatsApp Integration</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">20,000</td>
-                      <td className="py-4 px-4 text-gray-600">Receipt via WhatsApp</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Mobile App</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">85,000</td>
-                      <td className="py-4 px-4 text-gray-600">Android app for reports</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Cloud Backup</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">2,500/month</td>
-                      <td className="py-4 px-4 text-gray-600">Automatic cloud storage</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Customer Display</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">15,000</td>
-                      <td className="py-4 px-4 text-gray-600">Pole display for customers</td>
-                    </tr>
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Biometric Login</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">30,000</td>
-                      <td className="py-4 px-4 text-gray-600">Fingerprint authentication</td>
-                    </tr>
-
-                    <tr className="hover:bg-gray-50">
-                      <td className="py-4 px-4 text-gray-700">Custom Feature</td>
-                      <td className="py-4 px-4 font-semibold text-corporate-blue">12,000</td>
-                      <td className="py-4 px-4 text-gray-600">Based on requirements</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
         </div>
-
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-corporate-blue to-corporate-blue-dark text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl mb-8 text-blue-100">
-              Contact us today to discuss which package is right for your business.
-            </p>
-            <Link
-              href="/contact"
-              className="group bg-white text-corporate-blue px-8 py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 inline-flex items-center shadow-professional-lg hover:shadow-professional-xl transform hover:-translate-y-0.5"
-            >
-              Contact Us
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+      {/* Hardware Shop / Catalog Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+            <div className="max-w-2xl">
+              <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tighter">Modular Hardware Catalog</h2>
+              <p className="text-gray-500 font-bold">Industry-leading brands vetted for speed and thermal reliability.</p>
+            </div>
+            <Link href="/hardware" className="flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-2xl text-sm font-black hover:bg-corporate-blue transition-all active:scale-95 shadow-xl shadow-gray-900/10 group">
+              Browse All Products
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-          {/* Enterprise Custom Section */}
-          <div className="bg-corporate-blue rounded-3xl p-12 text-white relative overflow-hidden mb-24">
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">Need a Custom Enterprise Solution?</h2>
-                <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                  For large scale operations, multi-country distribution, or specialized requirements, our enterprise team can build a tailor-made package for your organization.
-                </p>
-                <ul className="space-y-4 mb-10">
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-blue-300" />
-                    <span>Dedicated Solution Architect</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-blue-300" />
-                    <span>Custom Feature Development</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-blue-300" />
-                    <span>On-premise Deployment Options</span>
-                  </li>
-                </ul>
-                <Link href="/contact" className="bg-white text-corporate-blue px-10 py-4 rounded-xl font-bold hover:bg-blue-50 transition-all inline-block">
-                  Contact Enterprise Sales
-                </Link>
-              </div>
-              <div className="relative h-80 lg:h-full min-h-[400px]">
-                <Image
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-                  alt="Enterprise Solutions"
-                  fill
-                  className="object-cover rounded-2xl shadow-2xl"
-                />
-              </div>
-            </div>
-            <div className="absolute top-0 right-0 p-12 opacity-5">
-              <Package className="h-96 w-96" />
-            </div>
-          </div>
 
-          {/* FAQ Section */}
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
-            <div className="space-y-6">
-              {[
-                { q: "Is there a monthly subscription fee?", a: "No, our POS software is a one-time purchase with 12 months of free support and updates included." },
-                { q: "Can I upgrade my package later?", a: "Absolutely. You can upgrade from Basic to any higher package by just paying the difference in price." },
-                { q: "Does the hardware come with a warranty?", a: "Yes, all hardware components (Printers, Scanners, Computers) come with a minimum 12-month manufacturer warranty." },
-                { q: "Do you provide on-site training?", a: "Yes, our packages include on-site installation and staff training within designated regions. Remote training is also available." }
-              ].map((faq, i) => (
-                <div key={i} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{faq.q}</h3>
-                  <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                title: 'Thermal Printers',
+                icon: Printer,
+                items: [
+                  { name: 'XPrinter XP-K200L', price: '13,500', tag: 'Best Seller' },
+                  { name: 'Beldon BN-PP991', price: '17,000' },
+                  { name: 'XPrinter Q80B Wifi', price: '27,500' }
+                ]
+              },
+              {
+                title: 'Barcode Scanners',
+                icon: ScanLine,
+                items: [
+                  { name: 'Beldon 1D Wireless', price: '16,500', tag: 'Fast' },
+                  { name: 'Zebra DS9308 2D Desktop', price: '37,500' },
+                  { name: 'Beldon CCD Handheld', price: '5,000' }
+                ]
+              },
+              {
+                title: 'Terminals & Drawers',
+                icon: Package,
+                items: [
+                  { name: 'Beldon i7 Dual Touch', price: '214,500' },
+                  { name: 'Posmax 6N Cash Drawer', price: '11,500' },
+                  { name: 'Senraise Android Handheld', price: '150,000' }
+                ]
+              }
+            ].map((cat) => (
+              <div key={cat.title} className="bg-slate-50/50 rounded-3xl p-8 border border-gray-100 flex flex-col">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="bg-white p-3 rounded-xl shadow-sm">
+                    <cat.icon className="h-6 w-6 text-corporate-blue" />
+                  </div>
+                  <h3 className="text-xl font-black text-gray-900 tracking-tight">{cat.title}</h3>
                 </div>
-              ))}
+                <div className="space-y-6">
+                  {cat.items.map(item => (
+                    <div key={item.name} className="flex items-center justify-between border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                      <div>
+                        <div className="text-sm font-black text-gray-900 flex items-center gap-2">
+                          {item.name}
+                          {item.tag && <span className="text-[8px] bg-blue-100 text-corporate-blue px-2 py-0.5 rounded-full uppercase tracking-tighter">{item.tag}</span>}
+                        </div>
+                      </div>
+                      <div className="text-xs font-black text-corporate-blue">LKR {item.price}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Custom Enterprise Section */}
+      <section className="py-24 bg-corporate-gray overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-corporate-blue rounded-[3rem] p-12 md:p-24 text-white relative flex flex-col lg:flex-row items-center gap-16 overflow-hidden group">
+            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+              <Building2 className="h-96 w-96" />
+            </div>
+
+            <div className="flex-1 relative z-10">
+              <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter">Need a Custom <span className="text-blue-300">Enterprise</span> Workflow?</h2>
+              <p className="text-xl text-blue-100/80 mb-10 font-medium leading-relaxed">
+                For multi-national distribution, high-frequency logistics, or specialized manufacturing requirements, we engineer bespoke platforms from the ground up.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                {[
+                  'Dedicated Dev Instance',
+                  'Custom ERP Integration',
+                  'Global 24/7 SLA',
+                  'Source Code Access Options'
+                ].map(feat => (
+                  <div key={feat} className="flex items-center gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-blue-300" />
+                    <span className="font-bold text-blue-50">{feat}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/contact" className="bg-white text-corporate-blue px-12 py-5 rounded-2xl font-black text-lg hover:shadow-2xl hover:shadow-white/20 transition-all inline-block active:scale-95">
+                Consult our Strategy Team
+              </Link>
+            </div>
+            <div className="relative w-full lg:w-1/3 h-80 lg:h-[500px] flex-shrink-0 group">
+              <Image
+                src="https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-1.jpg"
+                alt="Enterprise Engineering"
+                fill
+                className="object-cover rounded-3xl transition-transform duration-700 group-hover:scale-105"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Indicators */}
-      <section className="py-20 border-t border-gray-100 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-10">Trusted By Forward Thinking Companies</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all">
-            {/* These would be real client logos */}
-            <div className="text-2xl font-black text-gray-400">RETAIL-CO</div>
-            <div className="text-2xl font-black text-gray-400">FIN-MOD</div>
-            <div className="text-2xl font-black text-gray-400">LOGI-TECH</div>
-            <div className="text-2xl font-black text-gray-400">URBAN-STORE</div>
+      {/* High-Converting FAQ */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black text-gray-900 tracking-tighter mb-4">Investment FAQ</h2>
+            <p className="text-gray-400 font-bold uppercase tracking-widest text-xs">Clearing Doubts, Closing Deals</p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { q: 'Why is it a one-time purchase?', a: 'We believe you should own your business tools. While many SaaS providers charge monthly, we offer a lifetime license for our local system management software. Optional cloud sync services are the only items that carry a recurring fee.' },
+              { q: 'Do you offer on-site support if things go wrong?', a: 'Yes. Every license comes with 12 months of priority support. Within major regions, we provide on-site technical assistance within 24-48 hours. Remote support is instant.' },
+              { q: 'Is there a limit to how many items I can add?', a: 'Unlike tiered cloud POS, our Standard and higher plans have no artificial caps on products, transactions, or historical data. You own the database.' },
+              { q: 'Can I integrate my existing hardware?', a: 'Most standard thermal printers and barcode scanners (USB/Network) are compatible. During our initial consultation, we provide a free hardware audit to see what you can reuse.' }
+            ].map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-slate-50/50 rounded-[2rem] p-8 border border-gray-100 hover:border-corporate-blue/20 transition-all group"
+              >
+                <h3 className="text-lg font-black text-gray-900 mb-2 group-hover:text-corporate-blue transition-colors leading-tight">{faq.q}</h3>
+                <p className="text-gray-500 font-bold leading-relaxed">{faq.a}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Floating CTA for Mobile */}
+      <div className="sticky bottom-8 z-50 px-4 md:hidden">
+        <Link href="/contact" className="bg-corporate-blue text-white w-full py-5 rounded-2xl font-black text-center shadow-2xl flex items-center justify-center gap-2">
+          Build Your Own Plan
+          <ArrowRight className="h-5 w-5" />
+        </Link>
+      </div>
     </div>
   );
 }
-

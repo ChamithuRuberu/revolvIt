@@ -82,6 +82,23 @@ const TeamMemberSchema = new Schema({
     bio: String,
 });
 
+const BrandSchema = new Schema({
+    name: String,
+    logo: String,
+});
+
+const HardwareSchema = new Schema({
+    category: String,
+    name: String,
+    model: String,
+    price: String,
+    description: String,
+    specs: [String],
+    image: String,
+    tag: String,
+    onSale: Boolean,
+});
+
 const PortalDataSchema = new Schema({
     user: {
         name: String,
@@ -103,6 +120,8 @@ const PortalDataSchema = new Schema({
     testimonials: [TestimonialSchema],
     values: [ValueSchema],
     team: [TeamMemberSchema],
+    brands: [BrandSchema],
+    hardware: [HardwareSchema],
 }, { timestamps: true });
 
 const PortalData = models.PortalData || model('PortalData', PortalDataSchema);
