@@ -117,6 +117,7 @@ export default function HardwareCatalog() {
                                                 src={heroSlides[currentSlideIndex].image}
                                                 alt="Slide Image"
                                                 fill
+                                                unoptimized={true}
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105 rounded-[2.5rem]"
                                             />
                                         ) : (
@@ -228,6 +229,7 @@ export default function HardwareCatalog() {
                                                 src={item.image}
                                                 alt={item.name}
                                                 fill
+                                                unoptimized={true}
                                                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                                             />
                                         ) : (

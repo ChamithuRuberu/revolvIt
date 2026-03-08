@@ -8,14 +8,16 @@ import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package, Lo
 
 export default function Pricing() {
   const [data, setData] = useState<any>(null);
+  const [posData, setPosData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/portal');
+        const res = await fetch('/api/portal/public');
         const json = await res.json();
         if (json.pricing) setData(json.pricing);
+        if (json.posPricing) setPosData(json.posPricing);
       } catch (e) {
         console.error('Failed to fetch pricing', e);
       } finally {
@@ -291,15 +293,32 @@ export default function Pricing() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {hardwareBundles.map((bundle) => (
-              <div key={bundle.id} className="group bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-2xl transition-all relative overflow-hidden flex flex-col">
+            {(posData?.hardwareBundles || hardwareBundles).map((bundle: any, idx: number) => (
+              <div key={idx} className="group bg-white rounded-3xl p-8 border border-gray-200 shadow-sm hover:shadow-2xl transition-all relative overflow-hidden flex flex-col">
                 {bundle.popular && (
                   <div className="absolute right-0 top-0 mt-4 -mr-8 rotate-45 bg-amber-400 text-white px-10 py-1 text-[10px] font-black uppercase tracking-widest shadow-lg">
                     Best Value
                   </div>
                 )}
+                
+                <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-50 mb-8 border border-gray-100">
+                  {bundle.image ? (
+                    <Image 
+                      src={bundle.image} 
+                      alt={bundle.name} 
+                      fill 
+                      unoptimized={true}
+                      className="object-contain p-4 group-hover:scale-110 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Package className="h-12 w-12 text-slate-200" />
+                    </div>
+                  )}
+                </div>
+
                 <div className="mb-6">
-                  <h3 className="text-2xl font-black text-gray-900 mb-2">Package {bundle.id}</h3>
+                  <h3 className="text-2xl font-black text-gray-900 mb-2">{bundle.name || `Package ${bundle.id}`}</h3>
                   <div className="text-sm font-bold text-gray-400 leading-snug">{bundle.description}</div>
                 </div>
 
@@ -317,7 +336,7 @@ export default function Pricing() {
                     Included Equipment
                   </div>
                   <ul className="space-y-2.5">
-                    {bundle.includes.map((item) => (
+                    {(bundle.features || bundle.includes || []).map((item: string) => (
                       <li key={item} className="flex items-center gap-2 text-xs font-bold text-gray-700">
                         <CheckCircle2 className="h-3.5 w-3.5 text-blue-100 fill-corporate-blue" />
                         {item}
@@ -466,7 +485,7 @@ export default function Pricing() {
             </div>
             <div className="relative w-full lg:w-1/3 h-80 lg:h-[500px] flex-shrink-0 group">
               <Image
-                src="https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-1.jpg"
+                src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800"
                 alt="Enterprise Engineering"
                 fill
                 className="object-cover rounded-3xl transition-transform duration-700 group-hover:scale-105"

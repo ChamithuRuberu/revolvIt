@@ -48,7 +48,12 @@ import {
     X,
     LayoutGrid,
     Activity,
-    Database
+    Database,
+    LayoutPanelTop,
+    Sparkles,
+    TrendingDown,
+    Upload,
+    ImagePlus
 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -90,7 +95,12 @@ const IconMap: Record<string, any> = {
     Rocket,
     LayoutGrid,
     Activity,
-    Database
+    Database,
+    LayoutPanelTop,
+    Sparkles,
+    TrendingDown,
+    Upload,
+    ImagePlus
 };
 
 export default function Portal() {
@@ -118,7 +128,14 @@ export default function Portal() {
         values: [],
         team: [],
         brands: [],
-        hardware: []
+        hardware: [],
+        posPricing: {
+            hero: { headline: '', subheadline: '', kokoText: '', joinText: '' },
+            setups: [],
+            softwarePlans: [],
+            hardwareBundles: [],
+            savings: { competitorMonthly: '', competitor5Year: '', savingsText: '' }
+        }
     });
 
     useEffect(() => {
@@ -235,6 +252,89 @@ export default function Portal() {
                 }).catch(console.error);
 
                 toast.success('Hero Image uploaded & saved automatically');
+            } else {
+                toast.error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        }
+    };
+
+    const handlePOSHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const formDataPayload = new FormData();
+        formDataPayload.append('file', file);
+        try {
+            const toastId = toast.loading('Uploading POS hero image...');
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formDataPayload
+            });
+            const result = await res.json();
+            toast.dismiss(toastId);
+            if (result.success) {
+                const newFormData = { 
+                    ...formData, 
+                    posPricing: { 
+                        ...(formData.posPricing || {}), 
+                        hero: { ...(formData.posPricing?.hero || {}), image: result.url } 
+                    } 
+                };
+                setFormData(newFormData);
+                setData(newFormData);
+                
+                fetch('/api/portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newFormData),
+                }).catch(console.error);
+
+                toast.success('Hero image updated successfully');
+            } else {
+                toast.error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        }
+    };
+
+    const handlePOSHardwareBundleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const formDataPayload = new FormData();
+        formDataPayload.append('file', file);
+        try {
+            const toastId = toast.loading('Uploading bundle image...');
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formDataPayload
+            });
+            const result = await res.json();
+            toast.dismiss(toastId);
+            if (result.success) {
+                const updatedBundles = [...(formData.posPricing?.hardwareBundles || [])];
+                updatedBundles[idx] = { ...updatedBundles[idx], image: result.url };
+
+                const newFormData = { 
+                    ...formData, 
+                    posPricing: { 
+                        ...(formData.posPricing || {}), 
+                        hardwareBundles: updatedBundles 
+                    } 
+                };
+                setFormData(newFormData);
+                setData(newFormData);
+                
+                fetch('/api/portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newFormData),
+                }).catch(console.error);
+
+                toast.success('Bundle image updated');
             } else {
                 toast.error(result.error || 'Upload failed');
             }
@@ -641,51 +741,328 @@ export default function Portal() {
 
                                         {/* ── PRICING SECTION ── */}
                                         {cmsSection === 'pricing' && (
-                                            <div className="p-4 lg:p-5 space-y-3">
-                                                <div className="flex items-center justify-between mb-4">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="bg-green-50 p-2.5 rounded-xl"><DollarSign className="h-5 w-5 text-green-600" /></div>
-                                                        <div>
-                                                            <h3 className="font-black text-gray-900 text-lg">Pricing Plans</h3>
-                                                            <p className="text-xs text-gray-400 font-medium">Manage subscription tiers and features</p>
+                                            <div className="p-5 lg:p-6 space-y-8 animate-fadeIn">
+                                                <div className="flex items-center gap-3 mb-6">
+                                                    <div className="bg-blue-50 p-3 rounded-2xl"><LayoutPanelTop className="h-6 w-6 text-corporate-blue" /></div>
+                                                    <div>
+                                                        <h3 className="font-black text-gray-900 text-xl tracking-tight">POS Landing Page Console</h3>
+                                                        <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Global conversion strategy manager</p>
+                                                    </div>
+                                                </div>
+
+                                                {/* Hero Editor */}
+                                                <div className="bg-gray-50 rounded-[2rem] p-8 border border-gray-100 shadow-sm">
+                                                    <div className="flex items-center gap-2 mb-6">
+                                                        <Sparkles className="h-4 w-4 text-orange-400" />
+                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Hero & CTAs</h4>
+                                                    </div>
+                                                    <div className="flex items-center gap-6 mb-8">
+                                                        <div className="w-1/3 aspect-[4/3] bg-white border border-gray-100 rounded-3xl overflow-hidden relative group/hero shadow-inner">
+                                                            {formData.posPricing?.hero?.image ? (
+                                                                <img src={formData.posPricing.hero.image} alt="Hero" className="w-full h-full object-cover transition-transform group-hover/hero:scale-105" />
+                                                            ) : (
+                                                                <div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
+                                                                    <Monitor className="h-10 w-10 mb-2 opacity-20" />
+                                                                    <span className="text-[10px] font-black uppercase">No Hero Image</span>
+                                                                </div>
+                                                            )}
+                                                            <label className="absolute inset-0 bg-black/40 opacity-0 group-hover/hero:opacity-100 transition-opacity flex items-center justify-center cursor-pointer backdrop-blur-[2px]">
+                                                                <input type="file" className="hidden" onChange={handlePOSHeroImageUpload} accept="image/*" />
+                                                                <div className="bg-white text-corporate-blue p-3 rounded-full shadow-2xl">
+                                                                    <Upload className="h-5 w-5" />
+                                                                </div>
+                                                            </label>
+                                                        </div>
+                                                        <div className="flex-1 space-y-4">
+                                                            <div className="p-4 bg-white/50 border border-gray-100 rounded-2xl">
+                                                                <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1" style={{ fontSize: '12px' }}>Visual Strategy</h5>
+                                                                <p className="text-xs font-bold text-gray-600">This image represents your flagship hardware on the landing page hero.</p>
+                                                            </div>
+                                                            <button 
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    const el = document.createElement('input');
+                                                                    el.type = 'file';
+                                                                    el.accept = 'image/*';
+                                                                    el.onchange = (e: any) => handlePOSHeroImageUpload(e);
+                                                                    el.click();
+                                                                }}
+                                                                className="w-full py-3 bg-white border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-corporate-blue hover:bg-gray-50 hover:border-corporate-blue/30 transition-all flex items-center justify-center gap-2"
+                                                            >
+                                                                <ImagePlus className="h-4 w-4" /> Change Primary Visual
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                    <button type="button"
-                                                        onClick={() => setFormData({ ...formData, pricing: [...formData.pricing, { title: 'New Plan', price: '0', description: '', features: [], isRecommended: false }] })}
-                                                        className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
-                                                        <PlusCircle className="h-3.5 w-3.5" /> Add Plan
-                                                    </button>
+
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <div className="md:col-span-2">
+                                                            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Main Headline</label>
+                                                            <input type="text" value={formData.posPricing?.hero?.headline || ''}
+                                                                onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, headline: e.target.value } } })}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-black text-gray-900 italic"
+                                                                placeholder="Headline (e.g. Stop Renting. Own Your Profits.)" />
+                                                        </div>
+                                                        <div className="md:col-span-2">
+                                                            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Sub-headline</label>
+                                                            <textarea value={formData.posPricing?.hero?.subheadline || ''}
+                                                                onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, subheadline: e.target.value } } })}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-bold text-gray-600 text-sm italic min-h-[80px]"
+                                                                placeholder="Sub-headline copy" />
+                                                        </div>
+                                                        <div>
+                                                            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Koko Installment Text</label>
+                                                            <input type="text" value={formData.posPricing?.hero?.kokoText || ''}
+                                                                onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, kokoText: e.target.value } } })}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-bold" />
+                                                        </div>
+                                                        <div>
+                                                            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Footer Call-to-action text</label>
+                                                            <input type="text" value={formData.posPricing?.hero?.joinText || ''}
+                                                                onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, joinText: e.target.value } } })}
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-bold" />
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="columns-1 md:columns-2 gap-4 space-y-4">
-                                                    {formData.pricing.map((plan: any, idx: number) => (
-                                                        <div key={idx} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 relative group break-inside-avoid shadow-sm hover:shadow-md transition-shadow">
-                                                            <button type="button" onClick={() => { const updated = [...formData.pricing]; updated.splice(idx, 1); setFormData({ ...formData, pricing: updated }); }}
-                                                                className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
-                                                            <input type="text" value={plan.title}
-                                                                onChange={(e) => { const updated = [...formData.pricing]; updated[idx].title = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3" placeholder="Plan Name" />
-                                                            <div className="grid grid-cols-2 gap-3 mb-3">
-                                                                <input type="text" value={plan.price}
-                                                                    onChange={(e) => { const updated = [...formData.pricing]; updated[idx].price = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                    className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Price (LKR)" />
-                                                                <label className="flex items-center gap-2 text-sm font-bold text-gray-500 cursor-pointer">
-                                                                    <input type="checkbox" checked={plan.isRecommended || false}
-                                                                        onChange={(e) => { const updated = [...formData.pricing]; updated[idx].isRecommended = e.target.checked; setFormData({ ...formData, pricing: updated }); }}
-                                                                        className="rounded border-gray-300 text-corporate-blue focus:ring-corporate-blue" />
-                                                                    Recommended
-                                                                </label>
+
+                                                {/* Software Plans Editor */}
+                                                <div className="space-y-6">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-2">
+                                                            <ShieldCheck className="h-5 w-5 text-corporate-blue" />
+                                                            <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Software Lifetime Licenses</h4>
+                                                        </div>
+                                                        <button type="button" 
+                                                            onClick={() => {
+                                                                const plans = [...(formData.posPricing.softwarePlans || [])];
+                                                                plans.push({ name: 'New Plan', price: '0', description: '', features: [], badge: '', isPopular: false });
+                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans } });
+                                                            }}
+                                                            className="text-[10px] font-black text-corporate-blue uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                                                            <Plus className="h-3 w-3" /> Add License Tier
+                                                        </button>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                        {(formData.posPricing?.softwarePlans || []).map((plan: any, idx: number) => (
+                                                            <div key={idx} className={`p-6 rounded-3xl border-2 bg-white relative group transition-all ${plan.isPopular ? 'border-corporate-blue ring-8 ring-blue-50/50' : 'border-gray-100 hover:border-gray-200 shadow-sm'}`}>
+                                                                <button type="button" onClick={() => {
+                                                                    const plans = [...formData.posPricing.softwarePlans];
+                                                                    plans.splice(idx, 1);
+                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans } });
+                                                                }} className="absolute -top-3 -right-3 h-8 w-8 bg-white border border-gray-100 rounded-full flex items-center justify-center text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                    <Trash2 className="h-4 w-4" />
+                                                                </button>
+                                                                <div className="space-y-4">
+                                                                    <div className="flex items-center justify-between gap-3">
+                                                                        <input type="text" value={plan.name} onChange={(e) => {
+                                                                            const plans = [...formData.posPricing.softwarePlans];
+                                                                            plans[idx].name = e.target.value;
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                        }} className="w-full text-lg font-black text-gray-900 italic bg-transparent outline-none" placeholder="Plan Name" />
+                                                                        <label className="shrink-0 flex items-center gap-1.5 cursor-pointer">
+                                                                            <input type="checkbox" checked={plan.isPopular} onChange={(e) => {
+                                                                                const plans = [...formData.posPricing.softwarePlans].map((p, i) => ({ ...p, isPopular: i === idx ? e.target.checked : false }));
+                                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                            }} className="rounded h-3 w-3 text-corporate-blue" />
+                                                                            <span className="text-[8px] font-black uppercase text-corporate-blue">Fav</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div className="flex items-baseline gap-1">
+                                                                        <span className="text-[10px] font-black text-gray-400">LKR</span>
+                                                                        <input type="text" value={plan.price} onChange={(e) => {
+                                                                            const plans = [...formData.posPricing.softwarePlans];
+                                                                            plans[idx].price = e.target.value;
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                        }} className="w-full text-2xl font-black text-gray-900 bg-transparent outline-none" />
+                                                                    </div>
+                                                                    <input type="text" value={plan.badge} onChange={(e) => {
+                                                                        const plans = [...formData.posPricing.softwarePlans];
+                                                                        plans[idx].badge = e.target.value;
+                                                                        setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                    }} className="w-full text-[10px] font-black uppercase tracking-widest text-corporate-blue/70 bg-blue-50/50 rounded-lg px-3 py-1.5" placeholder="Badge (Optional)" />
+                                                                    <textarea value={plan.description} onChange={(e) => {
+                                                                        const plans = [...formData.posPricing.softwarePlans];
+                                                                        plans[idx].description = e.target.value;
+                                                                        setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                    }} className="w-full text-xs font-bold text-gray-500 italic bg-gray-50 rounded-xl p-3 outline-none" placeholder="Target audience description" />
+                                                                    <div>
+                                                                        <label className="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em]">Features (One per line)</label>
+                                                                        <textarea value={(plan.features || []).join('\n')} onChange={(e) => {
+                                                                            const plans = [...formData.posPricing.softwarePlans];
+                                                                            plans[idx].features = e.target.value.split('\n');
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                        }} className="w-full text-[10px] font-bold text-gray-700 bg-white border border-gray-100 rounded-xl p-3 outline-none min-h-[100px]" placeholder="Feature A \nFeature B" />
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <textarea value={plan.description}
-                                                                onChange={(e) => { const updated = [...formData.pricing]; updated[idx].description = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3 min-h-[60px]" placeholder="Plan Description" />
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Hardware Bundles Editor */}
+                                                <div className="space-y-6 pt-6 border-t border-gray-100">
+                                                    <div className="flex items-center gap-2">
+                                                        <Monitor className="h-5 w-5 text-corporat-blue" />
+                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Hardware Bundles</h4>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                                        {(formData.posPricing?.hardwareBundles || []).map((bundle: any, idx: number) => (
+                                                            <div key={idx} className="bg-gray-50 rounded-[2.5rem] p-8 border border-gray-100 relative group">
+                                                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                                                                    <div className="lg:col-span-1">
+                                                                        <div className="aspect-square bg-white border border-gray-200 rounded-3xl overflow-hidden relative group/bundle border-dashed shadow-sm">
+                                                                            {bundle.image ? (
+                                                                                <img src={bundle.image} alt={bundle.name} className="w-full h-full object-contain p-4 group-hover/bundle:scale-110 transition-transform duration-700" />
+                                                                            ) : (
+                                                                                <div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
+                                                                                    <Package className="h-8 w-8 mb-2 opacity-20" />
+                                                                                    <span className="text-[8px] font-black uppercase">No Visual</span>
+                                                                                </div>
+                                                                            )}
+                                                                            <label className="absolute inset-0 bg-corporate-blue/80 opacity-0 group-hover/bundle:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer backdrop-blur-sm">
+                                                                                <input type="file" className="hidden" onChange={(e) => handlePOSHardwareBundleImageUpload(e, idx)} accept="image/*" />
+                                                                                <Upload className="h-6 w-6 text-white mb-2" />
+                                                                                <span className="text-[8px] font-black text-white uppercase tracking-widest">Update Photo</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="lg:col-span-2 space-y-4">
+                                                                        <div className="grid grid-cols-2 gap-4">
+                                                                            <div>
+                                                                                <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Bundle Model</label>
+                                                                                <input type="text" value={bundle.name} onChange={(e) => {
+                                                                                    const bundles = [...formData.posPricing.hardwareBundles];
+                                                                                    bundles[idx].name = e.target.value;
+                                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
+                                                                                }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black italic shadow-inner" />
+                                                                            </div>
+                                                                            <div>
+                                                                                <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Bundle Price</label>
+                                                                                <input type="text" value={bundle.price} onChange={(e) => {
+                                                                                    const bundles = [...formData.posPricing.hardwareBundles];
+                                                                                    bundles[idx].price = e.target.value;
+                                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
+                                                                                }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black shadow-inner" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Bundle USP/Description</label>
+                                                                            <input type="text" value={bundle.description} onChange={(e) => {
+                                                                                const bundles = [...formData.posPricing.hardwareBundles];
+                                                                                bundles[idx].description = e.target.value;
+                                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
+                                                                            }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-xs font-bold italic shadow-inner" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                                    <div>
+                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">ROI/Impact Copy</label>
+                                                                        <textarea value={bundle.roiText} onChange={(e) => {
+                                                                            const bundles = [...formData.posPricing.hardwareBundles];
+                                                                            bundles[idx].roiText = e.target.value;
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
+                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[10px] font-bold text-gray-500 italic min-h-[100px] shadow-inner" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Hardware Inclusions (one per line)</label>
+                                                                        <textarea value={(bundle.features || []).join('\n')} onChange={(e) => {
+                                                                            const bundles = [...formData.posPricing.hardwareBundles];
+                                                                            bundles[idx].features = e.target.value.split('\n');
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
+                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[10px] font-bold min-h-[100px] shadow-inner" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                {/* Savings Manager */}
+                                                <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden">
+                                                    <div className="relative z-10">
+                                                        <div className="flex items-center gap-3 mb-8">
+                                                            <div className="bg-white/10 p-3 rounded-2xl"><TrendingDown className="h-6 w-6 text-green-400" /></div>
+                                                            <h4 className="text-lg font-black italic tracking-tighter uppercase">5-Year Savings Calculator</h4>
+                                                        </div>
+                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                                             <div>
-                                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Features (one per line)</label>
-                                                                <textarea value={(plan.features || []).join('\n')}
-                                                                    onChange={(e) => { const updated = [...formData.pricing]; updated[idx].features = e.target.value.split('\n'); setFormData({ ...formData, pricing: updated }); }}
-                                                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold min-h-[80px]" placeholder="Feature 1\nFeature 2\nFeature 3" />
+                                                                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. Monthly Fee</label>
+                                                                <input type="text" value={formData.posPricing?.savings?.competitorMonthly || ''}
+                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitorMonthly: e.target.value } } })}
+                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black italic text-white outline-none focus:border-white/20 transition-all shadow-inner" />
+                                                            </div>
+                                                            <div>
+                                                                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. 5-Year Total</label>
+                                                                <input type="text" value={formData.posPricing?.savings?.competitor5Year || ''}
+                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitor5Year: e.target.value } } })}
+                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black italic text-white outline-none focus:border-white/20 transition-all shadow-inner" />
+                                                            </div>
+                                                            <div>
+                                                                <label className="block text-[10px] font-black text-green-500 uppercase tracking-widest mb-3">TOTAL SAVED CLAIM</label>
+                                                                <input type="text" value={formData.posPricing?.savings?.savingsText || ''}
+                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...(formData.posPricing?.savings || {}), savingsText: e.target.value } } })}
+                                                                    className="w-full bg-green-500/10 border border-green-500/20 rounded-2xl px-6 py-4 text-2xl font-black italic text-green-400 outline-none focus:border-green-500/40 transition-all shadow-2xl" />
                                                             </div>
                                                         </div>
-                                                    ))}
+                                                    </div>
+                                                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none transition-transform duration-700">
+                                                        <TrendingUp className="h-96 w-96 font-black" />
+                                                    </div>
+                                                </div>
+
+                                                {/* Standard Pricing Tiers (Desktop/Web) */}
+                                                <div className="pt-10 border-t border-gray-100 space-y-6">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="bg-amber-50 p-2 rounded-xl"><DollarSign className="h-5 w-5 text-amber-600" /></div>
+                                                            <div>
+                                                                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Standard Website Tiers</h4>
+                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Traditional subscription/one-time plans</p>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" 
+                                                            onClick={() => setFormData({ ...formData, pricing: [...(formData.pricing || []), { title: 'New Tier', price: '0', description: '', features: [], isRecommended: false }] })}
+                                                            className="text-[10px] font-black text-corporate-blue uppercase tracking-widest flex items-center gap-1">
+                                                            <PlusCircle className="h-4 w-4" /> Add Tier
+                                                        </button>
+                                                    </div>
+                                                    <div className="columns-1 md:columns-2 gap-6 space-y-6">
+                                                        {(formData.pricing || []).map((plan: any, idx: number) => (
+                                                            <div key={idx} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative group break-inside-avoid">
+                                                                <button type="button" onClick={() => { const updated = [...formData.pricing]; updated.splice(idx, 1); setFormData({ ...formData, pricing: updated }); }}
+                                                                    className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                                <div className="space-y-4">
+                                                                    <div className="flex items-center justify-between gap-4">
+                                                                        <input type="text" value={plan.title}
+                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].title = e.target.value; setFormData({ ...formData, pricing: updated }); }}
+                                                                            className="w-full bg-transparent border-none p-0 text-lg font-black text-gray-900 focus:ring-0 outline-none italic" placeholder="Plan Title" />
+                                                                        <label className="flex items-center gap-2 cursor-pointer">
+                                                                            <input type="checkbox" checked={plan.isRecommended}
+                                                                                onChange={(e) => { const updated = [...formData.pricing]; updated[idx].isRecommended = e.target.checked; setFormData({ ...formData, pricing: updated }); }}
+                                                                                className="rounded h-4 w-4 text-corporate-blue" />
+                                                                            <span className="text-[10px] font-black text-gray-400">FAV</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div className="flex items-baseline gap-1">
+                                                                        <span className="text-xs font-black text-gray-400">LKR</span>
+                                                                        <input type="text" value={plan.price}
+                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].price = e.target.value; setFormData({ ...formData, pricing: updated }); }}
+                                                                            className="w-full bg-transparent border-none p-0 text-2xl font-black text-gray-900 focus:ring-0 outline-none" />
+                                                                    </div>
+                                                                    <textarea value={plan.description}
+                                                                        onChange={(e) => { const updated = [...formData.pricing]; updated[idx].description = e.target.value; setFormData({ ...formData, pricing: updated }); }}
+                                                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-xs font-bold text-gray-500 min-h-[60px]" placeholder="Short description..." />
+                                                                    <div>
+                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Features (one per line)</label>
+                                                                        <textarea value={(plan.features || []).join('\n')}
+                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].features = e.target.value.split('\n'); setFormData({ ...formData, pricing: updated }); }}
+                                                                            className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-[10px] font-bold min-h-[100px]" placeholder="Feature 1\nFeature 2" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -1194,6 +1571,8 @@ export default function Portal() {
                                                 </div>
                                             </div>
                                         )}
+
+
                                     </div>
 
                                     {/* Publish Button — always visible */}

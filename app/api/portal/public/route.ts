@@ -109,10 +109,31 @@ export async function GET() {
                 portfolio: [
                     { title: 'Kumara Enterprises', category: 'POS Desktop POS', image: '/portfolio/kumara_pos.png', description: 'Comprehensive POS implementation for a retail chain.', features: ['User Management', 'Order Processing', 'Product Management', 'Loyalty Card System'], link: '', technologies: ['Next.js', 'PostgreSQL'] },
                     { title: 'FIT PRO System', category: 'Desktop + Cloud', image: '/portfolio/gym.png', description: 'Gym management and billing system.', features: ['Customer Satisfaction focus', 'Administrative tasks automation', 'Inventory tracking'], link: '', technologies: ['React', 'Node.js'] },
-                    { title: 'Enterprise Management System', category: 'Cloud Base Enterprise', image: '/portfolio/image.png', description: 'Scalable management for multi-branch operations.', features: ['Multi-branch management', 'Advanced analytics', 'Cloud infrastructure'], link: '', technologies: ['Java', 'Spring Boot'] },
-                    { title: 'NFT Marketplace Platform', category: 'NFT web', image: '/portfolio/Gemini_Generated_Image_6g09cz6g09cz6g09.png', description: 'Web3 platform for digital art trading.', features: ['Blockchain integration', 'Wallet connectivity', 'Smart contracts'], link: '', technologies: ['Solidity', 'Ethereum'] },
-                    { title: 'CINETOON', category: 'Mobile development', image: '/portfolio/Gemini_Generated_Image_5ev5q5ev5q5ev5q5.png', description: 'Entertainment and animation mobile application.', features: ['200,000+ Downloads', 'Increased engagement', 'Seamless experience'], link: '', technologies: ['Flutter', 'Firebase'] }
+                    { title: 'Enterprise Management System', category: 'Cloud Base Enterprise', image: '/portfolio/image.png', description: 'Scalable management for multi-branch operations.', features: ['Multi-branch management', 'Advanced analytics', 'Cloud infrastructure'], link: '', technologies: ['Java', 'Spring Boot'] }
                 ],
+                posPricing: {
+                    hero: {
+                        headline: 'Don\'t Rent Your POS. Own it Forever.',
+                        subheadline: 'Zero Monthly Fees · 100% Offline Resilience · Local Sri Lankan Support. Join 500+ local retail leaders who have eliminated subscription fatigue.',
+                        kokoText: 'Available Koko 3-month interest-free splitting',
+                        joinText: 'Join 500+ Sri Lankan businesses',
+                        image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800'
+                    },
+                    softwarePlans: [
+                        { name: 'Lite', price: '24,900', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
+                        { name: 'Pro', price: '44,900', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
+                        { name: 'Max', price: '74,900', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
+                    ],
+                    hardwareBundles: [
+                        { name: 'Lite Bundle', price: '145,000', description: 'Standard System', roiText: 'Pays for itself in 4 months', features: ['POS Terminal', 'Thermal Printer', 'Cash Drawer'], image: 'https://images.unsplash.com/photo-1556740753-b2904692b3cd?auto=format&fit=crop&q=80&w=800' },
+                        { name: 'Pro Plus', price: '195,000', description: 'Dual Display System', roiText: 'Maximum efficiency', features: ['Dual Screen Terminal', 'High-speed Printer', 'Barcode Scanner'], image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800' }
+                    ],
+                    savings: {
+                        competitorMonthly: '15,000',
+                        competitor5Year: '900,000',
+                        savingsText: 'SAVE OVER LKR 800,000'
+                    }
+                },
                 hardwareHero: [
                     {
                         badge: 'Authorized Provider',
@@ -120,7 +141,7 @@ export async function GET() {
                         titleHighlight: 'Hardware Ecosystem.',
                         description: 'Build your perfect checkout stack with our vetted selection of POS terminals, printers, and accessories. Engineered for 24/7 reliability.',
                         features: ['Direct Local Warranty', 'Next-Day Delivery', 'Priority Installation'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-1.jpg',
+                        image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800',
                         statusLabel: 'Stock Status',
                         statusValue: 'Available Now'
                     },
@@ -151,7 +172,7 @@ export async function GET() {
                         originalPrice: '222,000',
                         description: 'Top-tier dual 15.6" capacitive touch screens with Intel i7 power for high-volume retail.',
                         specs: ['Intel i7 4th Gen', '8GB RAM / 256GB SSD', '15.6" Dual Touch Displays', 'Cast Aluminum Stand'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-1.jpg',
+                        image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800',
                         tag: 'Enterprise',
                         onSale: true
                     },
@@ -163,7 +184,7 @@ export async function GET() {
                         originalPrice: '198,000',
                         description: 'Professional i7 dual display system with 15.6" touch main screen and 11.6" customer display.',
                         specs: ['Intel i7 4th Gen', '8GB RAM / 256GB SSD', '15.6" Touch Screen', '11.6" Customer Display'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-2.jpg',
+                        image: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&q=80&w=800',
                         tag: 'Professional',
                         onSale: true
                     },
@@ -175,7 +196,7 @@ export async function GET() {
                         originalPrice: '190,000',
                         description: 'All-in-one Android POS terminal with integrated 80mm thermal printer and auto-cutter.',
                         specs: ['Android 14 OS', 'MTK 8 Core 2.3GHz', '10.95" Touch Screen', 'Inbuilt 80mm Printer'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2026/02/Untitled-design-48.jpg',
+                        image: 'https://images.unsplash.com/photo-1556742031-c6961e8560b0?auto=format&fit=crop&q=80&w=800',
                         tag: 'Smart POS',
                         onSale: true
                     },
@@ -211,7 +232,7 @@ export async function GET() {
                         originalPrice: '160,000',
                         description: 'Sleek and responsive Android touch POS machine for modern, cloud-based retail operations.',
                         specs: ['Android 13 OS', '11.6" HD Display', '4GB RAM / 32GB ROM', 'WiFi + Bluetooth'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2025/01/X1-SINGLE.jpg',
+                        image: 'https://images.unsplash.com/photo-1556745753-b2904692b3cd?auto=format&fit=crop&q=80&w=800',
                         tag: 'Cloud Ready',
                         onSale: true
                     },
@@ -223,7 +244,7 @@ export async function GET() {
                         originalPrice: '150,000',
                         description: 'Efficient i5 powered POS system featuring a main touch screen and a secondary customer display.',
                         specs: ['Intel i5 Processor', '8GB RAM / 256GB SSD', '15.6" Capacitive Touch', 'Customer VFD Display'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2025/11/combo-Recovered-67.jpg',
+                        image: 'https://images.unsplash.com/photo-1556742387-a36c568f6a9e?auto=format&fit=crop&q=80&w=800',
                         tag: 'Best Value',
                         onSale: true
                     },
@@ -246,7 +267,7 @@ export async function GET() {
                         price: '162,400',
                         description: 'Premium single-screen professional terminal for standard retail outlets.',
                         specs: ['Intel i7 Processor', '4GB DDR4 RAM', '15.6" Capacitive Touch', 'Fanless Design'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-1.png',
+                        image: 'https://images.unsplash.com/photo-1556745757-8d76befa174a?auto=format&fit=crop&q=80&w=800',
                         onSale: true
                     },
                     {
@@ -325,7 +346,7 @@ export async function GET() {
                         originalPrice: '350',
                         description: 'Standard 80x80mm thermal paper jumbo roll for standard POS receipt printers.',
                         specs: ['Size: 80mm x 80mm', 'Universal Compatibility', 'Jumbo Length', 'Premium Grade'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2025/11/WhatsApp-Image-2023-01-09-at-13.06.45-300x300.jpeg',
+                        image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&q=80&w=800',
                         tag: 'Best Seller',
                         onSale: true
                     },
@@ -336,7 +357,7 @@ export async function GET() {
                         price: '90',
                         description: 'Premium quality 56mm x 45mm thermal paper for 58mm mobile and POS printers.',
                         specs: ['Size: 56mm x 45mm', 'Length: 18M', 'Premium Quality', 'Universal Compatibility'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2025/11/98cecb8357afb9b007d4b46571ba6fb5-300x300.jpg',
+                        image: 'https://images.unsplash.com/photo-1610444583731-9e151d040719?auto=format&fit=crop&q=80&w=800',
                         tag: 'Standard'
                     },
                     {
@@ -347,7 +368,7 @@ export async function GET() {
                         originalPrice: '590',
                         description: 'Wide-format 110mm x 45mm thermal paper for 4-inch mobile and POS printers.',
                         specs: ['Size: 110mm x 45mm', 'Premium Quality', 'Wide Format Printing', 'Universal Compatibility'],
-                        image: 'https://elitepos.lk/wp-content/uploads/2025/11/a9f935fcc2bbabeb271e84d43be2fe08-300x300.jpg',
+                        image: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?auto=format&fit=crop&q=80&w=800',
                         tag: 'Sale',
                         onSale: true
                     }
@@ -358,7 +379,7 @@ export async function GET() {
         // Merge defaults for any missing sections
         const result = data.toObject ? data.toObject() : data;
 
-        const defaults: Record<string, any[]> = {
+        const defaults: Record<string, any> = {
             websiteServices: [
                 { icon: 'Code', title: 'Software Development', description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices.', features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices', 'API Development'] },
                 { icon: 'Layout', title: 'UI/UX Design', description: 'User-centered design solutions that create engaging and intuitive interfaces.', features: ['User Interface Design', 'User Experience Design', 'Wireframing', 'Design Systems'] },
@@ -419,12 +440,139 @@ export async function GET() {
                     statusValue: '5 Days'
                 }
             ],
+            posPricing: {
+                hero: {
+                    headline: "Stop Renting. Own Your Profits.",
+                    subheadline: "The only system in Sri Lanka with one-time payment and 100% Offline Resilience. No monthly fees, no internet needed, no USD stress.",
+                    kokoText: "Pay in 3 Installments with KOKO",
+                    joinText: "Join 500+ leaders who stopped renting and started owning.",
+                    image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800",
+                },
+                setups: [
+                    {
+                        id: 'desktop',
+                        label: 'Desktop Standard',
+                        description: '"The reliable workhorse for Pharmacists, Groceries & Retailers who want a massive display at the lowest cost."',
+                        price: '114,800',
+                        features: ['Reliable i3/i5 Tower PC', 'Large 19" LED Monitor', 'Easily service/upgrade anywhere', 'Rugged industrial build']
+                    },
+                    {
+                        id: 'touch',
+                        label: 'Professional Touch',
+                        description: '"The speed king for busy Restaurants, Cafes & Boutiques. Spill-proof and space-saving."',
+                        price: '189,800',
+                        features: ['High-Sensitivity Industrial Touch', 'Integrated Bill Printer', 'Fanless & Spill-Proof Design', 'Premium Customer Presence']
+                    }
+                ],
+                softwarePlans: [
+                    {
+                        name: "Essential Lite",
+                        price: "24,900",
+                        description: '"Modernize your grocery or small kiosk. Stop manual billing today."',
+                        features: ['Direct Receipt Billing', 'Daily Sales Management', 'Offline Local Database', 'Standard Profit Reporting', 'Free Remote Install'],
+                        badge: "LKR 0/mo Lifetime",
+                        isPopular: false
+                    },
+                    {
+                        name: "Business Pro",
+                        price: "44,900",
+                        description: '"Master your pharmacy or retail empire. Total stock intelligence."',
+                        features: ['Advanced Expiry Tracking', 'Low-Stock Early Warnings', 'Loyalty Rewards & SMS', '24/7 Priority VIP Hotline', 'Batch & Serial Tracking'],
+                        badge: "The Pharmacist's Peace of Mind · Most Popular",
+                        isPopular: true
+                    },
+                    {
+                        name: "Specialist Max",
+                        price: "74,900",
+                        description: '"Build for the Restaurant Rush. Zero-latency multi-terminal speed."',
+                        features: ['Visual Table Management', 'Direct Kitchen Printing (KOT)', 'Ingredient-Level Costing', 'Multi-Branch HQ Sync', 'Full Enterprise API Access'],
+                        badge: "LKR 0/mo Lifetime",
+                        isPopular: false
+                    }
+                ],
+                hardwareBundles: [
+                    {
+                        name: "Desktop Starter Kit",
+                        price: "89,900",
+                        description: "Industrial Grade Parts",
+                        features: ['i3/i5 Optimized PC', '80mm Thermal Printer', 'Automatic Blue-Steel Drawer', '1D Laser Scanner Stack'],
+                        roiText: "Ideal for: Pharmacists & Retail counters",
+                        image: "https://images.unsplash.com/photo-1556740753-b2904692b3cd?auto=format&fit=crop&q=80&w=800"
+                    },
+                    {
+                        name: "Premium Touch Kit",
+                        price: "144,900",
+                        description: "Elite Reliability",
+                        features: ['15" Industrial Touch', 'Spill-Proof Panel', 'Integrated Printer', 'Advanced 2D Scanner'],
+                        roiText: '"If you bill 100 customers daily, saving 5s per order saves you 50+ hours of staff time per year. The Touch system pays for itself in ~3 months through pure efficiency."',
+                        image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800"
+                    }
+                ],
+                savings: {
+                    competitorMonthly: "5,000+",
+                    competitor5Year: "300,000+",
+                    savingsText: "255,100"
+                }
+            }
         };
 
-        // Fill in any missing/empty arrays with defaults
+        // Fill in any missing/empty arrays or objects with defaults
         for (const [key, defaultValue] of Object.entries(defaults)) {
-            if (!result[key] || result[key].length === 0) {
+            const val = result[key];
+            const isEmpty = !val || 
+                (Array.isArray(val) && val.length === 0) || 
+                (typeof val === 'object' && !Array.isArray(val) && Object.keys(val).length === 0);
+            
+            if (isEmpty) {
                 result[key] = defaultValue;
+            } else if (key === 'posPricing' && typeof val === 'object' && !Array.isArray(val)) {
+                // deep merge posPricing
+                for (const [subKey, subDefault] of Object.entries(defaultValue)) {
+                    const subVal = val[subKey];
+                    const subIsEmpty = !subVal || 
+                        (Array.isArray(subVal) && subVal.length === 0) || 
+                        (typeof subVal === 'object' && !Array.isArray(subVal) && Object.keys(subVal).length === 0);
+                    
+                    if (subIsEmpty) {
+                        val[subKey] = subDefault;
+                    } else if (typeof subVal === 'object' && !Array.isArray(subVal)) {
+                        // Deep merge sub-objects like 'hero' or 'savings'
+                        for (const [fieldKey, fieldValue] of Object.entries(subDefault as any)) {
+                            if (subVal[fieldKey] === undefined || subVal[fieldKey] === null || subVal[fieldKey] === '') {
+                                subVal[fieldKey] = fieldValue;
+                            }
+                        }
+                        
+                        // Special check for images in hardwareBundles if it was an array
+                        if (subKey === 'hardwareBundles' && Array.isArray(subVal)) {
+                            const defaultBundles = subDefault as any[];
+                            subVal.forEach((bundle, idx) => {
+                                const defaultBundle = defaultBundles[idx];
+                                if (defaultBundle) {
+                                    for (const [fieldKey, fieldValue] of Object.entries(defaultBundle)) {
+                                        if (bundle[fieldKey] === undefined || bundle[fieldKey] === null || bundle[fieldKey] === '') {
+                                            bundle[fieldKey] = fieldValue;
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    } else if (Array.isArray(subVal) && Array.isArray(subDefault)) {
+                        // Merge arrays of objects (softwarePlans, setups, hardwareBundles)
+                        subVal.forEach((item, idx) => {
+                            const defaultItem = subDefault[idx];
+                            if (defaultItem && typeof item === 'object' && item !== null) {
+                                for (const [fieldKey, fieldValue] of Object.entries(defaultItem)) {
+                                    if (item[fieldKey] === undefined || item[fieldKey] === null || item[fieldKey] === '') {
+                                        item[fieldKey] = fieldValue;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            } else if (key === 'welcome' && typeof val === 'object' && !Array.isArray(val)) {
+                if (!val.image) val.image = defaultValue.image;
             }
         }
 

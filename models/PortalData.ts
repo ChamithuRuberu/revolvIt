@@ -117,6 +117,50 @@ const HardwareHeroSchema = new Schema({
     statusValue: String,
 });
 
+const POSSoftwarePlanSchema = new Schema({
+    name: String,
+    price: String,
+    description: String,
+    features: [String],
+    badge: String,
+    isPopular: Boolean,
+});
+
+const POSHardwareBundleSchema = new Schema({
+    name: String,
+    price: String,
+    description: String,
+    features: [String],
+    roiText: String,
+    image: String,
+});
+
+const POSSetupSchema = new Schema({
+    id: String,
+    label: String,
+    description: String,
+    price: String,
+    features: [String],
+});
+
+const POSPricingSchema = new Schema({
+    hero: {
+        headline: String,
+        subheadline: String,
+        kokoText: String,
+        joinText: String,
+        image: String,
+    },
+    setups: [POSSetupSchema],
+    softwarePlans: [POSSoftwarePlanSchema],
+    hardwareBundles: [POSHardwareBundleSchema],
+    savings: {
+        competitorMonthly: String,
+        competitor5Year: String,
+        savingsText: String,
+    }
+});
+
 const PortalDataSchema = new Schema({
     user: {
         name: String,
@@ -142,6 +186,7 @@ const PortalDataSchema = new Schema({
     hardwareCategories: [HardwareCategorySchema],
     hardwareHero: [HardwareHeroSchema],
     hardware: [HardwareSchema],
+    posPricing: POSPricingSchema,
 }, { timestamps: true });
 
 const PortalData = models.PortalData || model('PortalData', PortalDataSchema);

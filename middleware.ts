@@ -11,8 +11,8 @@ export async function middleware(request: NextRequest) {
     const isProtected = pathname.startsWith('/portal') || pathname.startsWith('/api/portal');
 
     if (isProtected) {
-        // Allow public read access to /api/portal for the frontend
-        if (request.method === 'GET' && pathname === '/api/portal') {
+        // Allow public read access to /api/portal and /api/portal/publicroutes for the frontend
+        if (request.method === 'GET' && (pathname === '/api/portal' || pathname.startsWith('/api/portal/public'))) {
             return NextResponse.next();
         }
 
