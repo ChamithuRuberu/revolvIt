@@ -1048,14 +1048,26 @@ export default function Portal() {
                                                             <textarea value={item.description}
                                                                 onChange={(e) => { const updated = [...formData.hardware]; updated[idx].description = e.target.value; setFormData({ ...formData, hardware: updated }); }}
                                                                 className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold mb-3 min-h-[60px]" placeholder="Product Description" />
-                                                            <div className="flex items-center gap-2 mb-3">
-                                                                <input type="text" value={item.image}
-                                                                    onChange={(e) => { const updated = [...formData.hardware]; updated[idx].image = e.target.value; setFormData({ ...formData, hardware: updated }); }}
-                                                                    className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Image URL" />
-                                                                <label className="cursor-pointer bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 hover:text-corporate-blue hover:border-corporate-blue transition-colors whitespace-nowrap">
-                                                                    Upload
-                                                                    <input type="file" className="hidden" accept="image/*" onChange={(e) => handleHardwareImageUpload(e, idx)} />
-                                                                </label>
+                                                            <div className="flex items-start gap-4 mb-3">
+                                                                <div className="flex-1 space-y-3">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <input type="text" value={item.image}
+                                                                            onChange={(e) => { const updated = [...formData.hardware]; updated[idx].image = e.target.value; setFormData({ ...formData, hardware: updated }); }}
+                                                                            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Image URL" />
+                                                                        <label className="cursor-pointer bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 hover:text-corporate-blue hover:border-corporate-blue transition-colors whitespace-nowrap">
+                                                                            Upload
+                                                                            <input type="file" className="hidden" accept="image/*" onChange={(e) => handleHardwareImageUpload(e, idx)} />
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="h-16 w-24 shrink-0 bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-1">
+                                                                    {item.image ? (
+                                                                        /* eslint-disable-next-line @next/next/no-img-element */
+                                                                        <img src={item.image} alt="Preview" className="h-full w-full object-contain" />
+                                                                    ) : (
+                                                                        <span className="text-[8px] font-black text-gray-300 text-center uppercase tracking-widest">No<br/>Image</span>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                             <div className="flex items-center gap-2 mb-3">
                                                                 <input type="checkbox" checked={item.onSale || false}
