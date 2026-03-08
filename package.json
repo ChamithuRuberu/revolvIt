@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@types/mongoose": "^5.11.96",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.6.5",
     "jose": "^6.2.0",
     "lucide-react": "^0.358.0",
@@ -20,7 +21,8 @@
     "nodemailer": "^6.10.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",

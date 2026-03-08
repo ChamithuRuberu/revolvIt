@@ -23,18 +23,33 @@ export default function HardwareCatalog() {
     const [searchQuery, setSearchQuery] = useState('');
     const [hardwareData, setHardwareData] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
+    const [heroSlides, setHeroSlides] = useState<any[]>([]);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (heroSlides.length > 0) {
+            const timer = setInterval(() => {
+                setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
+            }, 6000); // 6 seconds per slide
+            return () => clearInterval(timer);
+        }
+    }, [heroSlides.length]);
 
     useEffect(() => {
         const fetchHardware = async () => {
             try {
-                const res = await fetch('/api/portal');
+                const res = await fetch('/api/portal', { cache: 'no-store' });
                 const data = await res.json();
+                
                 if (data.hardware) {
                     setHardwareData(data.hardware);
                 }
                 if (data.hardwareCategories) {
                     setCategories(data.hardwareCategories);
+                }
+                if (data.hardwareHero) {
+                    setHeroSlides(data.hardwareHero);
                 }
             } catch (error) {
                 console.error('Error fetching hardware:', error);
@@ -54,50 +69,85 @@ export default function HardwareCatalog() {
 
     return (
         <div className="min-h-screen bg-slate-50/50">
-            {/* Premium Hero */}
-            <section className="relative pt-32 pb-24 bg-white overflow-hidden border-b border-gray-100">
+            {/* Premium Hero Hybrid */}
+            <section className="relative pt-32 pb-24 bg-white overflow-hidden border-b border-gray-100 min-h-[500px]">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-blue-50/30 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+                        {/* LEFT SIDE: Static content based on the first slide (or default) */}
                         <div className="flex-1 max-w-2xl">
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 bg-corporate-blue/5 text-corporate-blue px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6 border border-corporate-blue/10"
-                            >
+                            <div className="inline-flex items-center gap-2 bg-corporate-blue/5 text-corporate-blue px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6 border border-corporate-blue/10">
                                 <Cpu className="h-3.5 w-3.5" />
-                                <span>Authorized Hardware Provider</span>
-                            </motion.div>
+                                <span>{heroSlides[0]?.badge || 'Authorized Hardware Provider'}</span>
+                            </div>
                             <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter leading-tight">
-                                Industrial Grade <br />
-                                <span className="text-corporate-blue">Hardware Ecosystem.</span>
+                                {heroSlides[0]?.title1 || 'Industrial Grade'} <br />
+                                <span className="text-corporate-blue">{heroSlides[0]?.titleHighlight || 'Hardware Ecosystem.'}</span>
                             </h1>
                             <p className="text-xl text-gray-500 font-medium leading-relaxed mb-8">
-                                Build your perfect checkout stack with our vetted selection of POS terminals, printers, and accessories. Engineered for 24/7 reliability in the most demanding retail environments.
+                                {heroSlides[0]?.description || 'Build your perfect checkout stack with our vetted selection of POS terminals, printers, and accessories. Engineered for 24/7 reliability.'}
                             </p>
 
                             <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-gray-400">
-                                <div className="flex items-center gap-2 text-green-600"><ShieldCheck className="h-4 w-4" /> Direct Local Warranty</div>
-                                <div className="flex items-center gap-2 text-blue-600"><Zap className="h-4 w-4" /> Next-Day Delivery</div>
-                                <div className="flex items-center gap-2 text-amber-600"><Sparkles className="h-4 w-4" /> Priority Installation</div>
+                                {(heroSlides[0]?.features || ['Direct Local Warranty', 'Next-Day Delivery', 'Priority Installation']).map((feat: string, i: number) => (
+                                    <div key={i} className={`flex items-center gap-2 ${i % 3 === 0 ? 'text-green-600' : i % 3 === 1 ? 'text-blue-600' : 'text-amber-600'}`}>
+                                        {i % 3 === 0 ? <ShieldCheck className="h-4 w-4" /> : i % 3 === 1 ? <Zap className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
+                                        {feat}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="flex-1 relative w-full max-w-md lg:max-w-none">
+                        {/* RIGHT SIDE: Animated Image Carousel */}
+                        <div className="flex-1 relative w-full max-w-md lg:max-w-none h-[400px] lg:h-[450px]">
                             <div className="absolute inset-0 bg-blue-500 rounded-[3rem] blur-[100px] opacity-10 animate-pulse"></div>
-                            <div className="relative bg-white border border-gray-100 rounded-[3rem] p-4 shadow-2xl overflow-hidden group">
-                                <Image
-                                    src="https://elitepos.lk/wp-content/uploads/2026/02/BN-SP999-DUAL-1.jpg"
-                                    alt="POS Terminal Pro"
-                                    width={800}
-                                    height={600}
-                                    className="rounded-[2.5rem] object-cover transition-transform duration-700 group-hover:scale-105"
-                                />
-                                <div className="absolute top-10 right-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-gray-100 shadow-xl">
-                                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Stock Status</div>
-                                    <div className="text-lg font-black text-green-600">Available Now</div>
+                            
+                            <AnimatePresence mode="wait">
+                                {heroSlides.length > 0 && heroSlides[currentSlideIndex] ? (
+                                    <motion.div
+                                        key={currentSlideIndex}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="relative bg-white border border-gray-100 rounded-[3rem] p-4 shadow-2xl overflow-hidden group w-full h-full flex items-center justify-center"
+                                    >
+                                        {heroSlides[currentSlideIndex].image ? (
+                                            <Image
+                                                src={heroSlides[currentSlideIndex].image}
+                                                alt="Slide Image"
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-105 rounded-[2.5rem]"
+                                            />
+                                        ) : (
+                                            <div className="h-full w-full rounded-[2.5rem] bg-gray-100 flex items-center justify-center">
+                                                <Package className="h-12 w-12 text-gray-300" />
+                                            </div>
+                                        )}
+                                        {heroSlides[currentSlideIndex].statusValue && (
+                                            <div className="absolute top-10 right-10 bg-white/90 backdrop-blur-md px-6 py-4 rounded-2xl border border-gray-100 shadow-xl">
+                                                <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">{heroSlides[currentSlideIndex].statusLabel}</div>
+                                                <div className="text-lg font-black text-green-600">{heroSlides[currentSlideIndex].statusValue}</div>
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                ) : (
+                                    <div className="h-full w-full bg-slate-100 rounded-[3rem] animate-pulse"></div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Carousel Nav Rings anchored to the image box */}
+                            {heroSlides.length > 1 && (
+                                <div className="absolute -bottom-8 left-12 flex gap-2">
+                                    {heroSlides.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setCurrentSlideIndex(idx)}
+                                            className={`h-2 rounded-full transition-all ${idx === currentSlideIndex ? 'w-8 bg-corporate-blue' : 'w-2 bg-gray-300'}`}
+                                        />
+                                    ))}
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

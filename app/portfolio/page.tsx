@@ -67,7 +67,7 @@ export default function Portfolio() {
     })
   })).filter(s => s.projects.length > 0);
 
-  const allProjects = dynamicServices.flatMap(s => s.projects.map(p => ({ ...p, serviceName: s.name })));
+  const allProjects = dynamicServices.flatMap(s => s.projects.map((p: any) => ({ ...p, serviceName: s.name })));
 
   const filteredProjects = activeFilter
     ? allProjects.filter(p => {

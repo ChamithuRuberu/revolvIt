@@ -106,6 +106,17 @@ const HardwareCategorySchema = new Schema({
     icon: String,
 });
 
+const HardwareHeroSchema = new Schema({
+    badge: String,
+    title1: String,
+    titleHighlight: String,
+    description: String,
+    features: [String],
+    image: String,
+    statusLabel: String,
+    statusValue: String,
+});
+
 const PortalDataSchema = new Schema({
     user: {
         name: String,
@@ -129,6 +140,7 @@ const PortalDataSchema = new Schema({
     team: [TeamMemberSchema],
     brands: [BrandSchema],
     hardwareCategories: [HardwareCategorySchema],
+    hardwareHero: [HardwareHeroSchema],
     hardware: [HardwareSchema],
 }, { timestamps: true });
 

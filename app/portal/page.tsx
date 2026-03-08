@@ -188,8 +188,53 @@ export default function Portal() {
             if (result.success) {
                 const updated = [...formData.hardware];
                 updated[idx].image = result.url;
-                setFormData({ ...formData, hardware: updated });
-                toast.success('Image uploaded');
+                const newFormData = { ...formData, hardware: updated };
+                setFormData(newFormData);
+                setData(newFormData);
+                
+                fetch('/api/portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newFormData),
+                }).catch(console.error);
+
+                toast.success('Image uploaded & saved automatically');
+            } else {
+                toast.error(result.error || 'Upload failed');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        }
+    };
+
+    const handleHardwareHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const formDataPayload = new FormData();
+        formDataPayload.append('file', file);
+        try {
+            const toastId = toast.loading('Uploading hero image...');
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formDataPayload
+            });
+            const result = await res.json();
+            toast.dismiss(toastId);
+            if (result.success) {
+                const updated = [...(formData.hardwareHero || [])];
+                updated[idx].image = result.url;
+                const newFormData = { ...formData, hardwareHero: updated };
+                setFormData(newFormData);
+                setData(newFormData);
+                
+                fetch('/api/portal', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newFormData),
+                }).catch(console.error);
+
+                toast.success('Hero Image uploaded & saved automatically');
             } else {
                 toast.error(result.error || 'Upload failed');
             }
@@ -974,6 +1019,69 @@ export default function Portal() {
                                         {/* ── HARDWARE SECTION ── */}
                                         {cmsSection === 'hardware' && (
                                             <div className="p-4 lg:p-5 space-y-3">
+                                                {/* Hero Carousel Section */}
+                                                <div className="flex items-center justify-between mb-4 border-t border-gray-100 pt-3">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="bg-blue-50 p-2.5 rounded-xl"><Monitor className="h-5 w-5 text-corporate-blue" /></div>
+                                                        <div>
+                                                            <h3 className="font-black text-gray-900 text-lg">Hardware Hero Banner</h3>
+                                                            <p className="text-xs text-gray-400 font-medium">Manage slides and offers at the top of the hardware page</p>
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                        onClick={() => setFormData({ ...formData, hardwareHero: [...(formData.hardwareHero || []), { badge: 'New Offer', title1: 'Title', titleHighlight: 'Highlight', description: '', features: [], image: '', statusLabel: '', statusValue: '' }] })}
+                                                        className="inline-flex items-center gap-2 bg-corporate-blue text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-corporate-blue-dark transition-colors">
+                                                        <PlusCircle className="h-3.5 w-3.5" /> Add Slide
+                                                    </button>
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-4 mb-8">
+                                                    {(formData.hardwareHero || []).map((slide: any, idx: number) => (
+                                                        <div key={idx} className="bg-gray-50 rounded-xl p-6 border border-gray-100 relative group shadow-sm flex flex-col gap-4 hover:shadow-md transition-shadow">
+                                                            <button type="button" onClick={() => { const updated = [...(formData.hardwareHero || [])]; updated.splice(idx, 1); setFormData({ ...formData, hardwareHero: updated }); }}
+                                                                className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
+                                                            
+                                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                                <input type="text" value={slide.badge} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].badge = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-full" placeholder="Badge (e.g. Special Offer)" />
+                                                                <input type="text" value={slide.statusLabel} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].statusLabel = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-full" placeholder="Status Label (e.g. Offer Ends In)" />
+                                                                <input type="text" value={slide.statusValue} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].statusValue = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-full" placeholder="Status Value (e.g. 5 Days)" />
+                                                            </div>
+                                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                                <input type="text" value={slide.title1} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].title1 = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-full" placeholder="Main Title (e.g. Upgrade Your Business)" />
+                                                                <input type="text" value={slide.titleHighlight} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].titleHighlight = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs font-bold w-full" placeholder="Title Highlight (e.g. Save 15%)" />
+                                                            </div>
+                                                            <textarea value={slide.description} onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].description = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold min-h-[60px]" placeholder="Hero Description" />
+                                                            
+                                                            <div className="flex items-start gap-4 mb-3">
+                                                                <div className="flex-1 space-y-3">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <input type="text" value={slide.image}
+                                                                            onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].image = e.target.value; setFormData({ ...formData, hardwareHero: updated }); }}
+                                                                            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold" placeholder="Hero Image URL" />
+                                                                        <label className="cursor-pointer bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold text-gray-500 hover:text-corporate-blue hover:border-corporate-blue transition-colors whitespace-nowrap">
+                                                                            Upload Hero Image
+                                                                            <input type="file" className="hidden" accept="image/*" onChange={(e) => handleHardwareHeroImageUpload(e, idx)} />
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="h-16 w-24 shrink-0 bg-white border border-gray-200 rounded-xl overflow-hidden flex items-center justify-center p-1">
+                                                                    {slide.image ? (
+                                                                        /* eslint-disable-next-line @next/next/no-img-element */
+                                                                        <img src={slide.image} alt="Preview" className="h-full w-full object-contain" />
+                                                                    ) : (
+                                                                        <span className="text-[8px] font-black text-gray-300 text-center uppercase tracking-widest">No<br/>Image</span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Features (one per line)</label>
+                                                                <textarea value={(slide.features || []).join('\n')}
+                                                                    onChange={(e) => { const updated = [...formData.hardwareHero]; updated[idx].features = e.target.value.split('\n'); setFormData({ ...formData, hardwareHero: updated }); }}
+                                                                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-bold min-h-[80px]" placeholder="Feature 1\nFeature 2\nFeature 3" />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
                                                 {/* Categories Section */}
                                                 <div className="flex items-center justify-between mb-4 border-t border-gray-100 pt-3">
                                                     <div className="flex items-center gap-3">
