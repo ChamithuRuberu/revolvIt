@@ -92,11 +92,18 @@ const HardwareSchema = new Schema({
     name: String,
     model: String,
     price: String,
+    originalPrice: String,
     description: String,
     specs: [String],
     image: String,
     tag: String,
     onSale: Boolean,
+});
+
+const HardwareCategorySchema = new Schema({
+    id: String,
+    name: String,
+    icon: String,
 });
 
 const PortalDataSchema = new Schema({
@@ -121,6 +128,7 @@ const PortalDataSchema = new Schema({
     values: [ValueSchema],
     team: [TeamMemberSchema],
     brands: [BrandSchema],
+    hardwareCategories: [HardwareCategorySchema],
     hardware: [HardwareSchema],
 }, { timestamps: true });
 

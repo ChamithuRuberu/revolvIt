@@ -173,12 +173,19 @@ export default function HardwareCatalog() {
                                     className="group bg-white rounded-[3rem] p-2 border border-gray-100 hover:border-corporate-blue/20 hover:shadow-2xl hover:shadow-corporate-blue/5 transition-all"
                                 >
                                     <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-gray-100">
-                                        <Image
-                                            src={item.image}
-                                            alt={item.name}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
+                                        {item.image ? (
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-gray-50 flex-col gap-2">
+                                                <Package className="h-10 w-10 text-gray-300" />
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Image Pending</span>
+                                            </div>
+                                        )}
                                         {item.tag && (
                                             <div className="absolute top-6 left-6 bg-corporate-blue/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
                                                 {item.tag}
