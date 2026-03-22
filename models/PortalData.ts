@@ -36,6 +36,7 @@ const SolutionsSchema = new Schema({
 const PricingSchema = new Schema({
     title: String,
     price: String,
+    monthlyPrice: String,
     description: String,
     features: [String],
     isRecommended: Boolean,
@@ -120,6 +121,7 @@ const HardwareHeroSchema = new Schema({
 const POSSoftwarePlanSchema = new Schema({
     name: String,
     price: String,
+    monthlyPrice: String,
     description: String,
     features: [String],
     badge: String,

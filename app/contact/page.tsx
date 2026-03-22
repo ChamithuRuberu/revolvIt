@@ -138,10 +138,10 @@ export default function Contact() {
                     <option value="">
                       Select POS Package (Optional)
                     </option>
-                    <option value="Basic POS System - LKR 75,000">Basic POS System - LKR 75,000</option>
-                    <option value="Standard POS System - LKR 120,000">Standard POS System - LKR 120,000 (Recommended)</option>
-                    <option value="Professional POS System - LKR 150,000">Professional POS System - LKR 150,000</option>
-                    <option value="Premium POS System - LKR 250,000">Premium POS System - LKR 250,000</option>
+                    <option value="Desktop Core - LKR 25,000">Desktop Core - LKR 25,000</option>
+                    <option value="Hybrid Professional - LKR 45,000">Hybrid Professional - LKR 45,000 (Recommended)</option>
+                    <option value="Enterprise Cloud - LKR 85,000">Enterprise Cloud - LKR 85,000</option>
+                    <option value="Restaurant Elite - LKR 55,000">Restaurant Elite - LKR 55,000</option>
                   </select>
                   <select
                     name="completePackage"

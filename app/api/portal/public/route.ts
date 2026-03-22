@@ -72,10 +72,10 @@ export async function GET(request: Request) {
                     }
                 ],
                 pricing: [
-                    { title: 'Desktop Core', price: '24,900', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
-                    { title: 'Growth Hybrid', price: '49,900', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
-                    { title: 'Enterprise Command', price: '89,900', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Management', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
-                    { title: 'Restaurant Premium', price: '59,900', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
+                    { title: 'Desktop Core', price: '24,900', monthlyPrice: '2,490', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
+                    { title: 'Growth Hybrid', price: '49,900', monthlyPrice: '4,490', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
+                    { title: 'Enterprise Command', price: '89,900', monthlyPrice: '7,490', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Management', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
+                    { title: 'Restaurant Premium', price: '59,900', monthlyPrice: '5,490', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
                 ],
                 jobs: [
                     { title: 'Senior Full Stack Developer', location: 'Colombo, Sri Lanka (On-site)', type: 'Full-time', department: 'Engineering', description: 'We are looking for an experienced Full Stack Developer to join our team and help build innovative solutions for our clients.', requirements: ['Minimum 5 years experience', 'React, Spring Boot, and TypeScript', 'Cloud platforms (AWS/Azure/GCP)', 'Excellent problem-solving'] },
@@ -127,9 +127,9 @@ export async function GET(request: Request) {
                         image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800'
                     },
                     softwarePlans: [
-                        { name: 'Lite', price: '24,900', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
-                        { name: 'Pro', price: '44,900', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
-                        { name: 'Max', price: '74,900', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
+                        { name: 'Lite', price: '24,900', monthlyPrice: '2,490', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
+                        { name: 'Pro', price: '44,900', monthlyPrice: '4,490', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
+                        { name: 'Max', price: '74,900', monthlyPrice: '7,490', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
                     ],
                     hardwareBundles: [
                         { name: 'Lite Bundle', price: '145,000', description: 'Standard System', roiText: 'Pays for itself in 4 months', features: ['POS Terminal', 'Thermal Printer', 'Cash Drawer'], image: 'https://images.unsplash.com/photo-1556740753-b2904692b3cd?auto=format&fit=crop&q=80&w=800' },
@@ -475,6 +475,7 @@ export async function GET(request: Request) {
                     {
                         name: "Essential Lite",
                         price: "24,900",
+                        monthlyPrice: "2,490",
                         description: '"Modernize your grocery or small kiosk. Stop manual billing today."',
                         features: ['Direct Receipt Billing', 'Daily Sales Management', 'Offline Local Database', 'Standard Profit Reporting', 'Free Remote Install'],
                         badge: "LKR 0/mo Lifetime",
@@ -483,6 +484,7 @@ export async function GET(request: Request) {
                     {
                         name: "Business Pro",
                         price: "44,900",
+                        monthlyPrice: "4,490",
                         description: '"Master your pharmacy or retail empire. Total stock intelligence."',
                         features: ['Advanced Expiry Tracking', 'Low-Stock Early Warnings', 'Loyalty Rewards & SMS', '24/7 Priority VIP Hotline', 'Batch & Serial Tracking'],
                         badge: "The Pharmacist's Peace of Mind · Most Popular",
@@ -491,6 +493,7 @@ export async function GET(request: Request) {
                     {
                         name: "Specialist Max",
                         price: "74,900",
+                        monthlyPrice: "7,490",
                         description: '"Build for the Restaurant Rush. Zero-latency multi-terminal speed."',
                         features: ['Visual Table Management', 'Direct Kitchen Printing (KOT)', 'Ingredient-Level Costing', 'Multi-Branch HQ Sync', 'Full Enterprise API Access'],
                         badge: "LKR 0/mo Lifetime",

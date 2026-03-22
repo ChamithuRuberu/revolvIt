@@ -63,11 +63,14 @@ function CheckoutContent() {
   // Initialize cart from URL params
   useEffect(() => {
     const product = searchParams.get('product');
+    const billing = searchParams.get('billing') || 'lifetime';
     if (product && PRODUCT_CATALOG[product]) {
       const catalogItem = PRODUCT_CATALOG[product];
       setCartItems([{
-        name: catalogItem.name,
-        price: catalogItem.price,
+        name: catalogItem.name + (billing === 'monthly' ? ' (Monthly)' : ' (Lifetime)'),
+        price: billing === 'monthly' 
+          ? (product === 'lite' ? 2490 : product === 'pro' ? 4490 : product === 'max' ? 7490 : catalogItem.price / 10)
+          : catalogItem.price,
         quantity: 1,
         type: catalogItem.type,
       }]);
@@ -368,9 +371,7 @@ function CheckoutContent() {
                             <div>
                               <p className="text-sm font-black text-slate-900">{item.name}</p>
                               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">
-                                {item.type === 'software' ? 'Lifetime License' :
-                                 item.type === 'bundle' ? 'Complete Bundle' :
-                                 'Hardware'} × {item.quantity}
+                                {searchParams.get('billing') === 'monthly' ? 'Monthly Subscription' : 'Lifetime License'} × {item.quantity}
                               </p>
                             </div>
                           </div>
@@ -406,8 +407,10 @@ function CheckoutContent() {
                           <p className="text-3xl font-black tracking-tight mt-1">LKR {formatPrice(totalAmount)}</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-[10px] font-black uppercase tracking-widest text-blue-200">Monthly Fee</p>
-                          <p className="text-2xl font-black tracking-tight mt-1">LKR 0</p>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-blue-200">Billing Cycle</p>
+                          <p className="text-2xl font-black tracking-tight mt-1 uppercase">
+                            {searchParams.get('billing') === 'monthly' ? 'Monthly' : 'One-Time'}
+                          </p>
                         </div>
                       </div>
                     </div>

@@ -64,10 +64,10 @@ export async function GET() {
                     }
                 ],
                 pricing: [
-                    { title: 'Desktop Core', price: '24,900', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
-                    { title: 'Growth Hybrid', price: '49,900', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
-                    { title: 'Enterprise Command', price: '89,900', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Management', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
-                    { title: 'Restaurant Premium', price: '59,900', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
+                    { title: 'Desktop Core', price: '25,000', monthlyPrice: '2,500', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
+                    { title: 'Hybrid Professional', price: '45,000', monthlyPrice: '4,500', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
+                    { title: 'Enterprise Cloud', price: '85,000', monthlyPrice: '8,500', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Management', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
+                    { title: 'Restaurant Elite', price: '55,000', monthlyPrice: '5,500', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
                 ],
                 jobs: [
                     { title: 'Senior Full Stack Developer', location: 'Colombo, Sri Lanka (On-site)', type: 'Full-time', department: 'Engineering', description: 'We are looking for an experienced Full Stack Developer to join our team and help build innovative solutions for our clients.', requirements: ['Minimum 5 years experience', 'React, Spring Boot, and TypeScript', 'Cloud platforms (AWS/Azure/GCP)', 'Excellent problem-solving'] },
@@ -359,9 +359,9 @@ export async function GET() {
                         joinText: 'Join 500+ Sri Lankan businesses'
                     },
                     softwarePlans: [
-                        { name: 'Lite', price: '24,900', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
-                        { name: 'Pro', price: '44,900', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
-                        { name: 'Max', price: '74,900', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
+                        { name: 'Lite', price: '24,900', monthlyPrice: '2,490', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
+                        { name: 'Pro', price: '44,900', monthlyPrice: '4,490', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
+                        { name: 'Max', price: '74,900', monthlyPrice: '7,490', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
                     ],
                     hardwareBundles: [
                         { name: 'Lite Bundle', price: '145,000', description: 'Standard System', roiText: 'Pays for itself in 4 months', features: ['POS Terminal', 'Thermal Printer', 'Cash Drawer'] },
@@ -389,25 +389,21 @@ export async function GET() {
                     image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800'
                 },
                 softwarePlans: [
-                    { name: 'Lite', price: '24,900', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
-                    { name: 'Pro', price: '44,900', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
-                    { name: 'Max', price: '74,900', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
+                    { name: 'Lite', price: '24,900', monthlyPrice: '2,490', description: 'Small retail & kiosks', features: ['100% Offline Mode', 'Inventory Tracking', 'Daily Sales Reports'], badge: 'Best for Small Shops', isPopular: false },
+                    { name: 'Pro', price: '44,900', monthlyPrice: '4,490', description: 'Pharmacy & Supermarkets', features: ['Customer Loyalty', 'Low Stock Alerts', 'Multi-Terminal Sync'], badge: 'Most Popular', isPopular: true },
+                    { name: 'Max', price: '74,900', monthlyPrice: '7,490', description: 'High-volume Restaurants', features: ['KOT Printing', 'Table Management', 'Advanced Analytics'], badge: 'Advanced Features', isPopular: false }
                 ],
                 hardwareBundles: [
                     { name: 'Lite Bundle', price: '145,000', description: 'Standard System', roiText: 'Pays for itself in 4 months', features: ['POS Terminal', 'Thermal Printer', 'Cash Drawer'], image: 'https://images.unsplash.com/photo-1556740753-b2904692b3cd?auto=format&fit=crop&q=80&w=800' },
                     { name: 'Pro Plus', price: '195,000', description: 'Dual Display System', roiText: 'Maximum efficiency', features: ['Dual Screen Terminal', 'High-speed Printer', 'Barcode Scanner'], image: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800' }
                 ],
-                savings: {
-                    competitorMonthly: '15,000',
-                    competitor5Year: '900,000',
-                    savingsText: 'SAVE OVER LKR 800,000'
-                }
+                savings: {}
             },
             pricing: [
-                { title: 'Desktop Core', price: '24,900', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
-                { title: 'Growth Hybrid', price: '49,900', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
-                { title: 'Enterprise Command', price: '89,900', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Management', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
-                { title: 'Restaurant Premium', price: '59,900', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
+                { title: 'Desktop Core', price: '25,000', monthlyPrice: '2,500', description: 'One-Time Payment. Yours Forever. No WiFi Needed.', features: ['100% Offline Resilience', 'Zero Monthly Subscriptions', 'Basic Inventory Protection', 'One-Click Daily Profit Reports', 'Staff Theft Tracking', 'Lifetime Support Access'], isRecommended: false },
+                { title: 'Hybrid Professional', price: '45,000', monthlyPrice: '4,500', description: 'The Sweet Spot. Local Speed Meets Cloud Power.', features: ['Real-time Mobile Sales Dashboard', 'Auto-Cloud Data Backup', 'WhatsApp Digital Receipts', 'Customer Loyalty & Rewards', 'Low-Stock Early Warnings', 'Online-Offline Seamless Sync'], isRecommended: true },
+                { title: 'Enterprise Cloud', price: '85,000', monthlyPrice: '8,500', description: 'Absolute Control for Multi-Branch Empires.', features: ['Unlimited Branch Support', 'Centralised HQ Inventory Control', 'AI-Powered Sales Forecasting', 'Multi-Warehouse Transfer Logic', 'Dedicated Priority SLA', 'Open API for Integrations'], isRecommended: false },
+                { title: 'Restaurant Elite', price: '55,000', monthlyPrice: '5,500', description: 'Built for Speed. Master The Rush Hour.', features: ['Direct KOT Kitchen Printing', 'Visual Table Management', 'Smart Recipe & Ingredient Costing', 'Waiter App Integration', 'Split-Bill & Dynamic Tax', 'QR Code Contactless Menus'], isRecommended: false }
             ],
             websiteServices: [
                 { icon: 'Code', title: 'Software Development', description: 'Enterprise-grade software solutions built with cutting-edge technologies and best practices.', features: ['Custom Software Solutions', 'Enterprise Applications', 'Microservices', 'API Development'] },

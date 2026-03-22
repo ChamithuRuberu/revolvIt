@@ -866,13 +866,29 @@ export default function Portal() {
                                                                             <span className="text-[8px] font-black uppercase text-corporate-blue">Fav</span>
                                                                         </label>
                                                                     </div>
-                                                                    <div className="flex items-baseline gap-1">
-                                                                        <span className="text-[10px] font-black text-gray-400">LKR</span>
-                                                                        <input type="text" value={plan.price} onChange={(e) => {
-                                                                            const plans = [...formData.posPricing.softwarePlans];
-                                                                            plans[idx].price = e.target.value;
-                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
-                                                                        }} className="w-full text-2xl font-black text-gray-900 bg-transparent outline-none" />
+                                                                    <div className="grid grid-cols-2 gap-4">
+                                                                        <div>
+                                                                            <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Lifetime Price</label>
+                                                                            <div className="flex items-baseline gap-1 bg-gray-50 rounded-xl px-4 py-3 shadow-inner">
+                                                                                <span className="text-[10px] font-black text-gray-400">LKR</span>
+                                                                                <input type="text" value={plan.price} onChange={(e) => {
+                                                                                    const plans = [...formData.posPricing.softwarePlans];
+                                                                                    plans[idx].price = e.target.value;
+                                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                                }} className="w-full text-sm font-black text-gray-900 bg-transparent outline-none" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Monthly Price</label>
+                                                                            <div className="flex items-baseline gap-1 bg-gray-50 rounded-xl px-4 py-3 shadow-inner">
+                                                                                <span className="text-[10px] font-black text-gray-400">LKR</span>
+                                                                                <input type="text" value={plan.monthlyPrice || ''} onChange={(e) => {
+                                                                                    const plans = [...formData.posPricing.softwarePlans];
+                                                                                    plans[idx].monthlyPrice = e.target.value;
+                                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
+                                                                                }} className="w-full text-sm font-black text-gray-900 bg-transparent outline-none" />
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                     <input type="text" value={plan.badge} onChange={(e) => {
                                                                         const plans = [...formData.posPricing.softwarePlans];
@@ -977,97 +993,9 @@ export default function Portal() {
                                                         ))}
                                                     </div>
                                                 </div>
-
-                                                {/* Savings Manager */}
-                                                <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden">
-                                                    <div className="relative z-10">
-                                                        <div className="flex items-center gap-3 mb-8">
-                                                            <div className="bg-white/10 p-3 rounded-2xl"><TrendingDown className="h-6 w-6 text-green-400" /></div>
-                                                            <h4 className="text-lg font-black tracking-tighter uppercase">5-Year Savings Calculator</h4>
-                                                        </div>
-                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                                            <div>
-                                                                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. Monthly Fee</label>
-                                                                <input type="text" value={formData.posPricing?.savings?.competitorMonthly || ''}
-                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitorMonthly: e.target.value } } })}
-                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black text-white outline-none focus:border-white/20 transition-all shadow-inner" />
-                                                            </div>
-                                                            <div>
-                                                                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. 5-Year Total</label>
-                                                                <input type="text" value={formData.posPricing?.savings?.competitor5Year || ''}
-                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitor5Year: e.target.value } } })}
-                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black text-white outline-none focus:border-white/20 transition-all shadow-inner" />
-                                                            </div>
-                                                            <div>
-                                                                <label className="block text-[10px] font-black text-green-500 uppercase tracking-widest mb-3">TOTAL SAVED CLAIM</label>
-                                                                <input type="text" value={formData.posPricing?.savings?.savingsText || ''}
-                                                                    onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...(formData.posPricing?.savings || {}), savingsText: e.target.value } } })}
-                                                                    className="w-full bg-green-500/10 border border-green-500/20 rounded-2xl px-6 py-4 text-2xl font-black text-green-400 outline-none focus:border-green-500/40 transition-all shadow-2xl" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none transition-transform duration-700">
-                                                        <TrendingUp className="h-96 w-96 font-black" />
-                                                    </div>
-                                                </div>
-
-                                                {/* Standard Pricing Tiers (Desktop/Web) */}
-                                                <div className="pt-10 border-t border-gray-100 space-y-6">
-                                                    <div className="flex items-center justify-between">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="bg-amber-50 p-2 rounded-xl"><DollarSign className="h-5 w-5 text-amber-600" /></div>
-                                                            <div>
-                                                                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Standard Website Tiers</h4>
-                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Traditional subscription/one-time plans</p>
-                                                            </div>
-                                                        </div>
-                                                        <button type="button" 
-                                                            onClick={() => setFormData({ ...formData, pricing: [...(formData.pricing || []), { title: 'New Tier', price: '0', description: '', features: [], isRecommended: false }] })}
-                                                            className="text-[10px] font-black text-corporate-blue uppercase tracking-widest flex items-center gap-1">
-                                                            <PlusCircle className="h-4 w-4" /> Add Tier
-                                                        </button>
-                                                    </div>
-                                                    <div className="columns-1 md:columns-2 gap-6 space-y-6">
-                                                        {(formData.pricing || []).map((plan: any, idx: number) => (
-                                                            <div key={idx} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm relative group break-inside-avoid">
-                                                                <button type="button" onClick={() => { const updated = [...formData.pricing]; updated.splice(idx, 1); setFormData({ ...formData, pricing: updated }); }}
-                                                                    className="absolute top-4 right-4 text-red-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 className="h-4 w-4" /></button>
-                                                                <div className="space-y-4">
-                                                                    <div className="flex items-center justify-between gap-4">
-                                                                        <input type="text" value={plan.title}
-                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].title = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                            className="w-full bg-transparent border-none p-0 text-lg font-black text-gray-900 focus:ring-0 outline-none" placeholder="Plan Title" />
-                                                                        <label className="flex items-center gap-2 cursor-pointer">
-                                                                            <input type="checkbox" checked={plan.isRecommended}
-                                                                                onChange={(e) => { const updated = [...formData.pricing]; updated[idx].isRecommended = e.target.checked; setFormData({ ...formData, pricing: updated }); }}
-                                                                                className="rounded h-4 w-4 text-corporate-blue" />
-                                                                            <span className="text-[10px] font-black text-gray-400">FAV</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div className="flex items-baseline gap-1">
-                                                                        <span className="text-xs font-black text-gray-400">LKR</span>
-                                                                        <input type="text" value={plan.price}
-                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].price = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                            className="w-full bg-transparent border-none p-0 text-2xl font-black text-gray-900 focus:ring-0 outline-none" />
-                                                                    </div>
-                                                                    <textarea value={plan.description}
-                                                                        onChange={(e) => { const updated = [...formData.pricing]; updated[idx].description = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-xs font-bold text-gray-500 min-h-[60px]" placeholder="Short description..." />
-                                                                    <div>
-                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Features (one per line)</label>
-                                                                        <textarea value={(plan.features || []).join('\n')}
-                                                                            onChange={(e) => { const updated = [...formData.pricing]; updated[idx].features = e.target.value.split('\n'); setFormData({ ...formData, pricing: updated }); }}
-                                                                            className="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-[10px] font-bold min-h-[100px]" placeholder="Feature 1\nFeature 2" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
                                             </div>
                                         )}
 
-                                        {/* ── CAREERS SECTION ── */}
                                         {cmsSection === 'careers' && (
                                             <div className="p-4 lg:p-5 space-y-3">
                                                 <div className="flex items-center justify-between mb-4">
@@ -1593,4 +1521,3 @@ export default function Portal() {
         </div >
     );
 }
-

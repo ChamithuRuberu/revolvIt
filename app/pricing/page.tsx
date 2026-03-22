@@ -7,27 +7,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Star, Monitor, Printer, ScanLine, Package, Loader2, Info, ChevronDown, Sparkles, Building2, Smartphone, ShieldCheck } from 'lucide-react';
 
 export default function Pricing() {
-  const [data, setData] = useState<any>(null);
+  const [pricingPlans, setPricingPlans] = useState<any>([]);
   const [posData, setPosData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'lifetime'>('lifetime');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch('/api/portal/public');
         const json = await res.json();
-        if (json.pricing) setData(json.pricing);
+        if (json.pricing) setPricingPlans(json.pricing);
         if (json.posPricing) setPosData(json.posPricing);
       } catch (e) {
         console.error('Failed to fetch pricing', e);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
         <Loader2 className="h-12 w-12 text-corporate-blue animate-spin mb-4" />
@@ -36,10 +37,11 @@ export default function Pricing() {
     );
   }
 
-  const pricingPlans = data || [
+  const defaultPricingPlans = [
     {
       title: 'Desktop Core',
       price: '25,000',
+      monthlyPrice: '2,500',
       description: '100% Offline performance for single-station retail.',
       isRecommended: false,
       features: [
@@ -54,6 +56,7 @@ export default function Pricing() {
     {
       title: 'Hybrid Professional',
       price: '45,000',
+      monthlyPrice: '4,500',
       description: 'Local reliability with cloud-sync & mobile access.',
       isRecommended: true,
       features: [
@@ -68,6 +71,7 @@ export default function Pricing() {
     {
       title: 'Enterprise Cloud',
       price: '85,000',
+      monthlyPrice: '8,500',
       description: 'Centralized management for multi-branch chains.',
       isRecommended: false,
       features: [
@@ -82,6 +86,7 @@ export default function Pricing() {
     {
       title: 'Restaurant Elite',
       price: '55,000',
+      monthlyPrice: '5,500',
       description: 'Tailored for cafes and high-volume dining.',
       isRecommended: false,
       features: [
@@ -94,6 +99,8 @@ export default function Pricing() {
       ]
     }
   ];
+
+  const plansToDisplay = pricingPlans.length > 0 ? pricingPlans : defaultPricingPlans;
 
   const comparisonFeatures = [
     { name: 'Works Offline', basic: true, standard: true, pro: 'Hybrid', premium: true },
@@ -176,20 +183,32 @@ export default function Pricing() {
         </div>
       </section>
 
+      {/* Toggle */}
+      <div className="flex items-center justify-center gap-4 mb-12">
+        <span className={`text-sm font-black uppercase tracking-widest ${billingCycle === 'monthly' ? 'text-indigo-600' : 'text-slate-400'}`}>Monthly Subscription</span>
+        <button 
+          onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'lifetime' : 'monthly')}
+          className="relative w-16 h-8 rounded-full bg-slate-100 border border-slate-200 transition-colors group"
+        >
+          <div className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-corporate-blue shadow-md transition-transform duration-300 ${billingCycle === 'lifetime' ? 'translate-x-8' : 'translate-x-0'}`}></div>
+        </button>
+        <span className={`text-sm font-black uppercase tracking-widest ${billingCycle === 'lifetime' ? 'text-corporate-blue' : 'text-slate-400'}`}>Lifetime Ownership</span>
+        <div className="ml-2 bg-green-100 text-green-600 px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Best ROI</div>
+      </div>
       {/* Pricing Cards Grid */}
       <section id="pricing-grid" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pricingPlans.map((plan: any, index: number) => (
+          {plansToDisplay.map((plan: any, index: number) => (
             <motion.div
               key={plan.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative bg-white rounded-[2rem] p-8 border ${plan.isRecommended ? 'border-2 border-corporate-blue ring-8 ring-corporate-blue/5' : 'border-gray-100'} transition-all hover:shadow-2xl flex flex-col`}
+              className={`relative bg-white rounded-[2rem] p-6 border ${plan.isRecommended ? 'border-2 border-corporate-blue ring-8 ring-corporate-blue/5' : 'border-gray-100'} transition-all hover:shadow-2xl flex flex-col`}
             >
               {plan.isRecommended && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-corporate-blue text-white px-5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-corporate-blue text-white px-5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap z-10">
                   <Star className="h-3.5 w-3.5 fill-white" />
                   Most Popular
                 </div>
@@ -200,9 +219,14 @@ export default function Pricing() {
                 <p className="text-sm text-gray-400 font-bold mb-6">{plan.description}</p>
                 <div className="flex items-baseline gap-1">
                   <span className="text-sm font-black text-gray-400 uppercase">LKR</span>
-                  <span className="text-5xl font-black text-gray-900 tracking-tighter">{plan.price}</span>
+                  <span className="text-5xl font-black text-gray-900 tracking-tighter">
+                    {billingCycle === 'monthly' ? (plan.monthlyPrice || plan.price / 10) : plan.price}
+                  </span>
+                  {billingCycle === 'monthly' && <span className="text-xs font-black text-gray-400">/mo</span>}
                 </div>
-                <div className="text-[10px] font-black text-corporate-blue uppercase tracking-widest mt-2">One-time License Fee</div>
+                <div className={`text-[10px] font-black uppercase tracking-widest mt-2 ${billingCycle === 'monthly' ? 'text-indigo-600' : 'text-corporate-blue'}`}>
+                  {billingCycle === 'monthly' ? 'Monthly Subscription' : 'One-time License Fee'}
+                </div>
               </div>
 
               <div className="flex-1 space-y-4 mb-10">
@@ -220,7 +244,7 @@ export default function Pricing() {
               </div>
 
               <Link
-                href={`/checkout?product=${index === 0 ? 'desktop-core' : index === 1 ? 'hybrid-pro' : index === 2 ? 'enterprise' : 'restaurant'}`}
+                href={`/checkout?product=${index === 0 ? 'desktop-core' : index === 1 ? 'hybrid-pro' : index === 2 ? 'enterprise' : 'restaurant'}&billing=${billingCycle}`}
                 className={`w-full py-4 rounded-2xl font-black text-sm text-center transition-all active:scale-95 ${plan.isRecommended ? 'bg-corporate-blue text-white shadow-xl shadow-blue-500/20' : 'bg-slate-100 text-gray-900 hover:bg-slate-200'}`}
               >
                 Get Started Today
