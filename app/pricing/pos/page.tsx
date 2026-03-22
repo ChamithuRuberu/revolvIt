@@ -29,7 +29,7 @@ const TrustBadge = ({ icon: Icon, label, sublabel }: { icon: any, label: string,
     </div>
     <div>
       <p className="text-white font-black text-xs uppercase tracking-widest">{label}</p>
-      <p className="text-slate-400 text-[10px] font-bold italic">{sublabel}</p>
+      <p className="text-slate-400 text-[10px] font-bold ">{sublabel}</p>
     </div>
   </motion.div>
 );
@@ -97,7 +97,7 @@ export default function POSPricing() {
                 <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">The Last POS You'll Ever Buy</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8 leading-[0.85] italic whitespace-pre-line">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter mb-8 leading-[0.85]  whitespace-pre-line">
                 {(posData?.hero?.headline && posData.hero.headline.includes('.')) ? (
                   <>
                     {posData.hero.headline.split('.')[0]}.<span className="text-slate-500"> {posData.hero.headline.split('.')[1]}</span>
@@ -107,7 +107,7 @@ export default function POSPricing() {
                 )}
               </h1>
 
-              <p className="max-w-xl text-xl text-slate-400 font-medium mb-10 leading-relaxed italic">
+              <p className="max-w-xl text-xl text-slate-400 font-medium mb-10 leading-relaxed ">
                 {posData?.hero?.subheadline || 'Zero Monthly Fees · 100% Offline Resilience · Local Sri Lankan Support.'}
               </p>
 
@@ -136,7 +136,7 @@ export default function POSPricing() {
                         <path d="M11.532 0.208H9.721L7.151 6.307H8.85L9.192 5.483H11.267L11.465 6.307H13.142L11.532 0.208ZM9.638 4.41L10.426 2.508L10.871 4.41H9.638ZM17.161 0.208L15.655 4.381L14.28 0.208H12.518L14.735 6.307H16.489L18.892 0.208H17.161ZM2.162 0.208L0.423 6.307H2.122L3.861 0.208H2.162ZM6.442 0.208L4.606 6.307H6.305L8.141 0.208H6.442Z" fill="#1A1F71" />
                       </svg>
                       <div className="w-px h-3 bg-white/10 mx-1"></div>
-                      <p className="text-slate-500 text-[10px] font-bold italic">Zero interest · split card payments</p>
+                      <p className="text-slate-500 text-[10px] font-bold ">Zero interest · split card payments</p>
                     </div>
                   </div>
                 </div>
@@ -194,7 +194,7 @@ export default function POSPricing() {
                       <p className="text-[10px] font-black text-corporate-blue-light uppercase tracking-[0.2em] mb-2 leading-none">Status</p>
                       <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                        <p className="text-xs font-black text-white uppercase italic">100% Offline Ready</p>
+                        <p className="text-xs font-black text-white uppercase ">100% Offline Ready</p>
                       </div>
                     </div>
                   </div>
@@ -231,8 +231,8 @@ export default function POSPricing() {
       <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-4 italic">Step 1: Choose Your Experience</h2>
-            <p className="text-slate-500 font-bold max-w-2xl mx-auto text-lg leading-relaxed italic">The cost difference is driven by hardware. Select the physical foundation that fits your floor space and speed requirements.</p>
+            <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight mb-4 ">Step 1: Choose Your Experience</h2>
+            <p className="text-slate-500 font-bold max-w-2xl mx-auto text-lg leading-relaxed ">The cost difference is driven by hardware. Select the physical foundation that fits your floor space and speed requirements.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
@@ -251,14 +251,14 @@ export default function POSPricing() {
                   {setup.id === 'desktop' ? <Monitor className="h-10 w-10" /> : <Tablet className="h-10 w-10" />}
                 </div>
                 {setup.id === 'touch' && (
-                  <div className="absolute top-10 right-10 bg-orange-100 text-orange-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-orange-200 shadow-sm italic">3x Faster Checkout</div>
+                  <div className="absolute top-10 right-10 bg-orange-100 text-orange-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-orange-200 shadow-sm ">3x Faster Checkout</div>
                 )}
-                <h3 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter italic">{setup.label}</h3>
-                <p className="text-slate-500 font-bold mb-8 leading-relaxed italic">{setup.description}</p>
+                <h3 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter ">{setup.label}</h3>
+                <p className="text-slate-500 font-bold mb-8 leading-relaxed ">{setup.description}</p>
 
                 <ul className="space-y-4 mb-10">
                   {setup.features.map((feat: string) => (
-                    <li key={feat} className="flex items-center gap-4 text-base font-bold text-slate-700 italic">
+                    <li key={feat} className="flex items-center gap-4 text-base font-bold text-slate-700 ">
                       <CheckCircle2 className={`h-5 w-5 ${setupType === setup.id ? 'text-corporate-blue' : 'text-slate-300'}`} />
                       {feat}
                     </li>
@@ -268,7 +268,7 @@ export default function POSPricing() {
                 <div className="flex items-center justify-between pt-10 border-t border-slate-100 mt-auto">
                   <div>
                     <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Start Full Setup for</div>
-                    <div className="text-3xl font-black text-slate-900 tracking-tight italic">LKR ~{setup.price}</div>
+                    <div className="text-3xl font-black text-slate-900 tracking-tight ">LKR ~{setup.price}</div>
                   </div>
                   {setupType === setup.id ? (
                     <div className="bg-corporate-blue text-white px-8 py-3 rounded-full text-sm font-black uppercase tracking-widest flex items-center gap-3 shadow-lg shadow-corporate-blue/20">
@@ -290,8 +290,8 @@ export default function POSPricing() {
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 text-slate-900">
-            <h2 className="text-4xl font-black uppercase tracking-tight mb-4 italic">Step 2: Choose Your Features</h2>
-            <p className="text-xl text-slate-500 font-bold">Pick your permanent license. Pay once, own forever. <span className="text-corporate-blue border-b-2 border-corporate-blue italic">Zero monthly fees forever.</span></p>
+            <h2 className="text-4xl font-black uppercase tracking-tight mb-4 ">Step 2: Choose Your Features</h2>
+            <p className="text-xl text-slate-500 font-bold">Pick your permanent license. Pay once, own forever. <span className="text-corporate-blue border-b-2 border-corporate-blue ">Zero monthly fees forever.</span></p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -303,7 +303,7 @@ export default function POSPricing() {
                 {!plan.isPopular && <div className="absolute top-0 right-0 w-24 h-24 bg-slate-200 rotate-45 translate-x-12 -translate-y-12 opacity-30"></div>}
 
                 {plan.isPopular && (
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-corporate-blue text-white px-10 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl italic whitespace-nowrap">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-corporate-blue text-white px-10 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl  whitespace-nowrap">
                     {plan.badge}
                   </div>
                 )}
@@ -312,31 +312,31 @@ export default function POSPricing() {
                   <div className={`h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-md ${plan.isPopular ? 'bg-blue-50 text-corporate-blue' : 'bg-white text-slate-400'}`}>
                     {idx === 0 ? <Store className="h-6 w-6" /> : idx === 1 ? <HeartPulse className="h-7 w-7" /> : <Utensils className="h-6 w-6" />}
                   </div>
-                  <h3 className={`text-xl font-black uppercase tracking-widest mb-2 italic ${plan.isPopular ? 'text-corporate-blue' : 'text-slate-400'}`}>{plan.name}</h3>
+                  <h3 className={`text-xl font-black uppercase tracking-widest mb-2  ${plan.isPopular ? 'text-corporate-blue' : 'text-slate-400'}`}>{plan.name}</h3>
                   <div className="flex items-baseline justify-center gap-1 mb-2">
                     <span className="text-sm font-black text-slate-400">LKR</span>
-                    <span className={`font-black text-slate-900 tracking-tighter italic ${plan.isPopular ? 'text-7xl' : 'text-6xl'}`}>{plan.price}</span>
+                    <span className={`font-black text-slate-900 tracking-tighter  ${plan.isPopular ? 'text-7xl' : 'text-6xl'}`}>{plan.price}</span>
                   </div>
                   <p className={`text-xs font-black uppercase tracking-widest mb-8 px-6 py-2 rounded-full inline-block ${plan.isPopular ? 'bg-corporate-blue text-white shadow-lg shadow-corporate-blue/20' : 'text-blue-600 border-2 border-blue-100 bg-blue-50/50'}`}>
                     {plan.isPopular ? "LKR 0/mo Lifetime" : plan.badge}
                   </p>
-                  <p className={`font-bold italic leading-relaxed pt-8 border-t ${plan.isPopular ? 'text-slate-600 border-slate-100 text-base' : 'text-slate-500 border-slate-200 text-sm'}`}>{plan.description}</p>
+                  <p className={`font-bold  leading-relaxed pt-8 border-t ${plan.isPopular ? 'text-slate-600 border-slate-100 text-base' : 'text-slate-500 border-slate-200 text-sm'}`}>{plan.description}</p>
                 </div>
 
                 <div className="flex-1 space-y-4 mb-10">
                   {plan.features.map((feat: string) => (
                     <div key={feat} className="flex items-center gap-4">
                       <CheckCircle2 className={`flex-shrink-0 ${plan.isPopular ? 'h-6 w-6 text-corporate-blue' : 'h-5 w-5 text-corporate-blue'}`} />
-                      <span className={`font-black italic ${plan.isPopular ? 'text-slate-900 text-base' : 'text-slate-700 text-sm'}`}>{feat}</span>
+                      <span className={`font-black  ${plan.isPopular ? 'text-slate-900 text-base' : 'text-slate-700 text-sm'}`}>{feat}</span>
                     </div>
                   ))}
                 </div>
 
                 <Link
-                  href="/contact"
+                  href={`/checkout?product=${idx === 0 ? 'lite' : idx === 1 ? 'pro' : 'max'}`}
                   className={`w-full py-6 font-black text-center text-sm uppercase tracking-widest transition-all ${plan.isPopular ? 'rounded-[2rem] bg-corporate-blue text-white hover:bg-corporate-blue-dark scale-105 shadow-2xl shadow-corporate-blue/30' : 'rounded-2xl bg-slate-900 text-white hover:bg-black shadow-xl shadow-slate-900/10'}`}
                 >
-                  {plan.isPopular ? 'Secure Pro License' : idx === 0 ? 'Purchase Lite License' : 'Choose Max License'}
+                  {plan.isPopular ? 'Buy Pro License Now' : idx === 0 ? 'Buy Lite License' : 'Buy Max License'}
                 </Link>
               </div>
             ))}
@@ -349,7 +349,7 @@ export default function POSPricing() {
         <div className="absolute inset-0 bg-grid-white/[0.02] -z-10"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-4 italic">Optional: One-Time Hardware Bundles</h2>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tight mb-4 ">Optional: One-Time Hardware Bundles</h2>
             <p className="text-slate-400 font-bold max-w-2xl mx-auto">We've negotiated massive discounts with manufacturers to bring you curated, industrial-grade hardware at the best rates in SL.</p>
           </div>
 
@@ -361,7 +361,7 @@ export default function POSPricing() {
               >
                 <div className="flex justify-between items-start mb-10">
                   <div>
-                    <h4 className="text-3xl font-black text-white italic tracking-tighter mb-2">{bundle.name}</h4>
+                    <h4 className="text-3xl font-black text-white  tracking-tighter mb-2">{bundle.name}</h4>
                     <div className={`flex items-center gap-2 font-black text-[10px] uppercase tracking-widest ${idx === 0 ? 'text-blue-400' : 'text-orange-400'}`}>
                       {idx === 0 ? <Package className="h-3 w-3" /> : <Gem className="h-3 w-3" />} {bundle.description}
                     </div>
@@ -387,7 +387,7 @@ export default function POSPricing() {
                     <div className="flex items-center gap-3 text-xs font-black text-blue-400 uppercase tracking-widest mb-3">
                       <Zap className="h-4 w-4 fill-blue-400" /> The "Speed ROI" Case
                     </div>
-                    <p className="text-sm font-bold text-slate-300 italic leading-relaxed">
+                    <p className="text-sm font-bold text-slate-300  leading-relaxed">
                       {bundle.roiText}
                     </p>
                   </div>
@@ -395,7 +395,7 @@ export default function POSPricing() {
 
                 <ul className={`grid grid-cols-2 gap-x-8 gap-y-4 ${idx === 0 ? 'mb-10' : ''}`}>
                   {bundle.features.map((feat: string) => (
-                    <li key={feat} className="flex items-center gap-3 text-xs font-bold text-slate-300 italic">
+                    <li key={feat} className="flex items-center gap-3 text-xs font-bold text-slate-300 ">
                       <div className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${idx === 0 ? 'bg-blue-500' : 'bg-orange-500'}`}></div>
                       {feat}
                     </li>
@@ -404,7 +404,7 @@ export default function POSPricing() {
 
                 {idx === 0 && (
                   <div className="text-center pt-8">
-                    <p className="text-[10px] font-black text-slate-500 uppercase italic">{bundle.roiText}</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase ">{bundle.roiText}</p>
                   </div>
                 )}
               </div>
@@ -417,8 +417,8 @@ export default function POSPricing() {
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-slate-900 tracking-tighter italic mb-4">You are losing LKR {posData?.savings?.savingsText || '0'}.</h2>
-            <p className="text-slate-500 font-bold text-lg italic">Every 5 years spent on a subscription model is money stolen from your business expansion.</p>
+            <h2 className="text-4xl font-black text-slate-900 tracking-tighter  mb-4">You are losing LKR {posData?.savings?.savingsText || '0'}.</h2>
+            <p className="text-slate-500 font-bold text-lg ">Every 5 years spent on a subscription model is money stolen from your business expansion.</p>
           </div>
 
           <div className="overflow-hidden bg-slate-900 rounded-[3rem] shadow-[0_45px_100px_-20px_rgba(0,0,0,0.3)] border-8 border-slate-50">
@@ -427,28 +427,28 @@ export default function POSPricing() {
                 <tr className="border-b border-white/10 text-center">
                   <th className="py-10 px-10 text-xs font-black text-slate-500 uppercase tracking-[0.3em] text-left">The Metric</th>
                   <th className="py-10 px-4 text-xs font-black text-slate-400 uppercase tracking-widest">Typical Cloud Subscription</th>
-                  <th className="py-10 px-4 text-xs font-black text-blue-400 uppercase tracking-widest bg-white/5 border-l border-white/5 italic">Green Code Solution Lifetime POS</th>
+                  <th className="py-10 px-4 text-xs font-black text-blue-400 uppercase tracking-widest bg-white/5 border-l border-white/5 ">Green Code Solution Lifetime POS</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-white/5">
-                  <td className="py-8 px-10 text-white font-bold italic">Monthly Fee</td>
+                  <td className="py-8 px-10 text-white font-bold ">Monthly Fee</td>
                   <td className="py-8 px-4 text-center text-slate-500">LKR {posData?.savings?.competitorMonthly || '5,000'}</td>
                   <td className="py-8 px-4 text-center text-green-400 font-black bg-white/5 border-l border-white/5 uppercase">LKR 0 (Permanently)</td>
                 </tr>
                 <tr className="border-b border-white/5">
-                  <td className="py-8 px-10 text-white font-bold italic">Internet Resilience</td>
-                  <td className="py-8 px-4 text-center text-red-400/80 italic">Stops during outages</td>
+                  <td className="py-8 px-10 text-white font-bold ">Internet Resilience</td>
+                  <td className="py-8 px-4 text-center text-red-400/80 ">Stops during outages</td>
                   <td className="py-8 px-4 text-center text-white font-black bg-white/5 border-l border-white/5">100% Offline (Local DB)</td>
                 </tr>
                 <tr className="border-b border-white/5">
-                  <td className="py-8 px-10 text-white font-bold italic">5-Year Total Cost</td>
+                  <td className="py-8 px-10 text-white font-bold ">5-Year Total Cost</td>
                   <td className="py-8 px-4 text-center text-slate-500">LKR {posData?.savings?.competitor5Year || '300,000'}</td>
                   <td className="py-8 px-4 text-center text-white font-black bg-white/5 border-l border-white/5">LKR {posData.softwarePlans[1]?.price || '44,900'}</td>
                 </tr>
                 <tr className="bg-corporate-blue/20">
-                  <td className="py-12 px-10 text-white font-black text-xl italic uppercase tracking-widest">Cash Kept In Your Pocket</td>
-                  <td className="py-12 px-4 text-center text-slate-600 line-through italic font-black">LKR 0 Saved</td>
+                  <td className="py-12 px-10 text-white font-black text-xl  uppercase tracking-widest">Cash Kept In Your Pocket</td>
+                  <td className="py-12 px-4 text-center text-slate-600 line-through  font-black">LKR 0 Saved</td>
                   <td className="py-12 px-4 text-center text-blue-300 font-black text-3xl tracking-tighter bg-corporate-blue/30 border-l border-white/10">LKR {posData?.savings?.savingsText || '0'} Saved</td>
                 </tr>
               </tbody>
@@ -467,7 +467,7 @@ export default function POSPricing() {
               </div>
               <div className="absolute -bottom-10 -left-10 bg-corporate-blue p-10 rounded-[3rem] text-white shadow-2xl max-w-[320px] ring-8 ring-white">
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 text-blue-200">Local Service Shield</p>
-                <p className="text-xl font-black italic mb-6 leading-tight">"Our engineers are based in Colombo, Kandy & Galle for rapid island-wide support."</p>
+                <p className="text-xl font-black  mb-6 leading-tight">"Our engineers are based in Colombo, Kandy & Galle for rapid island-wide support."</p>
                 <div className="flex items-center gap-3 font-black text-blue-100 text-sm">
                   <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_rgba(74,222,128,0.5)]"></div>
                   Live Response on WhatsApp
@@ -480,7 +480,7 @@ export default function POSPricing() {
                 <MapPin className="h-4 w-4" />
                 <span>Made for Sri Lankan SMBs</span>
               </div>
-              <h2 className="text-5xl font-black text-slate-900 tracking-tighter mb-10 leading-[0.9] italic">Peace of Mind.<br /> Guaranteed locally.</h2>
+              <h2 className="text-5xl font-black text-slate-900 tracking-tighter mb-10 leading-[0.9] ">Peace of Mind.<br /> Guaranteed locally.</h2>
 
               <div className="space-y-6">
                 {[
@@ -493,7 +493,7 @@ export default function POSPricing() {
                       <HelpCircle className="h-5 w-5 text-corporate-blue" />
                       {faq.q}
                     </h4>
-                    <p className="text-sm font-bold text-slate-500 italic leading-relaxed">{faq.a}</p>
+                    <p className="text-sm font-bold text-slate-500  leading-relaxed">{faq.a}</p>
                   </div>
                 ))}
               </div>
@@ -507,8 +507,8 @@ export default function POSPricing() {
         <div className="absolute inset-0 bg-corporate-blue/5 blur-[150px] group-hover:bg-corporate-blue/10 transition-colors"></div>
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
           <div className="text-white text-center md:text-left">
-            <h4 className="text-4xl md:text-5xl font-black italic tracking-tighter mb-4">Securing your shop's future.</h4>
-            <p className="text-slate-400 font-bold text-lg italic">{posData?.hero?.joinText || 'Join 500+ leaders who stopped renting and started owning.'}</p>
+            <h4 className="text-4xl md:text-5xl font-black  tracking-tighter mb-4">Securing your shop's future.</h4>
+            <p className="text-slate-400 font-bold text-lg ">{posData?.hero?.joinText || 'Join 500+ leaders who stopped renting and started owning.'}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <Link href="https://wa.me/94770000000" className="bg-[#25D366] text-white px-10 py-6 rounded-3xl font-black text-lg hover:shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all flex items-center justify-center gap-3">
@@ -522,7 +522,7 @@ export default function POSPricing() {
       </section>
 
       <footer className="py-12 bg-white text-center border-t border-slate-100">
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] italic mb-4">REVOLVIT POS INFRASTRUCTURE · LKR 0 MONTHLY FEES · SRI LANKA · 2026</p>
+        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]  mb-4">REVOLVIT POS INFRASTRUCTURE · LKR 0 MONTHLY FEES · SRI LANKA · 2026</p>
         <div className="flex items-center justify-center gap-8 opacity-40 grayscale scale-75">
           <div className="text-xs font-black">RETAIL</div>
           <div className="text-xs font-black">PHARMACY</div>

@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
+import connectDB, { getCachedPortalData, invalidateCache } from '@/lib/mongodb';
 import PortalData from '@/models/PortalData';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
-        await connectDB();
-        const data = await PortalData.findOne().sort({ createdAt: -1 });
+        const data = await getCachedPortalData('portal_main');
 
         if (!data) {
             // Return default data if none exists
@@ -549,6 +548,9 @@ export async function POST(request: Request) {
             body, // update
             { upsert: true, new: true } // options
         );
+
+        // Invalidate cache so next read gets fresh data
+        invalidateCache();
 
         return NextResponse.json(data);
     } catch (error: any) {

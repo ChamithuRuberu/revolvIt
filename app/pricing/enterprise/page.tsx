@@ -108,7 +108,7 @@ export default function EnterprisePricing() {
                   </div>
                   <h3 className="text-3xl font-black text-slate-900 mb-4 tracking-tight leading-none uppercase">{plan.title}</h3>
                   <div className="text-sm font-bold text-slate-400 leading-relaxed mb-8">{plan.desc}</div>
-                  <div className="text-4xl font-black text-corporate-blue mb-2 tracking-tighter uppercase italic">Custom Quote</div>
+                  <div className="text-4xl font-black text-corporate-blue mb-2 tracking-tighter uppercase">Custom Quote</div>
                   <div className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Billed according to SLA</div>
                 </div>
 
@@ -150,13 +150,13 @@ export default function EnterprisePricing() {
             </div>
             <div className="flex-1 text-center lg:text-left">
               <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter mb-8 leading-tight">Infrastructure Built for <span className="text-corporate-blue">Generational</span> Stability.</h2>
-              <p className="text-lg text-slate-500 font-bold mb-10 leading-relaxed italic">
+              <p className="text-lg text-slate-500 font-bold mb-10 leading-relaxed">
                 "Revolvit didn't just provide a software package; they re-engineered our entire digital backbone. Our system capacity increased by 400% in the first quarter."
               </p>
               <div className="flex items-center gap-4 justify-center lg:justify-start">
                 <div className="h-14 w-14 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-400">J</div>
                 <div>
-                  <div className="text-slate-900 font-black tracking-tight leading-none uppercase italic">Jameson K.</div>
+                  <div className="text-slate-900 font-black tracking-tight leading-none uppercase">Jameson K.</div>
                   <div className="text-slate-400 font-black text-[10px] tracking-widest uppercase">CTO · Logistics Global</div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ export default function EnterprisePricing() {
           <Building2 className="h-[800px] w-[800px] absolute -top-40 -left-40" />
         </div>
         <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-12 leading-none uppercase italic">Scale Beyond <br /><span className="text-corporate-blue">Boundaries.</span></h2>
+          <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-12 leading-none uppercase">Scale Beyond <br /><span className="text-corporate-blue">Boundaries.</span></h2>
           <Link href="/contact" className="bg-white text-slate-900 px-16 py-6 rounded-[2rem] font-black text-xl hover:bg-corporate-blue hover:text-white transition-all shadow-2xl active:scale-95 inline-flex items-center gap-4 group">
             Start Your Engineering Consult
             <ArrowRight className="h-6 w-6 group-hover:translate-x-2 transition-transform" />

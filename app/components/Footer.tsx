@@ -131,11 +131,14 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
             <p>© {currentYear} Green Code Solution. All rights reserved.</p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="hover:text-white transition-colors">
+              <Link href="/policies/privacy-policy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link href="/policies/terms-and-conditions" className="hover:text-white transition-colors">
                 Terms of Service
+              </Link>
+              <Link href="/policies/return-policy" className="hover:text-white transition-colors">
+                Return Policy
               </Link>
             </div>
           </div>

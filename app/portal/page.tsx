@@ -754,7 +754,7 @@ export default function Portal() {
                                                 <div className="bg-gray-50 rounded-[2rem] p-8 border border-gray-100 shadow-sm">
                                                     <div className="flex items-center gap-2 mb-6">
                                                         <Sparkles className="h-4 w-4 text-orange-400" />
-                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Hero & CTAs</h4>
+                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Hero & CTAs</h4>
                                                     </div>
                                                     <div className="flex items-center gap-6 mb-8">
                                                         <div className="w-1/3 aspect-[4/3] bg-white border border-gray-100 rounded-3xl overflow-hidden relative group/hero shadow-inner">
@@ -799,14 +799,14 @@ export default function Portal() {
                                                             <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Main Headline</label>
                                                             <input type="text" value={formData.posPricing?.hero?.headline || ''}
                                                                 onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, headline: e.target.value } } })}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-black text-gray-900 italic"
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-black text-gray-900"
                                                                 placeholder="Headline (e.g. Stop Renting. Own Your Profits.)" />
                                                         </div>
                                                         <div className="md:col-span-2">
                                                             <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Sub-headline</label>
                                                             <textarea value={formData.posPricing?.hero?.subheadline || ''}
                                                                 onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, hero: { ...formData.posPricing.hero, subheadline: e.target.value } } })}
-                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-bold text-gray-600 text-sm italic min-h-[80px]"
+                                                                className="w-full bg-white border border-gray-200 rounded-xl px-5 py-4 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue transition-all outline-none font-bold text-gray-600 text-sm min-h-[80px]"
                                                                 placeholder="Sub-headline copy" />
                                                         </div>
                                                         <div>
@@ -829,7 +829,7 @@ export default function Portal() {
                                                     <div className="flex items-center justify-between">
                                                         <div className="flex items-center gap-2">
                                                             <ShieldCheck className="h-5 w-5 text-corporate-blue" />
-                                                            <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Software Lifetime Licenses</h4>
+                                                            <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Software Lifetime Licenses</h4>
                                                         </div>
                                                         <button type="button" 
                                                             onClick={() => {
@@ -857,7 +857,7 @@ export default function Portal() {
                                                                             const plans = [...formData.posPricing.softwarePlans];
                                                                             plans[idx].name = e.target.value;
                                                                             setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
-                                                                        }} className="w-full text-lg font-black text-gray-900 italic bg-transparent outline-none" placeholder="Plan Name" />
+                                                                        }} className="w-full text-lg font-black text-gray-900 bg-transparent outline-none" placeholder="Plan Name" />
                                                                         <label className="shrink-0 flex items-center gap-1.5 cursor-pointer">
                                                                             <input type="checkbox" checked={plan.isPopular} onChange={(e) => {
                                                                                 const plans = [...formData.posPricing.softwarePlans].map((p, i) => ({ ...p, isPopular: i === idx ? e.target.checked : false }));
@@ -883,7 +883,7 @@ export default function Portal() {
                                                                         const plans = [...formData.posPricing.softwarePlans];
                                                                         plans[idx].description = e.target.value;
                                                                         setFormData({ ...formData, posPricing: { ...formData.posPricing, softwarePlans: plans }});
-                                                                    }} className="w-full text-xs font-bold text-gray-500 italic bg-gray-50 rounded-xl p-3 outline-none" placeholder="Target audience description" />
+                                                                    }} className="w-full text-xs font-bold text-gray-500 bg-gray-50 rounded-xl p-3 outline-none" placeholder="Target audience description" />
                                                                     <div>
                                                                         <label className="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em]">Features (One per line)</label>
                                                                         <textarea value={(plan.features || []).join('\n')} onChange={(e) => {
@@ -902,7 +902,7 @@ export default function Portal() {
                                                 <div className="space-y-6 pt-6 border-t border-gray-100">
                                                     <div className="flex items-center gap-2">
                                                         <Monitor className="h-5 w-5 text-corporat-blue" />
-                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Hardware Bundles</h4>
+                                                        <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Hardware Bundles</h4>
                                                     </div>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                         {(formData.posPricing?.hardwareBundles || []).map((bundle: any, idx: number) => (
@@ -933,7 +933,7 @@ export default function Portal() {
                                                                                     const bundles = [...formData.posPricing.hardwareBundles];
                                                                                     bundles[idx].name = e.target.value;
                                                                                     setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
-                                                                                }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black italic shadow-inner" />
+                                                                                }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black shadow-inner" />
                                                                             </div>
                                                                             <div>
                                                                                 <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Bundle Price</label>
@@ -950,7 +950,7 @@ export default function Portal() {
                                                                                 const bundles = [...formData.posPricing.hardwareBundles];
                                                                                 bundles[idx].description = e.target.value;
                                                                                 setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
-                                                                            }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-xs font-bold italic shadow-inner" />
+                                                                            }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-xs font-bold shadow-inner" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -962,7 +962,7 @@ export default function Portal() {
                                                                             const bundles = [...formData.posPricing.hardwareBundles];
                                                                             bundles[idx].roiText = e.target.value;
                                                                             setFormData({ ...formData, posPricing: { ...formData.posPricing, hardwareBundles: bundles }});
-                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[10px] font-bold text-gray-500 italic min-h-[100px] shadow-inner" />
+                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[10px] font-bold text-gray-500 min-h-[100px] shadow-inner" />
                                                                     </div>
                                                                     <div>
                                                                         <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Hardware Inclusions (one per line)</label>
@@ -983,26 +983,26 @@ export default function Portal() {
                                                     <div className="relative z-10">
                                                         <div className="flex items-center gap-3 mb-8">
                                                             <div className="bg-white/10 p-3 rounded-2xl"><TrendingDown className="h-6 w-6 text-green-400" /></div>
-                                                            <h4 className="text-lg font-black italic tracking-tighter uppercase">5-Year Savings Calculator</h4>
+                                                            <h4 className="text-lg font-black tracking-tighter uppercase">5-Year Savings Calculator</h4>
                                                         </div>
                                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                                             <div>
                                                                 <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. Monthly Fee</label>
                                                                 <input type="text" value={formData.posPricing?.savings?.competitorMonthly || ''}
                                                                     onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitorMonthly: e.target.value } } })}
-                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black italic text-white outline-none focus:border-white/20 transition-all shadow-inner" />
+                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black text-white outline-none focus:border-white/20 transition-all shadow-inner" />
                                                             </div>
                                                             <div>
                                                                 <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Comp. 5-Year Total</label>
                                                                 <input type="text" value={formData.posPricing?.savings?.competitor5Year || ''}
                                                                     onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...formData.posPricing.savings, competitor5Year: e.target.value } } })}
-                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black italic text-white outline-none focus:border-white/20 transition-all shadow-inner" />
+                                                                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-2xl font-black text-white outline-none focus:border-white/20 transition-all shadow-inner" />
                                                             </div>
                                                             <div>
                                                                 <label className="block text-[10px] font-black text-green-500 uppercase tracking-widest mb-3">TOTAL SAVED CLAIM</label>
                                                                 <input type="text" value={formData.posPricing?.savings?.savingsText || ''}
                                                                     onChange={(e) => setFormData({ ...formData, posPricing: { ...formData.posPricing, savings: { ...(formData.posPricing?.savings || {}), savingsText: e.target.value } } })}
-                                                                    className="w-full bg-green-500/10 border border-green-500/20 rounded-2xl px-6 py-4 text-2xl font-black italic text-green-400 outline-none focus:border-green-500/40 transition-all shadow-2xl" />
+                                                                    className="w-full bg-green-500/10 border border-green-500/20 rounded-2xl px-6 py-4 text-2xl font-black text-green-400 outline-none focus:border-green-500/40 transition-all shadow-2xl" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1017,7 +1017,7 @@ export default function Portal() {
                                                         <div className="flex items-center gap-3">
                                                             <div className="bg-amber-50 p-2 rounded-xl"><DollarSign className="h-5 w-5 text-amber-600" /></div>
                                                             <div>
-                                                                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest italic">Standard Website Tiers</h4>
+                                                                <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Standard Website Tiers</h4>
                                                                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Traditional subscription/one-time plans</p>
                                                             </div>
                                                         </div>
@@ -1036,7 +1036,7 @@ export default function Portal() {
                                                                     <div className="flex items-center justify-between gap-4">
                                                                         <input type="text" value={plan.title}
                                                                             onChange={(e) => { const updated = [...formData.pricing]; updated[idx].title = e.target.value; setFormData({ ...formData, pricing: updated }); }}
-                                                                            className="w-full bg-transparent border-none p-0 text-lg font-black text-gray-900 focus:ring-0 outline-none italic" placeholder="Plan Title" />
+                                                                            className="w-full bg-transparent border-none p-0 text-lg font-black text-gray-900 focus:ring-0 outline-none" placeholder="Plan Title" />
                                                                         <label className="flex items-center gap-2 cursor-pointer">
                                                                             <input type="checkbox" checked={plan.isRecommended}
                                                                                 onChange={(e) => { const updated = [...formData.pricing]; updated[idx].isRecommended = e.target.checked; setFormData({ ...formData, pricing: updated }); }}

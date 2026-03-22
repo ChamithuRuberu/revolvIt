@@ -220,7 +220,7 @@ export default function Pricing() {
               </div>
 
               <Link
-                href="/contact"
+                href={`/checkout?product=${index === 0 ? 'desktop-core' : index === 1 ? 'hybrid-pro' : index === 2 ? 'enterprise' : 'restaurant'}`}
                 className={`w-full py-4 rounded-2xl font-black text-sm text-center transition-all active:scale-95 ${plan.isRecommended ? 'bg-corporate-blue text-white shadow-xl shadow-blue-500/20' : 'bg-slate-100 text-gray-900 hover:bg-slate-200'}`}
               >
                 Get Started Today
@@ -323,7 +323,7 @@ export default function Pricing() {
                 </div>
 
                 <div className="mb-8">
-                  <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 italic">Total Bundle Cost</div>
+                  <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Bundle Cost</div>
                   <div className="flex items-baseline gap-1">
                     <span className="text-xs font-black text-gray-400 uppercase">LKR</span>
                     <span className="text-4xl font-black text-gray-900 tracking-tighter">{bundle.price}</span>
@@ -353,8 +353,8 @@ export default function Pricing() {
                   </ul>
                 </div>
 
-                <Link href="/contact" className="group-hover:bg-corporate-blue group-hover:text-white border-2 border-gray-100 rounded-2xl py-4 text-center text-sm font-black transition-all">
-                  Configure This Package
+                <Link href={`/checkout?product=${idx === 0 ? 'essential-bundle' : idx === 1 ? 'retail-bundle' : idx === 2 ? 'restaurant-bundle' : 'supermarket-bundle'}`} className="group-hover:bg-corporate-blue group-hover:text-white border-2 border-gray-100 rounded-2xl py-4 text-center text-sm font-black transition-all">
+                  Buy Now
                 </Link>
               </div>
             ))}

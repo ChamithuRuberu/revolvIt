@@ -49,10 +49,7 @@ export default function ReturnPolicy() {
               Since our primary offerings are software solutions, POS systems, and digital services, the following terms apply:
             </p>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">Subscription-based services may be cancelled within <strong>14 days</strong> of the initial purchase for a full refund, provided the service has not been substantially used.</span>
-              </li>
+
               <li className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-600">If a software product is found to have critical defects that we are unable to resolve within <strong>30 days</strong>, you are entitled to a full refund.</span>
@@ -76,10 +73,7 @@ export default function ReturnPolicy() {
               For hardware products such as POS terminals, receipt printers, and other peripherals:
             </p>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">Hardware may be returned within <strong>7 days</strong> of delivery if it is unused, in its original packaging, and in resalable condition.</span>
-              </li>
+
               <li className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-600">Defective hardware will be replaced or refunded within the <strong>warranty period</strong> as specified at the time of purchase.</span>

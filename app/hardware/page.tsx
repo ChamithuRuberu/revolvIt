@@ -327,7 +327,7 @@ export default function HardwareCatalog() {
             {/* Final CTA */}
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter mb-8 italic">Need a Complete Bundle?</h2>
+                    <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter mb-8">Need a Complete Bundle?</h2>
                     <p className="text-xl text-gray-500 font-bold mb-12 max-w-2xl mx-auto">Skip the modular selection and pick one of our optimized hardware + software bundles for maximum savings.</p>
                     <Link href="/pricing" className="inline-flex items-center gap-3 bg-gray-900 text-white px-12 py-6 rounded-2xl font-black text-xl hover:bg-corporate-blue transition-all active:scale-95 group shadow-2xl shadow-gray-900/20">
                         Explore Hardware Bundles

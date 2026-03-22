@@ -189,6 +189,8 @@ const PortalDataSchema = new Schema({
     posPricing: POSPricingSchema,
 }, { timestamps: true });
 
+PortalDataSchema.index({ createdAt: -1 });
+
 const PortalData = models.PortalData || model('PortalData', PortalDataSchema);
 
 export default PortalData;

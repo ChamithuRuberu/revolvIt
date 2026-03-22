@@ -1,13 +1,20 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
+import connectDB, { getCachedPortalData } from '@/lib/mongodb';
 import PortalData from '@/models/PortalData';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
-        await connectDB();
-        const data = await PortalData.findOne().sort({ createdAt: -1 });
+        const { searchParams } = new URL(request.url);
+        const fields = searchParams.get('fields');
+
+        // If specific fields requested, use projection to fetch only those from DB
+        const data = await getCachedPortalData(
+            fields ? `portal_public_${fields}` : 'portal_public', 
+            60 * 1000, // 1 minute TTL
+            fields ? fields.replace(/,/g, ' ') : null
+        );
 
         if (!data) {
             // Return default data if none exists
@@ -576,7 +583,21 @@ export async function GET() {
             }
         }
 
-        return NextResponse.json(result);
+        let finalResult = result;
+        if (fields) {
+            finalResult = {};
+            const fieldList = fields.split(',');
+            fieldList.forEach(f => {
+                const trimmed = f.trim();
+                if (result[trimmed] !== undefined) {
+                    finalResult[trimmed] = result[trimmed];
+                }
+            });
+            // Always include common fields if they exist
+            if (result.user && !finalResult.user) finalResult.user = result.user;
+        }
+
+        return NextResponse.json(finalResult);
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
@@ -593,6 +614,10 @@ export async function POST(request: Request) {
             body, // update
             { upsert: true, new: true } // options
         );
+
+        // Invalidate cache so next read gets fresh data
+        const { invalidateCache } = await import('@/lib/mongodb');
+        invalidateCache();
 
         return NextResponse.json(data);
     } catch (error: any) {

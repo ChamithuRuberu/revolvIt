@@ -166,7 +166,7 @@ export default function MobilePricing() {
       {/* CTA Section */}
       <section className="py-24 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-8 italic">Ready to put your business in their pockets?</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-8">Ready to put your business in their pockets?</h2>
           <Link href="/contact" className="inline-flex items-center gap-3 bg-corporate-blue text-white px-12 py-6 rounded-2xl font-black text-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all active:scale-95 group">
             Consult our Mobile Experts
             <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
