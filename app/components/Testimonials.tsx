@@ -57,7 +57,7 @@ export default function Testimonials() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/portal');
+        const res = await fetch('/api/portal/public?fields=testimonials');
         const json = await res.json();
         if (json.testimonials && json.testimonials.length > 0) {
           setTestimonials(json.testimonials);

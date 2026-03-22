@@ -15,7 +15,7 @@ export default function Pricing() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/portal/public');
+        const res = await fetch('/api/portal/public?fields=pricing,posPricing');
         const json = await res.json();
         if (json.pricing) setPricingPlans(json.pricing);
         if (json.posPricing) setPosData(json.posPricing);

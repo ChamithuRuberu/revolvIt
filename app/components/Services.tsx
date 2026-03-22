@@ -27,7 +27,7 @@ export default function Services() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/portal');
+        const res = await fetch('/api/portal/public?fields=websiteServices');
         const json = await res.json();
         if (json.websiteServices && json.websiteServices.length > 0) {
           setServices(json.websiteServices);

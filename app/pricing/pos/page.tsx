@@ -10,8 +10,10 @@ import {
   TrendingDown, TrendingUp, HelpCircle, Check, X,
   Package, LayoutPanelTop, ShoppingCart, Clock, Award, Users,
   HeartPulse, Utensils, Store, Smartphone, MapPin, BadgePercent,
-  History, Landmark, Gem, CreditCard, Sparkles, Infinity, Loader2
+  History, Landmark, Gem, CreditCard, Sparkles, Infinity, Loader2, Plus
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useCart } from '../../context/CartContext';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -35,6 +37,8 @@ const TrustBadge = ({ icon: Icon, label, sublabel }: { icon: any, label: string,
 );
 
 export default function POSPricing() {
+  const router = useRouter();
+  const { addToCart } = useCart();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'lifetime'>('lifetime');
   const [setupType, setSetupType] = useState<'desktop' | 'touch'>('desktop');
   const [data, setData] = useState<any>(null);
@@ -43,7 +47,7 @@ export default function POSPricing() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/portal/public');
+        const response = await fetch('/api/portal/public?fields=posPricing');
         const result = await response.json();
         if (result.posPricing) {
           setData(result.posPricing);
@@ -348,12 +352,20 @@ export default function POSPricing() {
                   ))}
                 </div>
 
-                <Link
-                  href={`/checkout?product=${idx === 0 ? 'lite' : idx === 1 ? 'pro' : 'max'}&billing=${billingCycle}`}
+                <button
+                  onClick={() => {
+                    addToCart({
+                      name: `${plan.name} License (${billingCycle === 'monthly' ? 'Monthly' : 'Lifetime'})`,
+                      price: billingCycle === 'monthly' ? (plan.monthlyPrice || (idx === 0 ? '2,490' : idx === 1 ? '4,490' : '7,490')) : plan.price,
+                      image: '/logo1.jpeg',
+                      model: `${plan.name}-${billingCycle}`
+                    });
+                    router.push('/checkout');
+                  }}
                   className={`w-full py-5 font-black text-center text-[10px] uppercase tracking-widest transition-all ${plan.isPopular ? 'rounded-[1.5rem] bg-corporate-blue text-white hover:bg-corporate-blue-dark scale-105 shadow-2xl shadow-corporate-blue/30' : 'rounded-2xl bg-slate-900 text-white hover:bg-black shadow-xl shadow-slate-900/10'}`}
                 >
                   {billingCycle === 'monthly' ? 'Subscribe Now' : 'Buy Lifetime License'}
-                </Link>
+                </button>
               </div>
             ))}
           </div>
@@ -418,11 +430,26 @@ export default function POSPricing() {
                   ))}
                 </ul>
 
-                {idx === 0 && (
-                  <div className="text-center pt-8">
+                <div className="flex items-center justify-between pt-8 mt-auto border-t border-white/10">
+                  <div>
                     <p className="text-[10px] font-black text-slate-500 uppercase ">{bundle.roiText}</p>
                   </div>
-                )}
+                  <button 
+                    onClick={() => {
+                      addToCart({
+                        name: bundle.name,
+                        price: bundle.price,
+                        image: bundle.image || (idx === 0 ? "https://images.unsplash.com/photo-1556740753-b2904692b3cd?auto=format&fit=crop&q=80&w=800" : "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&q=80&w=800"),
+                        model: `BUNDLE-${idx}`
+                      });
+                      router.push('/checkout');
+                    }}
+                    className="bg-corporate-blue text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all flex items-center gap-2 shadow-xl"
+                  >
+                    <Plus className="h-4 w-4" />
+                    Buy Bundle
+                  </button>
+                </div>
               </div>
             ))}
           </div>

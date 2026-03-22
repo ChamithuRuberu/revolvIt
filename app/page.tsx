@@ -12,7 +12,7 @@ export default function Home() {
   const [brands, setBrands] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('/api/portal')
+    fetch('/api/portal/public?fields=brands')
       .then(res => res.json())
       .then(data => {
         if (data && data.brands) {

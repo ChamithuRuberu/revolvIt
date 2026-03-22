@@ -56,12 +56,14 @@ interface CacheEntry {
 const dataCache: Map<string, CacheEntry> = (global as any).__portalCache || new Map();
 (global as any).__portalCache = dataCache;
 
-const CACHE_TTL = 60 * 1000; // 60 seconds cache TTL
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes cache TTL
+
+// Map to track pending fetches (prevents cache stampede)
+const pendingFetches: Map<string, Promise<any>> = (global as any).__pendingFetches || new Map();
+(global as any).__pendingFetches = pendingFetches;
 
 /**
  * Get cached data or fetch fresh from MongoDB.
- * Uses an in-memory cache with configurable TTL to avoid
- * hammering MongoDB on every page load.
  */
 export async function getCachedPortalData(
     cacheKey: string = 'portal_data',
@@ -69,33 +71,54 @@ export async function getCachedPortalData(
     projection: string | null = null
 ): Promise<any> {
     const now = Date.now();
+    
+    // 1. Check in-memory cache
     const cached_entry = dataCache.get(cacheKey);
-
-    // If whole data is cached, return it (filtering in memory is faster than DB trip)
     if (cached_entry && (now - cached_entry.timestamp) < ttl) {
         return cached_entry.data;
     }
 
-    // Import here to avoid circular dependency
-    const PortalData = (await import('@/models/PortalData')).default;
-    await connectDB();
-
-    console.time(`⏱️ MongoDB Fetch: ${cacheKey}`);
-    const query = PortalData.findOne().sort({ createdAt: -1 }).lean();
-    
-    if (projection) {
-        query.select(projection);
+    // 2. Check if there's already a fetch in progress for this key
+    const pending = pendingFetches.get(cacheKey);
+    if (pending) {
+        console.log(`⚡ Awaiting pending fetch for: ${cacheKey}`);
+        return pending;
     }
 
-    const data = await query.exec();
-    console.timeEnd(`⏱️ MongoDB Fetch: ${cacheKey}`);
+    // 3. Initiate new fetch and track it
+    const fetchPromise = (async () => {
+        try {
+            // Import here to avoid circular dependency
+            const PortalData = (await import('@/models/PortalData')).default;
+            await connectDB();
 
-    if (data && !projection) {
-        // Cache the full object only if no projection was used
-        dataCache.set(cacheKey, { data, timestamp: now });
-    }
+            console.time(`⏱️ MongoDB Fetch: ${cacheKey}`);
+            const query = PortalData.findOne().sort({ createdAt: -1 }).lean();
+            
+            if (projection) {
+                query.select(projection);
+            }
 
-    return data;
+            const data = await query.exec();
+            console.timeEnd(`⏱️ MongoDB Fetch: ${cacheKey}`);
+
+            if (data) {
+                const sizeKB = Math.round(JSON.stringify(data).length / 1024);
+                console.log(`📦 Data fetched for ${cacheKey}: ~${sizeKB}KB`);
+                
+                // Cache the result
+                dataCache.set(cacheKey, { data, timestamp: Date.now() });
+            }
+
+            return data;
+        } finally {
+            // Important: Remove from pending once complete
+            pendingFetches.delete(cacheKey);
+        }
+    })();
+
+    pendingFetches.set(cacheKey, fetchPromise);
+    return fetchPromise;
 }
 
 /**

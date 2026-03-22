@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { CartProvider } from "../context/CartContext";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   }, [pathname]);
 
   return (
-    <>
+    <CartProvider>
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-400">
         </div>
@@ -47,6 +48,6 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
           {!isPortalSection && <Footer />}
         </motion.div>
       </AnimatePresence>
-    </>
+    </CartProvider>
   );
 }

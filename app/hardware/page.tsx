@@ -10,6 +10,8 @@ import {
     ShieldCheck, Zap, ArrowRight, Sparkles,
     Calculator, Cpu, ShoppingBag
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useCart } from '../context/CartContext';
 
 const IconMap: { [key: string]: any } = {
     Monitor, Printer, ScanLine, Package,
@@ -19,6 +21,8 @@ const IconMap: { [key: string]: any } = {
 };
 
 export default function HardwareCatalog() {
+    const router = useRouter();
+    const { addToCart } = useCart();
     const [activeCategory, setActiveCategory] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [hardwareData, setHardwareData] = useState<any[]>([]);
@@ -39,7 +43,7 @@ export default function HardwareCatalog() {
     useEffect(() => {
         const fetchHardware = async () => {
             try {
-                const res = await fetch('/api/portal', { cache: 'no-store' });
+                const res = await fetch('/api/portal/public?fields=hardware,hardwareCategories,hardwareHero');
                 const data = await res.json();
 
                 if (data.hardware) {
@@ -278,9 +282,15 @@ export default function HardwareCatalog() {
                                                     <div className="text-2xl font-black text-gray-900 tracking-tighter">LKR {item.price}</div>
                                                 </div>
                                             </div>
-                                            <Link href="/contact" className="bg-gray-900 text-white p-4 rounded-2xl hover:bg-corporate-blue transition-all active:scale-95 shadow-xl shadow-gray-900/10">
+                                            <button 
+                                                onClick={() => {
+                                                    addToCart(item);
+                                                    router.push('/checkout');
+                                                }}
+                                                className="bg-gray-900 text-white p-4 rounded-2xl hover:bg-corporate-blue transition-all active:scale-95 shadow-xl shadow-gray-900/10"
+                                            >
                                                 <ShoppingBag className="h-5 w-5" />
-                                            </Link>
+                                            </button>
                                         </div>
                                     </div>
                                 </motion.div>
