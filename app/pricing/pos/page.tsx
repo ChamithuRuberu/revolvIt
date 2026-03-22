@@ -372,6 +372,8 @@ export default function POSPricing() {
         </div>
       </section>
 
+
+
       {/* 4. HARDWARE BUNDLES (LOWER SECTION) */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02] -z-10"></div>

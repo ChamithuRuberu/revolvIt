@@ -824,6 +824,74 @@ export default function Portal() {
                                                     </div>
                                                 </div>
 
+                                                {/* Setup Experience Editor */}
+                                                <div className="space-y-6 pt-6 border-t border-gray-100">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center gap-2">
+                                                            <Monitor className="h-5 w-5 text-corporate-blue" />
+                                                            <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Step 1: Setup Experience</h4>
+                                                        </div>
+                                                        <button type="button" 
+                                                            onClick={() => {
+                                                                const setups = [...(formData.posPricing.setups || [])];
+                                                                setups.push({ id: `setup_${Date.now()}`, label: 'New Setup', description: '', price: '0', features: [] });
+                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups } });
+                                                            }}
+                                                            className="text-[10px] font-black text-corporate-blue uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all">
+                                                            <Plus className="h-3 w-3" /> Add Experience
+                                                        </button>
+                                                    </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                                        {(formData.posPricing?.setups || []).map((setup: any, idx: number) => (
+                                                            <div key={idx} className="bg-gray-50 rounded-[2.5rem] p-8 border border-gray-100 relative group">
+                                                                <button type="button" onClick={() => {
+                                                                    const setups = [...formData.posPricing.setups];
+                                                                    setups.splice(idx, 1);
+                                                                    setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups } });
+                                                                }} className="absolute -top-3 -right-3 h-8 w-8 bg-white border border-gray-100 rounded-full flex items-center justify-center text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                    <Trash2 className="h-4 w-4" />
+                                                                </button>
+                                                                <div className="grid grid-cols-1 gap-6">
+                                                                    <div className="grid grid-cols-2 gap-4">
+                                                                        <div>
+                                                                            <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Display Label</label>
+                                                                            <input type="text" value={setup.label} onChange={(e) => {
+                                                                                const setups = [...formData.posPricing.setups];
+                                                                                setups[idx].label = e.target.value;
+                                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups }});
+                                                                            }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black shadow-inner" />
+                                                                        </div>
+                                                                        <div>
+                                                                            <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Setup Price</label>
+                                                                            <input type="text" value={setup.price} onChange={(e) => {
+                                                                                const setups = [...formData.posPricing.setups];
+                                                                                setups[idx].price = e.target.value;
+                                                                                setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups }});
+                                                                            }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-black shadow-inner" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Punchy Description</label>
+                                                                        <input type="text" value={setup.description} onChange={(e) => {
+                                                                            const setups = [...formData.posPricing.setups];
+                                                                            setups[idx].description = e.target.value;
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups }});
+                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-xs font-bold shadow-inner" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <label className="block text-[8px] font-black text-gray-400 uppercase mb-2">Hardware Inclusions (one per line)</label>
+                                                                        <textarea value={(setup.features || []).join('\n')} onChange={(e) => {
+                                                                            const setups = [...formData.posPricing.setups];
+                                                                            setups[idx].features = e.target.value.split('\n');
+                                                                            setFormData({ ...formData, posPricing: { ...formData.posPricing, setups: setups }});
+                                                                        }} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-[10px] font-bold min-h-[100px] shadow-inner" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
                                                 {/* Software Plans Editor */}
                                                 <div className="space-y-6">
                                                     <div className="flex items-center justify-between">
@@ -917,7 +985,7 @@ export default function Portal() {
                                                 {/* Hardware Bundles Editor */}
                                                 <div className="space-y-6 pt-6 border-t border-gray-100">
                                                     <div className="flex items-center gap-2">
-                                                        <Monitor className="h-5 w-5 text-corporat-blue" />
+                                                        <Monitor className="h-5 w-5 text-corporate-blue" />
                                                         <h4 className="text-sm font-black text-gray-900 uppercase tracking-widest">Hardware Bundles</h4>
                                                     </div>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -993,6 +1061,8 @@ export default function Portal() {
                                                         ))}
                                                     </div>
                                                 </div>
+
+
                                             </div>
                                         )}
 
