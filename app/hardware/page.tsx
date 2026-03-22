@@ -41,7 +41,7 @@ export default function HardwareCatalog() {
             try {
                 const res = await fetch('/api/portal', { cache: 'no-store' });
                 const data = await res.json();
-                
+
                 if (data.hardware) {
                     setHardwareData(data.hardware);
                 }
@@ -101,7 +101,7 @@ export default function HardwareCatalog() {
                         {/* RIGHT SIDE: Animated Image Carousel */}
                         <div className="flex-1 relative w-full max-w-md lg:max-w-none h-[400px] lg:h-[450px]">
                             <div className="absolute inset-0 bg-blue-500 rounded-[3rem] blur-[100px] opacity-10 animate-pulse"></div>
-                            
+
                             <AnimatePresence mode="wait">
                                 {heroSlides.length > 0 && heroSlides[currentSlideIndex] ? (
                                     <motion.div
