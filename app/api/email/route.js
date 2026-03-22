@@ -20,6 +20,7 @@ export async function POST(req) {
     email,
     phone,
     posPackage,
+    subscriptionPlan,
     completePackage,
     addOnFeatures,
     message,
@@ -78,9 +79,10 @@ export async function POST(req) {
         Name: ${fullName}
         Email: ${email}
         Phone: ${phone}
-        POS Package: ${posPackage || 'Not selected'}
-        Complete Package: ${completePackage || 'Not selected'}
-        Add-On Features: ${addOnFeatures || 'None'}
+        POS Package (Lifetime): ${posPackage || 'Not selected'}
+        Subscription Plan: ${subscriptionPlan || 'Not selected'}
+        Hardware Bundle: ${completePackage || 'Not selected'}
+        Standalone Equipment: ${addOnFeatures || 'None'}
         Message: ${message}
       `,
       html: `
@@ -90,11 +92,13 @@ export async function POST(req) {
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
           <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
           <hr style="border: 1px solid #e0e0e0; margin: 20px 0;">
-          <p><strong>Message:</strong></p>
-          <p><strong>POS Package:</strong> ${posPackage || 'Not selected'}</p>
-          <p><strong>Complete Package:</strong> ${completePackage || 'Not selected'}</p>
-          <p><strong>Add-On Features:</strong> ${addOnFeatures || 'None'}</p>
-          <p><strong>Message:</strong></p>
+          <p><strong>Selected Configuration:</strong></p>
+          <p><strong>POS Package (Lifetime):</strong> ${posPackage || 'Not selected'}</p>
+          <p><strong>Subscription Plan:</strong> ${subscriptionPlan || 'Not selected'}</p>
+          <p><strong>Hardware Bundle:</strong> ${completePackage || 'Not selected'}</p>
+          <p><strong>Standalone Equipment:</strong> ${addOnFeatures || 'None'}</p>
+          <hr style="border: 1px solid #e0e0e0; margin: 20px 0;">
+          <p><strong>Additional Message/Requirements:</strong></p>
           <p style="white-space: pre-wrap;">${message}</p>
         </div>
       `,
