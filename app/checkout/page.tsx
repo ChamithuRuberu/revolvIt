@@ -60,12 +60,16 @@ export default function CheckoutPage() {
                 });
 
                 dp.doInAppCheckout().then((result: any) => {
-                    console.log('Payment success:', result);
-                    clearCart();
-                    router.push('/checkout/success?gateway=directpay');
+                    console.log('Payment result:', result);
+                    if (result.status === 'success') {
+                        clearCart();
+                        router.push('/checkout/success?gateway=directpay');
+                    } else {
+                        router.push('/checkout/cancel?gateway=directpay');
+                    }
                 }).catch((error: any) => {
                     console.error('Payment error:', error);
-                    alert('Payment failed: ' + JSON.stringify(error));
+                    router.push('/checkout/cancel?gateway=directpay');
                 });
             } else {
                 alert('Payment initiation failed: ' + data.error);
