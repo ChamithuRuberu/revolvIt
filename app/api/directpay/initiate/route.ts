@@ -24,14 +24,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.greencodesolution.web.lk';
+
     const json_payload = {
       merchant_id,
       amount,
       type: 'ONE_TIME',
       order_id,
       currency,
-      response_url: `${process.env.NEXT_PUBLIC_SITE_URL}/api/directpay/notify`,
-      return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?gateway=directpay`,
+      response_url: `${siteUrl}/api/directpay/notify`,
+      return_url: `${siteUrl}/checkout/success?gateway=directpay`,
       first_name: customer_name || 'Customer',
       last_name: '',
       email: customer_email || '',

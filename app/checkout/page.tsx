@@ -11,11 +11,14 @@ export default function CheckoutPage() {
     const { cart, removeFromCart, totalAmount, clearCart } = useCart();
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
+    const [scriptLoaded, setScriptLoaded] = useState(false);
 
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://cdn.directpay.lk/v3/directpayipg.min.js';
         script.async = true;
+        script.onload = () => setScriptLoaded(true);
+        script.onerror = () => console.error('Failed to load DirectPay script');
         document.head.appendChild(script);
 
         return () => {
@@ -24,6 +27,10 @@ export default function CheckoutPage() {
     }, []);
 
     const handlePayNow = async () => {
+        if (!scriptLoaded) {
+            alert('Payment system is loading, please try again in a moment.');
+            return;
+        }
         setIsProcessing(true);
         try {
             const order_id = `order_${Date.now()}`;
