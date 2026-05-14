@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     const requestBody = {
       merchant_id,
-      amount: parseFloat(amount),
+      amount,
       currency,
       order_id,
       return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?gateway=directpay`,
@@ -33,7 +33,10 @@ export async function POST(req: NextRequest) {
       customer_name: customer_name || 'Customer',
       customer_email: customer_email || '',
       customer_phone: customer_phone || '',
+      description: description || '',
     };
+
+    console.log('DirectPay request:', requestBody);
 
     const response = await fetch('https://api.directpay.lk/api/v1/collect', {
       method: 'POST',
@@ -49,7 +52,7 @@ export async function POST(req: NextRequest) {
     if (!response.ok) {
       console.error('DirectPay API error:', data);
       return NextResponse.json(
-        { error: 'Failed to initiate payment' },
+        { error: 'DirectPay API error', details: data },
         { status: 500 }
       );
     }
