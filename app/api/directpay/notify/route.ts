@@ -67,6 +67,27 @@ export async function POST(req: NextRequest) {
     } else if (status === 'failed') {
       // Payment failed
       console.log(`❌ Payment failed for order: ${order_id}`);
+
+      // Send failure notification email
+      try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+        await transporter.sendMail({
+          from: `Green Code Solution <${process.env.EMAIL_USER}>`,
+          to: payload.email || 'tcdruberu@gmail.com',
+          subject: `Payment Failed - Order ${order_id}`,
+          text: `Your payment attempt was unsuccessful.\nOrder ID: ${order_id}\nAmount: ${amount}\nReason: ${payload.message || 'Payment failed'}\n\nPlease try again or contact support.`,
+          html: `<h2>Payment Failed</h2><p>Order ID: <b>${order_id}</b></p><p>Amount: <b>${amount}</b></p><p>Reason: <b>${payload.message || 'Payment failed'}</b></p><p>Please try again or contact support.</p>`,
+        });
+        console.log('✅ Failure notification email sent');
+      } catch (e) {
+        console.error('❌ Failed to send failure notification email:', e);
+      }
     } else if (status === 'cancelled') {
       // Payment cancelled
       console.log(`❌ Payment cancelled for order: ${order_id}`);

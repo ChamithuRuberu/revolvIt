@@ -61,15 +61,15 @@ export default function CheckoutPage() {
 
                 dp.doInAppCheckout().then((result: any) => {
                     console.log('Payment result:', result);
-                    if (result.transaction.status === 'success') {
+                    if (result.transaction && result.transaction.status === 'success') {
                         clearCart();
-                        router.push('/checkout/success?gateway=directpay');
+                        router.push(`/checkout/success?gateway=directpay&order_id=${order_id}`);
                     } else {
-                        router.push('/checkout/cancel?gateway=directpay');
+                        router.push(`/checkout/cancel?gateway=directpay&order_id=${order_id}`);
                     }
                 }).catch((error: any) => {
                     console.error('Payment error:', error);
-                    router.push('/checkout/cancel?gateway=directpay');
+                    router.push(`/checkout/cancel?gateway=directpay&order_id=${order_id}`);
                 });
             } else {
                 alert('Payment initiation failed: ' + data.error);
