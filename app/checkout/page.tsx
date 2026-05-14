@@ -61,7 +61,7 @@ export default function CheckoutPage() {
 
                 dp.doInAppCheckout().then((result: any) => {
                     console.log('Payment result:', result);
-                    if (result.status === 'success') {
+                    if (result.transaction.status === 'success') {
                         clearCart();
                         router.push('/checkout/success?gateway=directpay');
                     } else {
