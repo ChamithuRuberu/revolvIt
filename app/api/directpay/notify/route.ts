@@ -3,14 +3,15 @@ import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
+    const requestBody = await req.text(); // Get the raw body as string
+    const authHeader = req.headers.get('authorization');
 
-    const merchant_id = formData.get('merchant_id') as string;
-    const order_id = formData.get('order_id') as string;
-    const amount = formData.get('amount') as string;
-    const status = formData.get('status') as string;
-    const signature = formData.get('signature') as string;
+    if (!authHeader || !authHeader.startsWith('HMAC ')) {
+      console.error('Invalid authorization header');
+      return NextResponse.json({ status: 'error' }, { status: 400 });
+    }
 
+    const receivedHash = authHeader.split(' ')[1];
     const secret = process.env.DIRECTPAY_SECRET_KEY;
 
     if (!secret) {
@@ -18,16 +19,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ status: 'error' }, { status: 500 });
     }
 
-    // Verify signature: md5(secret + order_id + amount + status)
-    const expectedSignature = crypto
-      .createHash('md5')
-      .update(secret + order_id + amount + status)
-      .digest('hex');
+    const generatedHash = crypto.createHmac('sha256', secret).update(requestBody).digest('hex');
 
-    if (expectedSignature !== signature) {
+    if (generatedHash !== receivedHash) {
       console.error('DirectPay notification verification failed');
       return NextResponse.json({ status: 'verification_failed' }, { status: 400 });
     }
+
+    // Decode and parse the payload
+    const decodedPayload = Buffer.from(requestBody, 'base64').toString('utf-8');
+    const payload = JSON.parse(decodedPayload);
+
+    const { merchant_id, order_id, amount, status } = payload;
 
     console.log('DirectPay Payment Notification:', {
       order_id,

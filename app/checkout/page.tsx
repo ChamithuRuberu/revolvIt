@@ -5,12 +5,23 @@ import { ShoppingBag, Trash2, ArrowRight, CreditCard, ShieldCheck } from 'lucide
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CheckoutPage() {
     const { cart, removeFromCart, totalAmount, clearCart } = useCart();
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.directpay.lk/v3/directpayipg.min.js';
+        script.async = true;
+        document.head.appendChild(script);
+
+        return () => {
+            document.head.removeChild(script);
+        };
+    }, []);
 
     const handlePayNow = async () => {
         setIsProcessing(true);
@@ -28,15 +39,27 @@ export default function CheckoutPage() {
                     order_id,
                     amount,
                     currency,
-                    description: `Payment for ${cart.length} item(s)`,
                 }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                clearCart();
-                window.location.href = data.payment_url;
+                // @ts-ignore
+                const dp = new DirectPayIpg.Init({
+                    signature: data.signature,
+                    dataString: data.dataString,
+                    stage: 'PROD',
+                });
+
+                dp.doInAppCheckout().then((result: any) => {
+                    console.log('Payment success:', result);
+                    clearCart();
+                    router.push('/checkout/success?gateway=directpay');
+                }).catch((error: any) => {
+                    console.error('Payment error:', error);
+                    alert('Payment failed: ' + JSON.stringify(error));
+                });
             } else {
                 alert('Payment initiation failed: ' + data.error);
             }
