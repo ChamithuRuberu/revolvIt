@@ -282,7 +282,7 @@ export default function HardwareCatalog() {
                                                     <div className="text-2xl font-black text-gray-900 tracking-tighter">LKR {item.price}</div>
                                                 </div>
                                             </div>
-                                            <button 
+                                            <button
                                                 onClick={() => {
                                                     addToCart(item);
                                                     router.push('/checkout');

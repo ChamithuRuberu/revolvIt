@@ -39,20 +39,20 @@ export async function POST(req) {
   // Check if email credentials are configured
   const hasEmailUser = !!process.env.EMAIL_USER;
   const hasEmailPass = !!process.env.EMAIL_PASS;
-  
+
   if (!hasEmailUser || !hasEmailPass) {
     console.error("Email credentials not configured");
     console.error("EMAIL_USER exists:", hasEmailUser);
     console.error("EMAIL_PASS exists:", hasEmailPass);
     console.error("All env vars:", Object.keys(process.env).filter(key => key.includes('EMAIL')));
-    
+
     const missingVars = [];
     if (!hasEmailUser) missingVars.push("EMAIL_USER");
     if (!hasEmailPass) missingVars.push("EMAIL_PASS");
-    
+
     return new Response(
-      JSON.stringify({ 
-        message: `Email service is not configured. Missing: ${missingVars.join(", ")}. Please create a .env.local file in the project root with EMAIL_USER and EMAIL_PASS variables.` 
+      JSON.stringify({
+        message: `Email service is not configured. Missing: ${missingVars.join(", ")}. Please create a .env.local file in the project root with EMAIL_USER and EMAIL_PASS variables.`
       }),
       {
         status: 500,
@@ -117,9 +117,9 @@ export async function POST(req) {
     console.error("Error sending email:", error);
     const errorMessage = error.message || "Failed to send email. Please check your email configuration.";
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: errorMessage,
-        error: error.toString() 
+        error: error.toString()
       }),
       {
         status: 500,

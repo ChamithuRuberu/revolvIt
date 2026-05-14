@@ -5,17 +5,47 @@ import { ShoppingBag, Trash2, ArrowRight, CreditCard, ShieldCheck } from 'lucide
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function CheckoutPage() {
     const { cart, removeFromCart, totalAmount, clearCart } = useCart();
     const router = useRouter();
+    const [isProcessing, setIsProcessing] = useState(false);
 
-    const handlePayNow = () => {
-        // Here we would typically integrate with PayHere
-        // For now, we'll just show an alert or proceed to a success page
-        alert('Redirecting to PayHere Payment Gateway...');
-        clearCart();
-        router.push('/');
+    const handlePayNow = async () => {
+        setIsProcessing(true);
+        try {
+            const order_id = `order_${Date.now()}`;
+            const amount = totalAmount.toString();
+            const currency = 'LKR';
+
+            const response = await fetch('/api/directpay/initiate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    order_id,
+                    amount,
+                    currency,
+                    description: `Payment for ${cart.length} item(s)`,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                clearCart();
+                window.location.href = data.payment_url;
+            } else {
+                alert('Payment initiation failed: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Payment error:', error);
+            alert('An error occurred while processing payment.');
+        } finally {
+            setIsProcessing(false);
+        }
     };
 
     if (cart.length === 0) {
@@ -60,7 +90,7 @@ export default function CheckoutPage() {
                                 </div>
                                 <div className="flex flex-col items-end gap-2 px-4">
                                     <div className="text-xs font-bold text-gray-400">Qty: {item.quantity}</div>
-                                    <button 
+                                    <button
                                         onClick={() => removeFromCart(item.id)}
                                         className="p-2 text-gray-400 hover:text-red-500 transition-colors"
                                     >
@@ -75,7 +105,7 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-1">
                         <div className="bg-white p-8 rounded-[3rem] border border-gray-200 shadow-xl sticky top-32">
                             <h2 className="text-2xl font-black text-gray-900 mb-8 border-b border-gray-100 pb-4">Order Summary</h2>
-                            
+
                             <div className="space-y-4 mb-8">
                                 <div className="flex justify-between text-gray-500 font-bold">
                                     <span>Subtotal</span>
@@ -91,12 +121,25 @@ export default function CheckoutPage() {
                                 </div>
                             </div>
 
-                            <button 
+                            <button
                                 onClick={handlePayNow}
-                                className="w-full bg-gray-900 text-white py-6 rounded-2xl font-black text-xl hover:bg-corporate-blue transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95"
+                                disabled={isProcessing}
+                                className={`w-full bg-gray-900 text-white py-6 rounded-2xl font-black text-xl hover:bg-corporate-blue transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
-                                <CreditCard className="h-6 w-6" />
-                                Pay with PayHere
+                                {isProcessing ? (
+                                    <>
+                                        <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                        </svg>
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <CreditCard className="h-6 w-6" />
+                                        Pay with DirectPay
+                                    </>
+                                )}
                             </button>
 
                             <div className="mt-8 pt-8 border-t border-gray-100">

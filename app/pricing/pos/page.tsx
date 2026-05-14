@@ -298,7 +298,7 @@ export default function POSPricing() {
             <h2 className="text-4xl font-black uppercase tracking-tight mb-4 ">Step 2: Choose Your License</h2>
             <div className="flex items-center justify-center gap-4 mt-8">
               <span className={`text-sm font-black uppercase tracking-widest ${billingCycle === 'monthly' ? 'text-indigo-600' : 'text-slate-400'}`}>Monthly Subscription</span>
-              <button 
+              <button
                 onClick={() => setBillingCycle(billingCycle === 'monthly' ? 'lifetime' : 'monthly')}
                 className="relative w-16 h-8 rounded-full bg-slate-100 border border-slate-200 transition-colors group"
               >
@@ -331,8 +331,8 @@ export default function POSPricing() {
                   <div className="flex items-baseline justify-center gap-1 mb-2">
                     <span className="text-xs font-black text-slate-400">LKR</span>
                     <span className={`font-black text-slate-900 tracking-tighter  ${plan.isPopular ? 'text-5xl' : 'text-4xl'}`}>
-                      {billingCycle === 'monthly' 
-                        ? (plan.monthlyPrice || (idx === 0 ? '2,490' : idx === 1 ? '4,490' : '7,490')) 
+                      {billingCycle === 'monthly'
+                        ? (plan.monthlyPrice || (idx === 0 ? '2,490' : idx === 1 ? '4,490' : '7,490'))
                         : plan.price}
                     </span>
                     {billingCycle === 'monthly' && <span className="text-xs font-black text-slate-400">/mo</span>}
@@ -436,7 +436,7 @@ export default function POSPricing() {
                   <div>
                     <p className="text-[10px] font-black text-slate-500 uppercase ">{bundle.roiText}</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => {
                       addToCart({
                         name: bundle.name,

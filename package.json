@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.1.1",
     "@types/mongoose": "^5.11.96",
     "clsx": "^2.1.1",
+    "directpay-ipg-js": "^1.0.31",
     "framer-motion": "^12.6.5",
     "jose": "^6.2.0",
     "lucide-react": "^0.358.0",
