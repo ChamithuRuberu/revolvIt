@@ -102,6 +102,24 @@ export default function PaymentSuccess() {
           </div>
         </motion.div>
 
+        {/* Download Receipt Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex justify-center mb-8"
+        >
+          <a
+            href={`/api/directpay/receipt?order_id=${typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('order_id') : ''}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-corporate-blue text-white px-6 py-3 rounded-xl font-black hover:shadow-xl transition-all"
+          >
+            <Download className="h-5 w-5" />
+            Download Receipt
+          </a>
+        </motion.div>
+
         {/* Navigation */}
         <motion.div
           initial={{ opacity: 0 }}

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
 export async function POST(req: NextRequest) {
   try {
@@ -42,6 +43,27 @@ export async function POST(req: NextRequest) {
       // Payment successful
       // TODO: Update your database order status here
       console.log(`✅ Payment successful for order: ${order_id}`);
+
+      // Send receipt email
+      try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+        await transporter.sendMail({
+          from: `Green Code Solution <${process.env.EMAIL_USER}>`,
+          to: payload.email || 'tcdruberu@gmail.com',
+          subject: `Payment Receipt - Order ${order_id}`,
+          text: `Thank you for your payment.\nOrder ID: ${order_id}\nAmount: ${amount}\nStatus: Success`,
+          html: `<h2>Payment Receipt</h2><p>Order ID: <b>${order_id}</b></p><p>Amount: <b>${amount}</b></p><p>Status: <b>Success</b></p>`,
+        });
+        console.log('✅ Receipt email sent');
+      } catch (e) {
+        console.error('❌ Failed to send receipt email:', e);
+      }
     } else if (status === 'failed') {
       // Payment failed
       console.log(`❌ Payment failed for order: ${order_id}`);
