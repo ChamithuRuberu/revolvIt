@@ -53,7 +53,8 @@ import {
     Sparkles,
     TrendingDown,
     Upload,
-    ImagePlus
+    ImagePlus,
+    RotateCcw
 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -114,6 +115,10 @@ export default function Portal() {
     // CMS sub-section tab
     const [cmsSection, setCmsSection] = useState('hero');
 
+    // Payments Data
+    const [orders, setOrders] = useState<any[]>([]);
+    const [isOrdersLoading, setIsOrdersLoading] = useState(false);
+
     // Form states for Management
     const [formData, setFormData] = useState<any>({
         welcome: { title: '', description: '', image: '' },
@@ -141,6 +146,27 @@ export default function Portal() {
     useEffect(() => {
         fetchPortalData();
     }, []);
+
+    useEffect(() => {
+        if (activeTab === 'payments') {
+            fetchOrders();
+        }
+    }, [activeTab]);
+
+    const fetchOrders = async () => {
+        try {
+            setIsOrdersLoading(true);
+            const res = await fetch('/api/orders');
+            const json = await res.json();
+            if (json.error) throw new Error(json.error);
+            setOrders(json);
+        } catch (error: any) {
+            console.error('Failed to fetch orders:', error);
+            toast.error('Failed to load payment data');
+        } finally {
+            setIsOrdersLoading(false);
+        }
+    };
 
     const fetchPortalData = async () => {
         try {
@@ -394,6 +420,7 @@ export default function Portal() {
                     {[
                         { id: 'dashboard', label: 'Control Center', icon: LayoutGrid },
                         { id: 'management', label: 'Manage Content', icon: Edit },
+                        { id: 'payments', label: 'Order Payments', icon: CreditCard },
                         { id: 'inventory', label: 'Inventory Sync', icon: Package },
                         { id: 'analytics', label: 'Live Analytics', icon: BarChart3 }
                     ].map((item) => {
@@ -1582,6 +1609,123 @@ export default function Portal() {
                                         </button>
                                     </div>
                                 </form>
+                            </div>
+                        )}
+
+                        {activeTab === 'payments' && (
+                            <div className="max-w-7xl mx-auto animate-fadeInUp pb-10">
+                                <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
+                                    <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+                                        <div>
+                                            <h2 className="text-2xl font-black text-gray-900 tracking-tight">Order Payments</h2>
+                                            <p className="text-sm text-gray-500 font-medium">Real-time transaction monitoring and customer data</p>
+                                        </div>
+                                        <button 
+                                            onClick={fetchOrders}
+                                            disabled={isOrdersLoading}
+                                            className="p-3 bg-gray-50 text-corporate-blue hover:bg-blue-50 rounded-xl transition-all active:scale-95 flex items-center gap-2 font-bold text-xs uppercase tracking-widest"
+                                        >
+                                            <RotateCcw className={`h-4 w-4 ${isOrdersLoading ? 'animate-spin' : ''}`} />
+                                            {isOrdersLoading ? 'Syncing...' : 'Sync Payments'}
+                                        </button>
+                                    </div>
+
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-left">
+                                            <thead>
+                                                <tr className="bg-gray-50/50">
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order ID / Date</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Customer Details</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order Summary</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Transaction</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-100">
+                                                {orders.length === 0 ? (
+                                                    <tr>
+                                                        <td colSpan={5} className="px-8 py-24 text-center">
+                                                            <div className="flex flex-col items-center gap-3 opacity-20">
+                                                                <CreditCard className="h-12 w-12" />
+                                                                <p className="font-black uppercase text-xs tracking-[0.2em]">
+                                                                    {isOrdersLoading ? 'Retrieving Secure Data...' : 'No Transactions Recorded'}
+                                                                </p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                ) : (
+                                                    orders.map((order) => (
+                                                        <tr key={order._id} className="hover:bg-gray-50/50 transition-colors group">
+                                                            <td className="px-8 py-6 align-top">
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-xs font-black text-gray-900 group-hover:text-corporate-blue transition-colors">#{order.orderId.split('_')[1] || order.orderId}</span>
+                                                                    <span className="text-[10px] font-bold text-gray-400 uppercase mt-1.5 flex items-center gap-1.5">
+                                                                        <Clock className="h-3 w-3" />
+                                                                        {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-8 py-6 align-top">
+                                                                <div className="space-y-1">
+                                                                    <p className="text-sm font-black text-gray-900">{order.deliveryInfo?.fullName}</p>
+                                                                    <p className="text-xs font-bold text-gray-500">{order.deliveryInfo?.phone}</p>
+                                                                    <div className="flex items-start gap-1.5 mt-2">
+                                                                        <MapPin className="h-3 w-3 text-gray-300 mt-0.5 shrink-0" />
+                                                                        <p className="text-[10px] text-gray-400 font-bold leading-relaxed">
+                                                                            {order.deliveryInfo?.address},<br/>
+                                                                            {order.deliveryInfo?.city} {order.deliveryInfo?.postalCode}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-8 py-6 align-top">
+                                                                <div className="space-y-2">
+                                                                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-gray-100 rounded text-[9px] font-black text-gray-500 uppercase tracking-wider">
+                                                                        {order.items?.length || 0} ITEM{(order.items?.length || 0) !== 1 ? 'S' : ''}
+                                                                    </div>
+                                                                    <div className="space-y-1">
+                                                                        {order.items?.map((it: any, i: number) => (
+                                                                            <p key={i} className="text-[11px] font-bold text-gray-600 flex justify-between gap-4">
+                                                                                <span className="truncate max-w-[120px]">{it.name}</span>
+                                                                                <span className="text-gray-400">x{it.quantity}</span>
+                                                                            </p>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-8 py-6 align-top">
+                                                                <div className="space-y-1">
+                                                                    <p className="text-base font-black text-gray-900 tracking-tight">LKR {order.totalAmount?.toLocaleString()}</p>
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        <ShieldCheck className="h-3 w-3 text-blue-500" />
+                                                                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{order.paymentGateway}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-8 py-6 align-top">
+                                                                <div className="flex flex-col gap-2">
+                                                                    <span className={`inline-flex items-center justify-center px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${
+                                                                        order.paymentStatus === 'SUCCESS' ? 'bg-green-50 text-green-600 border-green-100 group-hover:bg-green-100' :
+                                                                        order.paymentStatus === 'FAILED' ? 'bg-red-50 text-red-600 border-red-100 group-hover:bg-red-100' :
+                                                                        order.paymentStatus === 'CANCELLED' ? 'bg-gray-50 text-gray-500 border-gray-100' :
+                                                                        'bg-amber-50 text-amber-600 border-amber-100 group-hover:bg-amber-100'
+                                                                    }`}>
+                                                                        {order.paymentStatus}
+                                                                    </span>
+                                                                    {order.failureReason && (
+                                                                        <div className="p-2 bg-red-50/50 rounded-lg border border-red-50">
+                                                                            <p className="text-[9px] text-red-400 font-bold leading-tight italic">"{order.failureReason}"</p>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         )}
 
