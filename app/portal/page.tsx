@@ -186,20 +186,39 @@ export default function Portal() {
 
     const handleSave = async (payload = data) => {
         try {
+            // Prevent sending massive base64 images that trigger 413 Entity Too Large
+            const payloadStr = JSON.stringify(payload);
+            if (payloadStr.includes('data:image/') && payloadStr.length > 500000) {
+                toast.error('Error: Base64 images detected. Please use the Upload button for images instead of pasting raw image data.');
+                return;
+            }
+
             setIsSaving(true);
             const res = await fetch('/api/portal', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: payloadStr,
             });
+            
+            if (!res.ok) {
+                if (res.status === 413) {
+                    throw new Error('Content too large. Server limit exceeded. Please ensure no base64 images are used.');
+                }
+                const contentType = res.headers.get('content-type');
+                if (contentType && contentType.includes('text/html')) {
+                    throw new Error(`Server Error ${res.status}: Invalid response from server.`);
+                }
+            }
+
             const json = await res.json();
             if (json.error) throw new Error(json.error);
             setData(json);
+            setFormData(json);
             toast.success('System content updated successfully');
             if (activeTab === 'management') setActiveTab('dashboard');
         } catch (error: any) {
             console.error('Failed to save portal data:', error);
-            toast.error('Failed to save changes');
+            toast.error(error.message || 'Failed to save changes');
         } finally {
             setIsSaving(false);
         }
@@ -238,7 +257,7 @@ export default function Portal() {
                 fetch('/api/portal', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newFormData),
+                    body: JSON.stringify({ hardware: updated }),
                 }).catch(console.error);
 
                 toast.success('Image uploaded & saved automatically');
@@ -274,7 +293,7 @@ export default function Portal() {
                 fetch('/api/portal', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newFormData),
+                    body: JSON.stringify({ hardwareHero: updated }),
                 }).catch(console.error);
 
                 toast.success('Hero Image uploaded & saved automatically');
@@ -314,7 +333,7 @@ export default function Portal() {
                 fetch('/api/portal', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newFormData),
+                    body: JSON.stringify({ posPricing: newFormData.posPricing }),
                 }).catch(console.error);
 
                 toast.success('Hero image updated successfully');
@@ -357,7 +376,7 @@ export default function Portal() {
                 fetch('/api/portal', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newFormData),
+                    body: JSON.stringify({ posPricing: newFormData.posPricing }),
                 }).catch(console.error);
 
                 toast.success('Bundle image updated');
@@ -372,7 +391,23 @@ export default function Portal() {
 
     const handleCMSUpdate = (e: React.FormEvent) => {
         e.preventDefault();
-        handleSave(formData);
+        
+        // Map the CMS section tab ID to the actual key in formData
+        const sectionMap: Record<string, string> = {
+            'hero': 'welcome',
+            'pricing': 'posPricing',
+            'careers': 'jobs',
+            // Default: key matches tab id (solutions, services, portfolio, etc.)
+        };
+
+        const sectionKey = sectionMap[cmsSection] || cmsSection;
+        
+        // Only send the updated section to reduce payload size
+        const partialData = {
+            [sectionKey]: formData[sectionKey]
+        };
+
+        handleSave(partialData);
     };
 
     if (isLoading) {
