@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       order_id,
       currency,
       response_url: `${siteUrl}/api/directpay/notify`,
-      return_url: `${siteUrl}/checkout/success?gateway=directpay`,
+      return_url: `${siteUrl}/checkout/success?gateway=directpay&order_id=${order_id}`,
       first_name: customer_name || 'Customer',
       last_name: '',
       email: customer_email || '',

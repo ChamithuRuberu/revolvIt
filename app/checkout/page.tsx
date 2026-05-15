@@ -65,11 +65,12 @@ export default function CheckoutPage() {
                         clearCart();
                         router.push(`/checkout/success?gateway=directpay&order_id=${order_id}`);
                     } else {
-                        router.push(`/checkout/cancel?gateway=directpay&order_id=${order_id}`);
+                        const failureReason = result.transaction?.message || 'Payment failed';
+                        router.push(`/checkout/fail?gateway=directpay&order_id=${order_id}&reason=${encodeURIComponent(failureReason)}`);
                     }
                 }).catch((error: any) => {
                     console.error('Payment error:', error);
-                    router.push(`/checkout/cancel?gateway=directpay&order_id=${order_id}`);
+                    router.push(`/checkout/fail?gateway=directpay&order_id=${order_id}&reason=${encodeURIComponent('Payment error occurred')}`);
                 });
             } else {
                 alert('Payment initiation failed: ' + data.error);
