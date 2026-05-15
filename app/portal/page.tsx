@@ -1613,7 +1613,7 @@ export default function Portal() {
                         )}
 
                         {activeTab === 'payments' && (
-                            <div className="max-w-7xl mx-auto animate-fadeInUp pb-10">
+                            <div className="w-full animate-fadeInUp pb-10">
                                 <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
                                     <div className="p-8 border-b border-gray-100 flex items-center justify-between">
                                         <div>
