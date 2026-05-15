@@ -1,7 +1,7 @@
 'use client';
 
 import { useCart } from '../context/CartContext';
-import { ShoppingBag, Trash2, ArrowRight, CreditCard, ShieldCheck } from 'lucide-react';
+import { ShoppingBag, Trash2, ArrowRight, CreditCard, ShieldCheck, MapPin, Truck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,6 +12,15 @@ export default function CheckoutPage() {
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
     const [scriptLoaded, setScriptLoaded] = useState(false);
+    const [deliveryInfo, setDeliveryInfo] = useState({
+        fullName: '',
+        phone: '',
+        address: '',
+        city: '',
+        postalCode: '',
+        deliveryOption: 'standard',
+    });
+    const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -31,6 +40,21 @@ export default function CheckoutPage() {
             alert('Payment system is loading, please try again in a moment.');
             return;
         }
+
+        // Validate delivery information
+        const errors: { [key: string]: string } = {};
+        if (!deliveryInfo.fullName.trim()) errors.fullName = 'Full name is required';
+        if (!deliveryInfo.phone.trim()) errors.phone = 'Phone number is required';
+        if (!deliveryInfo.address.trim()) errors.address = 'Address is required';
+        if (!deliveryInfo.city.trim()) errors.city = 'City is required';
+        if (!deliveryInfo.postalCode.trim()) errors.postalCode = 'Postal code is required';
+
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors);
+            return;
+        }
+
+        setFormErrors({});
         setIsProcessing(true);
         try {
             const order_id = `order_${Date.now()}`;
@@ -109,8 +133,132 @@ export default function CheckoutPage() {
                 <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-12 tracking-tighter">Secure Checkout.</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    {/* Item List */}
+                    {/* Delivery Information Form */}
                     <div className="lg:col-span-2 space-y-6">
+                        {/* Delivery Info Card */}
+                        <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="p-3 bg-blue-50 rounded-full">
+                                    <MapPin className="h-6 w-6 text-corporate-blue" />
+                                </div>
+                                <h2 className="text-2xl font-black text-gray-900">Delivery Information</h2>
+                            </div>
+
+                            <div className="space-y-4">
+                                {/* Full Name */}
+                                <div>
+                                    <label className="block text-sm font-black text-gray-700 mb-2">Full Name</label>
+                                    <input
+                                        type="text"
+                                        value={deliveryInfo.fullName}
+                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
+                                        placeholder="John Doe"
+                                        className={`w-full px-4 py-3 rounded-xl border-2 font-bold focus:outline-none transition ${
+                                            formErrors.fullName ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        }`}
+                                    />
+                                    {formErrors.fullName && <p className="text-red-500 text-sm font-bold mt-1">{formErrors.fullName}</p>}
+                                </div>
+
+                                {/* Phone */}
+                                <div>
+                                    <label className="block text-sm font-black text-gray-700 mb-2">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        value={deliveryInfo.phone}
+                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
+                                        placeholder="+94 77 XXX XXXX"
+                                        className={`w-full px-4 py-3 rounded-xl border-2 font-bold focus:outline-none transition ${
+                                            formErrors.phone ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        }`}
+                                    />
+                                    {formErrors.phone && <p className="text-red-500 text-sm font-bold mt-1">{formErrors.phone}</p>}
+                                </div>
+
+                                {/* Address */}
+                                <div>
+                                    <label className="block text-sm font-black text-gray-700 mb-2">Delivery Address</label>
+                                    <input
+                                        type="text"
+                                        value={deliveryInfo.address}
+                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
+                                        placeholder="123 Main Street, Building A"
+                                        className={`w-full px-4 py-3 rounded-xl border-2 font-bold focus:outline-none transition ${
+                                            formErrors.address ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        }`}
+                                    />
+                                    {formErrors.address && <p className="text-red-500 text-sm font-bold mt-1">{formErrors.address}</p>}
+                                </div>
+
+                                {/* City and Postal Code */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-black text-gray-700 mb-2">City</label>
+                                        <input
+                                            type="text"
+                                            value={deliveryInfo.city}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
+                                            placeholder="Colombo"
+                                            className={`w-full px-4 py-3 rounded-xl border-2 font-bold focus:outline-none transition ${
+                                                formErrors.city ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                            }`}
+                                        />
+                                        {formErrors.city && <p className="text-red-500 text-sm font-bold mt-1">{formErrors.city}</p>}
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-black text-gray-700 mb-2">Postal Code</label>
+                                        <input
+                                            type="text"
+                                            value={deliveryInfo.postalCode}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
+                                            placeholder="12345"
+                                            className={`w-full px-4 py-3 rounded-xl border-2 font-bold focus:outline-none transition ${
+                                                formErrors.postalCode ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                            }`}
+                                        />
+                                        {formErrors.postalCode && <p className="text-red-500 text-sm font-bold mt-1">{formErrors.postalCode}</p>}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Delivery Options Card */}
+                        <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="p-3 bg-green-50 rounded-full">
+                                    <Truck className="h-6 w-6 text-green-600" />
+                                </div>
+                                <h2 className="text-2xl font-black text-gray-900">Delivery Options</h2>
+                            </div>
+
+                            <div className="space-y-3">
+                                {[
+                                    { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'FREE' },
+                                    { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: '+LKR 500' },
+                                    { value: 'overnight', label: 'Next Day Delivery', desc: 'Next business day', price: '+LKR 1,000' },
+                                ].map((option) => (
+                                    <label key={option.value} className="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:bg-blue-50 transition"
+                                        style={{ borderColor: deliveryInfo.deliveryOption === option.value ? '#0066cc' : '' }}>
+                                        <input
+                                            type="radio"
+                                            name="delivery"
+                                            value={option.value}
+                                            checked={deliveryInfo.deliveryOption === option.value}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, deliveryOption: e.target.value })}
+                                            className="w-5 h-5 text-corporate-blue"
+                                        />
+                                        <div className="ml-4 flex-1">
+                                            <p className="font-black text-gray-900">{option.label}</p>
+                                            <p className="text-sm text-gray-500 font-bold">{option.desc}</p>
+                                        </div>
+                                        <p className="font-black text-gray-900">{option.price}</p>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Items List */}
+                        <div className="space-y-6">
                         {cart.map((item) => (
                             <div key={item.id} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 flex gap-6 items-center shadow-sm">
                                 <div className="relative h-24 w-24 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0">
@@ -136,6 +284,7 @@ export default function CheckoutPage() {
                                 </div>
                             </div>
                         ))}
+                        </div>
                     </div>
 
                     {/* Summary Card */}
