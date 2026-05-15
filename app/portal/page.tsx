@@ -1613,9 +1613,9 @@ export default function Portal() {
                         )}
 
                         {activeTab === 'payments' && (
-                            <div className="w-full animate-fadeInUp pb-10">
-                                <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
-                                    <div className="p-8 border-b border-gray-100 flex items-center justify-between">
+                            <div className="w-full animate-fadeInUp">
+                                <div className="bg-white border-b border-gray-200">
+                                    <div className="p-8 flex items-center justify-between">
                                         <div>
                                             <h2 className="text-2xl font-black text-gray-900 tracking-tight">Order Payments</h2>
                                             <p className="text-sm text-gray-500 font-medium">Real-time transaction monitoring and customer data</p>
@@ -1631,14 +1631,14 @@ export default function Portal() {
                                     </div>
 
                                     <div className="overflow-x-auto">
-                                        <table className="w-full text-left table-fixed border-collapse">
+                                        <table className="w-full text-left border-collapse">
                                             <thead>
                                                 <tr className="bg-gray-50/50">
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[180px]">Order ID / Date</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 min-w-[250px]">Customer Details</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 min-w-[250px]">Order Summary</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[180px]">Transaction</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[160px]">Status</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order ID / Date</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Customer Details</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order Summary</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Transaction</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-100">
