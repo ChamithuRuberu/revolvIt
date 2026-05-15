@@ -128,211 +128,136 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="h-[100dvh] pt-24 pb-6 flex flex-col bg-slate-50 overflow-hidden">
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1 overflow-hidden min-h-0">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 flex-shrink-0">
-                    <div className="bg-corporate-blue p-2 rounded-xl">
-                        <ShoppingBag className="h-6 w-6 text-white" />
-                    </div>
-                    <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tighter">Secure Checkout</h1>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 flex-1 overflow-hidden min-h-0">
-                    {/* Left Column: Form & Details */}
-                    <div className="lg:col-span-7 xl:col-span-8 overflow-y-auto custom-scrollbar pr-2 pb-6 space-y-6 min-h-0">
-                        {/* Delivery Info Card */}
-                        <div className="bg-white p-5 md:p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center gap-2">
-                                    <div className="p-2.5 bg-blue-50 text-corporate-blue rounded-2xl">
-                                        <MapPin className="h-5 w-5" />
-                                    </div>
-                                    <h2 className="text-lg font-black text-gray-900">Delivery Address</h2>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {/* Full Name */}
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Full Name</label>
-                                    <input
-                                        type="text"
-                                        value={deliveryInfo.fullName}
-                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
-                                        placeholder="John Doe"
-                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
-                                            formErrors.fullName ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
-                                        }`}
-                                    />
-                                    {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.fullName}</p>}
-                                </div>
-
-                                {/* Phone */}
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        value={deliveryInfo.phone}
-                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
-                                        placeholder="+94 77 XXX XXXX"
-                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
-                                            formErrors.phone ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
-                                        }`}
-                                    />
-                                    {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.phone}</p>}
-                                </div>
-
-                                {/* Address */}
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Street Address</label>
-                                    <input
-                                        type="text"
-                                        value={deliveryInfo.address}
-                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
-                                        placeholder="123 Main Street, Apartment, Studio, or Floor"
-                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
-                                            formErrors.address ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
-                                        }`}
-                                    />
-                                    {formErrors.address && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.address}</p>}
-                                </div>
-
-                                {/* City */}
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">City</label>
-                                    <input
-                                        type="text"
-                                        value={deliveryInfo.city}
-                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
-                                        placeholder="Colombo"
-                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
-                                            formErrors.city ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
-                                        }`}
-                                    />
-                                    {formErrors.city && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.city}</p>}
-                                </div>
-                                
-                                {/* Postal Code */}
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Postal Code</label>
-                                    <input
-                                        type="text"
-                                        value={deliveryInfo.postalCode}
-                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
-                                        placeholder="00100"
-                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
-                                            formErrors.postalCode ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
-                                        }`}
-                                    />
-                                    {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.postalCode}</p>}
-                                </div>
-                            </div>
+        <div className="min-h-screen bg-white relative flex flex-col font-sans">
+            {/* Split Background Layer for Desktop */}
+            <div className="hidden lg:block absolute top-0 right-0 w-[45%] xl:w-[40%] h-full bg-[#f8f9fa] border-l border-gray-200 pointer-events-none"></div>
+            
+            <div className="w-full max-w-[1600px] mx-auto flex flex-col lg:flex-row flex-1 relative z-10">
+                {/* Left Column: Form & Details */}
+                <div className="w-full lg:w-[55%] xl:w-[60%] bg-white px-4 sm:px-8 lg:px-16 xl:px-24 pt-8 lg:pt-28 pb-16 order-2 lg:order-1">
+                    <div className="max-w-xl mx-auto lg:ml-auto lg:mr-12 w-full">
+                        <div className="hidden lg:flex items-center gap-3 mb-10">
+                            <ShoppingBag className="h-8 w-8 text-corporate-blue" />
+                            <h1 className="text-3xl font-black text-gray-900 tracking-tight">Checkout</h1>
                         </div>
 
-                        {/* Delivery Options Card */}
-                        <div className="bg-white p-5 md:p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="p-2.5 bg-green-50 text-green-600 rounded-2xl">
-                                    <Truck className="h-5 w-5" />
-                                </div>
-                                <h2 className="text-lg font-black text-gray-900">Shipping Method</h2>
-                            </div>
+                        <div className="space-y-10">
+                            {/* Delivery Information */}
+                            <section>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Delivery</h2>
+                                <div className="space-y-4">
+                                    {/* Full Name */}
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={deliveryInfo.fullName}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
+                                            placeholder="Full name"
+                                            className={`w-full px-4 py-3.5 rounded-lg border text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                                formErrors.fullName ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue bg-white'
+                                            }`}
+                                        />
+                                        {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.fullName}</p>}
+                                    </div>
 
-                            <div className="space-y-3">
-                                {[
-                                    { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'FREE', icon: '📦' },
-                                    { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: '+LKR 500', icon: '🚀' },
-                                    { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: '+LKR 1,000', icon: '⚡' },
-                                ].map((option) => (
-                                    <label key={option.value} className={`flex items-center p-3 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${
-                                        deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue bg-blue-50/30' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50/50'
-                                    }`}>
-                                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mr-3 flex-shrink-0 transition-colors ${
-                                            deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue' : 'border-gray-300'
+                                    {/* Phone & Address Grid */}
+                                    <div>
+                                        <input
+                                            type="tel"
+                                            value={deliveryInfo.phone}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
+                                            placeholder="Phone number"
+                                            className={`w-full px-4 py-3.5 rounded-lg border text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                                formErrors.phone ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue bg-white'
+                                            }`}
+                                        />
+                                        {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.phone}</p>}
+                                    </div>
+
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={deliveryInfo.address}
+                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
+                                            placeholder="Address"
+                                            className={`w-full px-4 py-3.5 rounded-lg border text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                                formErrors.address ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue bg-white'
+                                            }`}
+                                        />
+                                        {formErrors.address && <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.address}</p>}
+                                    </div>
+
+                                    {/* City & Postal Code */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                value={deliveryInfo.city}
+                                                onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
+                                                placeholder="City"
+                                                className={`w-full px-4 py-3.5 rounded-lg border text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                                    formErrors.city ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue bg-white'
+                                                }`}
+                                            />
+                                            {formErrors.city && <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.city}</p>}
+                                        </div>
+                                        <div>
+                                            <input
+                                                type="text"
+                                                value={deliveryInfo.postalCode}
+                                                onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
+                                                placeholder="Postal code"
+                                                className={`w-full px-4 py-3.5 rounded-lg border text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                                    formErrors.postalCode ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:border-corporate-blue focus:ring-1 focus:ring-corporate-blue bg-white'
+                                                }`}
+                                            />
+                                            {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-1.5">{formErrors.postalCode}</p>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            {/* Shipping Method */}
+                            <section>
+                                <h2 className="text-xl font-bold text-gray-900 mb-4">Shipping method</h2>
+                                <div className="border border-gray-300 rounded-lg overflow-hidden divide-y divide-gray-300 bg-white">
+                                    {[
+                                        { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'Free' },
+                                        { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: 'LKR 500' },
+                                        { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: 'LKR 1,000' },
+                                    ].map((option) => (
+                                        <label key={option.value} className={`flex items-center justify-between p-4 cursor-pointer transition-colors ${
+                                            deliveryInfo.deliveryOption === option.value ? 'bg-blue-50/50' : 'hover:bg-gray-50'
                                         }`}>
-                                            {deliveryInfo.deliveryOption === option.value && (
-                                                <div className="w-2 h-2 rounded-full bg-corporate-blue"></div>
-                                            )}
-                                        </div>
-                                        
-                                        <div className="text-xl mr-3">{option.icon}</div>
-                                        
-                                        <div className="flex-1">
-                                            <p className="font-bold text-gray-900 text-sm">{option.label}</p>
-                                            <p className="text-xs text-gray-500 font-medium mt-0.5">{option.desc}</p>
-                                        </div>
-                                        
-                                        <p className={`font-black ${option.price === 'FREE' ? 'text-green-600' : 'text-gray-900'} text-sm`}>
-                                            {option.price}
-                                        </p>
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Right Column: Order Summary & Checkout */}
-                    <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full overflow-hidden min-h-0">
-                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40 flex flex-col h-full overflow-hidden">
-                            <h2 className="text-xl font-black text-gray-900 mb-6 flex-shrink-0">Order Summary</h2>
-
-                            {/* Items List (Compact) */}
-                            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 mb-6">
-                                {cart.map((item) => (
-                                    <div key={item.id} className="flex gap-4 items-center group bg-gray-50/50 p-3 rounded-2xl border border-gray-100/50">
-                                        <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-white border border-gray-100 flex-shrink-0">
-                                            {item.image ? (
-                                                <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" unoptimized />
-                                            ) : (
-                                                <ShoppingBag className="m-auto h-6 w-6 text-gray-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                            )}
-                                            <div className="absolute -top-2 -right-2 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full z-10 shadow-sm border-2 border-white">
-                                                {item.quantity}
+                                            <div className="flex items-center gap-3">
+                                                <input
+                                                    type="radio"
+                                                    name="delivery"
+                                                    value={option.value}
+                                                    checked={deliveryInfo.deliveryOption === option.value}
+                                                    onChange={(e) => setDeliveryInfo({ ...deliveryInfo, deliveryOption: e.target.value })}
+                                                    className="w-4 h-4 text-corporate-blue border-gray-300 focus:ring-corporate-blue cursor-pointer"
+                                                />
+                                                <div>
+                                                    <span className="block text-sm font-medium text-gray-900">{option.label}</span>
+                                                    <span className="block text-xs text-gray-500 mt-0.5">{option.desc}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h3 className="text-sm font-bold text-gray-900 tracking-tight line-clamp-2 leading-snug">{item.name}</h3>
-                                            <div className="text-xs font-black text-gray-500 uppercase tracking-wider mt-1">{item.model}</div>
-                                            <div className="text-sm font-black text-gray-900 mt-1">LKR {item.price}</div>
-                                        </div>
-                                        <div className="flex flex-col items-end justify-center">
-                                            <button
-                                                onClick={() => removeFromCart(item.id)}
-                                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                                                title="Remove Item"
-                                            >
-                                                <Trash2 className="h-5 w-5" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Totals & Pay Button */}
-                            <div className="flex-shrink-0 border-t border-gray-100 pt-6">
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between items-center text-gray-600 font-medium">
-                                        <span>Subtotal</span>
-                                        <span className="font-bold text-gray-900">LKR {totalAmount.toLocaleString()}</span>
-                                    </div>
-                                    <div className="flex justify-between items-center text-gray-600 font-medium">
-                                        <span>Shipping</span>
-                                        <span className="font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">FREE</span>
-                                    </div>
-                                    <div className="flex justify-between items-center text-gray-600 font-medium">
-                                        <span>Tax</span>
-                                        <span className="font-bold text-gray-900">Calculated at checkout</span>
-                                    </div>
-                                    <div className="pt-3 border-t border-gray-100 flex justify-between items-center">
-                                        <span className="font-black text-gray-900 text-lg">Total</span>
-                                        <span className="font-black text-corporate-blue text-2xl">LKR {totalAmount.toLocaleString()}</span>
-                                    </div>
+                                            <span className="text-sm font-medium text-gray-900">{option.price}</span>
+                                        </label>
+                                    ))}
                                 </div>
+                            </section>
 
+                            {/* Payment */}
+                            <section className="pt-4">
+                                <h2 className="text-xl font-bold text-gray-900 mb-2">Payment</h2>
+                                <p className="text-sm text-gray-500 mb-6">All transactions are secure and encrypted.</p>
+                                
                                 <button
                                     onClick={handlePayNow}
                                     disabled={isProcessing}
-                                    className={`w-full bg-gray-900 text-white py-5 rounded-2xl font-black text-base hover:bg-corporate-blue transition-all duration-300 shadow-xl shadow-gray-900/20 hover:shadow-corporate-blue/30 flex items-center justify-center gap-3 active:scale-[0.98] ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    className={`w-full bg-corporate-blue text-white py-4 rounded-lg font-bold text-base hover:bg-blue-700 transition-all duration-300 shadow-md flex items-center justify-center gap-3 active:scale-[0.98] ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 >
                                     {isProcessing ? (
                                         <>
@@ -340,22 +265,87 @@ export default function CheckoutPage() {
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                             </svg>
-                                            Processing Secure Payment...
+                                            Processing...
                                         </>
                                     ) : (
                                         <>
-                                            <CreditCard className="h-6 w-6" />
-                                            Pay LKR {totalAmount.toLocaleString()}
+                                            Pay now
                                         </>
                                     )}
                                 </button>
 
-                                <div className="mt-6">
-                                    <div className="flex items-center justify-center gap-2 text-gray-500 text-xs font-bold bg-gray-50 py-3 rounded-xl">
-                                        <ShieldCheck className="h-5 w-5 text-green-500" />
-                                        Secure 256-bit encrypted checkout
+                                <div className="mt-6 flex items-center justify-center gap-2 text-gray-500 text-xs font-medium">
+                                    <ShieldCheck className="h-4 w-4 text-gray-400" />
+                                    Secure 256-bit encrypted checkout
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Column: Order Summary */}
+                <div className="w-full lg:w-[45%] xl:w-[40%] bg-[#f8f9fa] px-4 sm:px-8 lg:px-12 xl:px-16 pt-24 lg:pt-28 pb-16 order-1 lg:order-2 border-b lg:border-b-0 border-gray-200 lg:border-transparent">
+                    <div className="max-w-md mx-auto lg:mr-auto lg:ml-8 w-full sticky top-28">
+                        {/* Mobile Header (Shows only on mobile) */}
+                        <div className="lg:hidden flex items-center gap-3 mb-8">
+                            <ShoppingBag className="h-6 w-6 text-corporate-blue" />
+                            <h1 className="text-2xl font-black text-gray-900 tracking-tight">Checkout</h1>
+                        </div>
+
+                        {/* Items List */}
+                        <div className="space-y-4 mb-6 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                            {cart.map((item) => (
+                                <div key={item.id} className="flex gap-4 items-center">
+                                    <div className="relative h-16 w-16 rounded-lg border border-gray-200 bg-white flex-shrink-0">
+                                        {item.image ? (
+                                            <Image src={item.image} alt={item.name} fill className="object-contain p-1" unoptimized />
+                                        ) : (
+                                            <ShoppingBag className="m-auto h-6 w-6 text-gray-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                                        )}
+                                        <div className="absolute -top-2 -right-2 bg-gray-500 text-white w-5 h-5 flex items-center justify-center rounded-full text-[11px] font-bold z-10 shadow-sm border border-white">
+                                            {item.quantity}
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-sm font-medium text-gray-900 truncate">{item.name}</h3>
+                                        <div className="text-xs text-gray-500 uppercase mt-0.5">{item.model}</div>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="text-sm font-medium text-gray-900">LKR {item.price}</div>
+                                        <button
+                                            onClick={() => removeFromCart(item.id)}
+                                            className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                            title="Remove Item"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </button>
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+
+                        {/* Subtotals */}
+                        <div className="py-4 border-y border-gray-200 space-y-3 mb-4">
+                            <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Subtotal</span>
+                                <span className="font-medium text-gray-900">LKR {totalAmount.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Shipping</span>
+                                <span className="font-medium text-gray-900">Free</span>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                                <span className="text-gray-600">Tax</span>
+                                <span className="font-medium text-gray-900">Calculated at next step</span>
+                            </div>
+                        </div>
+
+                        {/* Total */}
+                        <div className="flex justify-between items-center">
+                            <span className="text-base font-semibold text-gray-900">Total</span>
+                            <div className="flex items-end gap-2">
+                                <span className="text-xs text-gray-500 mb-1">LKR</span>
+                                <span className="text-2xl font-semibold text-gray-900">{totalAmount.toLocaleString()}</span>
                             </div>
                         </div>
                     </div>
