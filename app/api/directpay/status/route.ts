@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import connectDB from '@/lib/mongodb';
+import Order from '@/models/Order';
 
-// Store payment statuses in memory (in production, use a database)
-const paymentStatuses: { [key: string]: { status: string; message: string; timestamp: number } } = {};
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,12 +12,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Order ID required' }, { status: 400 });
     }
 
-    // Store the payment status
-    paymentStatuses[order_id] = {
-      status,
-      message,
-      timestamp: Date.now(),
-    };
+    await connectDB();
+    
+    // Update the order in the database
+    // Map DirectPay status to our internal status
+    let paymentStatus = 'PENDING';
+    const s = status.toLowerCase();
+    if (s === 'success') paymentStatus = 'SUCCESS';
+    else if (s === 'failed' || s === 'fail') paymentStatus = 'FAILED';
+    else if (s === 'cancelled') paymentStatus = 'CANCELLED';
+
+    await Order.findOneAndUpdate(
+      { orderId: order_id },
+      { 
+        paymentStatus,
+        failureReason: message || (paymentStatus === 'FAILED' ? 'Payment failed' : undefined)
+      },
+      { upsert: false }
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -34,16 +47,19 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Order ID required' }, { status: 400 });
     }
 
-    const paymentStatus = paymentStatuses[order_id];
+    await connectDB();
+    const order = await Order.findOne({ orderId: order_id }).lean();
 
-    if (!paymentStatus) {
+    if (!order || order.paymentStatus === 'PENDING') {
       return NextResponse.json({ status: 'pending', message: 'Payment status not yet received' });
     }
 
-    return NextResponse.json(paymentStatus);
+    return NextResponse.json({
+      status: order.paymentStatus.toLowerCase(),
+      message: order.failureReason || 'Payment processed',
+    });
   } catch (error) {
     console.error('Get payment status error:', error);
     return NextResponse.json({ error: 'Failed to get status' }, { status: 500 });
   }
 }
-
