@@ -1631,14 +1631,14 @@ export default function Portal() {
                                     </div>
 
                                     <div className="overflow-x-auto">
-                                        <table className="w-full text-left">
+                                        <table className="w-full text-left table-fixed border-collapse">
                                             <thead>
                                                 <tr className="bg-gray-50/50">
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order ID / Date</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Customer Details</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Order Summary</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Transaction</th>
-                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Status</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[180px]">Order ID / Date</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 min-w-[250px]">Customer Details</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 min-w-[250px]">Order Summary</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[180px]">Transaction</th>
+                                                    <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 w-[160px]">Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-gray-100">
@@ -1686,8 +1686,8 @@ export default function Portal() {
                                                                     <div className="space-y-1">
                                                                         {order.items?.map((it: any, i: number) => (
                                                                             <p key={i} className="text-[11px] font-bold text-gray-600 flex justify-between gap-4">
-                                                                                <span className="truncate max-w-[120px]">{it.name}</span>
-                                                                                <span className="text-gray-400">x{it.quantity}</span>
+                                                                                <span>{it.name}</span>
+                                                                                <span className="text-gray-400 shrink-0">x{it.quantity}</span>
                                                                             </p>
                                                                         ))}
                                                                     </div>
