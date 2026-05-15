@@ -141,125 +141,125 @@ export default function CheckoutPage() {
                     {/* Left Column: Form & Details */}
                     <div className="lg:col-span-7 xl:col-span-8 overflow-y-auto custom-scrollbar pr-2 pb-6 space-y-6 min-h-0">
                         {/* Delivery Info Card */}
-                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
-                            <div className="flex items-center justify-between mb-6">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-3 bg-blue-50 text-corporate-blue rounded-2xl">
-                                        <MapPin className="h-6 w-6" />
+                        <div className="bg-white p-5 md:p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-2">
+                                    <div className="p-2.5 bg-blue-50 text-corporate-blue rounded-2xl">
+                                        <MapPin className="h-5 w-5" />
                                     </div>
-                                    <h2 className="text-xl font-black text-gray-900">Delivery Address</h2>
+                                    <h2 className="text-lg font-black text-gray-900">Delivery Address</h2>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Full Name */}
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Full Name</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.fullName}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
                                         placeholder="John Doe"
-                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
                                             formErrors.fullName ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.fullName}</p>}
+                                    {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.fullName}</p>}
                                 </div>
 
                                 {/* Phone */}
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Phone Number</label>
                                     <input
                                         type="tel"
                                         value={deliveryInfo.phone}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
                                         placeholder="+94 77 XXX XXXX"
-                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
                                             formErrors.phone ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.phone}</p>}
+                                    {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.phone}</p>}
                                 </div>
 
                                 {/* Address */}
                                 <div className="md:col-span-2">
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Street Address</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Street Address</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.address}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
                                         placeholder="123 Main Street, Apartment, Studio, or Floor"
-                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
                                             formErrors.address ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.address && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.address}</p>}
+                                    {formErrors.address && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.address}</p>}
                                 </div>
 
                                 {/* City */}
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">City</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">City</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.city}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
                                         placeholder="Colombo"
-                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
                                             formErrors.city ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.city && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.city}</p>}
+                                    {formErrors.city && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.city}</p>}
                                 </div>
                                 
                                 {/* Postal Code */}
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Postal Code</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1.5">Postal Code</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.postalCode}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
                                         placeholder="00100"
-                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                        className={`w-full px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
                                             formErrors.postalCode ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.postalCode}</p>}
+                                    {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-1 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.postalCode}</p>}
                                 </div>
                             </div>
                         </div>
 
                         {/* Delivery Options Card */}
-                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
-                            <div className="flex items-center gap-3 mb-6">
-                                <div className="p-3 bg-green-50 text-green-600 rounded-2xl">
-                                    <Truck className="h-6 w-6" />
+                        <div className="bg-white p-5 md:p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="p-2.5 bg-green-50 text-green-600 rounded-2xl">
+                                    <Truck className="h-5 w-5" />
                                 </div>
-                                <h2 className="text-xl font-black text-gray-900">Shipping Method</h2>
+                                <h2 className="text-lg font-black text-gray-900">Shipping Method</h2>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {[
                                     { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'FREE', icon: '📦' },
                                     { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: '+LKR 500', icon: '🚀' },
                                     { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: '+LKR 1,000', icon: '⚡' },
                                 ].map((option) => (
-                                    <label key={option.value} className={`flex items-center p-4 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${
+                                    <label key={option.value} className={`flex items-center p-3 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${
                                         deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue bg-blue-50/30' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50/50'
                                     }`}>
-                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-4 flex-shrink-0 transition-colors ${
+                                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center mr-3 flex-shrink-0 transition-colors ${
                                             deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue' : 'border-gray-300'
                                         }`}>
                                             {deliveryInfo.deliveryOption === option.value && (
-                                                <div className="w-2.5 h-2.5 rounded-full bg-corporate-blue"></div>
+                                                <div className="w-2 h-2 rounded-full bg-corporate-blue"></div>
                                             )}
                                         </div>
                                         
-                                        <div className="text-2xl mr-4">{option.icon}</div>
+                                        <div className="text-xl mr-3">{option.icon}</div>
                                         
                                         <div className="flex-1">
-                                            <p className="font-bold text-gray-900 text-base">{option.label}</p>
-                                            <p className="text-sm text-gray-500 font-medium mt-0.5">{option.desc}</p>
+                                            <p className="font-bold text-gray-900 text-sm">{option.label}</p>
+                                            <p className="text-xs text-gray-500 font-medium mt-0.5">{option.desc}</p>
                                         </div>
                                         
                                         <p className={`font-black ${option.price === 'FREE' ? 'text-green-600' : 'text-gray-900'} text-sm`}>
