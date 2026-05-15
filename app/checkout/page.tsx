@@ -128,32 +128,32 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen pt-24 pb-12 bg-slate-50/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-8 tracking-tighter">Secure Checkout.</h1>
+        <div className="min-h-screen bg-slate-50/50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex flex-col">
+                <h1 className="text-3xl md:text-4xl font-black text-gray-900 py-4 tracking-tighter border-b border-gray-200">Secure Checkout.</h1>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Delivery Information Form */}
-                    <div className="lg:col-span-2 space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 overflow-hidden">
+                    {/* Scrollable Left Section */}
+                    <div className="lg:col-span-2 overflow-y-auto pr-4 space-y-3">
                         {/* Delivery Info Card */}
-                        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                            <div className="flex items-center gap-2 mb-4">
+                        <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm sticky top-0 z-10">
+                            <div className="flex items-center gap-2 mb-3">
                                 <div className="p-2 bg-blue-50 rounded-full">
                                     <MapPin className="h-5 w-5 text-corporate-blue" />
                                 </div>
-                                <h2 className="text-lg font-black text-gray-900">Delivery Information</h2>
+                                <h2 className="text-base font-black text-gray-900">Delivery Information</h2>
                             </div>
 
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                                 {/* Full Name */}
                                 <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-1">Full Name</label>
+                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Full Name</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.fullName}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
                                         placeholder="John Doe"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none transition ${
+                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
                                             formErrors.fullName ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
                                         }`}
                                     />
@@ -162,13 +162,13 @@ export default function CheckoutPage() {
 
                                 {/* Phone */}
                                 <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-1">Phone Number</label>
+                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Phone</label>
                                     <input
                                         type="tel"
                                         value={deliveryInfo.phone}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
                                         placeholder="+94 77 XXX XXXX"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none transition ${
+                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
                                             formErrors.phone ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
                                         }`}
                                     />
@@ -177,13 +177,13 @@ export default function CheckoutPage() {
 
                                 {/* Address */}
                                 <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-1">Delivery Address</label>
+                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Address</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.address}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
-                                        placeholder="123 Main Street, Building A"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none transition ${
+                                        placeholder="123 Main Street"
+                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
                                             formErrors.address ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
                                         }`}
                                     />
@@ -191,28 +191,28 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* City and Postal Code */}
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label className="block text-xs font-black text-gray-700 mb-1">City</label>
+                                        <label className="block text-xs font-black text-gray-700 mb-0.5">City</label>
                                         <input
                                             type="text"
                                             value={deliveryInfo.city}
                                             onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
                                             placeholder="Colombo"
-                                            className={`w-full px-3 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none transition ${
+                                            className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
                                                 formErrors.city ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
                                             }`}
                                         />
                                         {formErrors.city && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.city}</p>}
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-black text-gray-700 mb-1">Postal Code</label>
+                                        <label className="block text-xs font-black text-gray-700 mb-0.5">Code</label>
                                         <input
                                             type="text"
                                             value={deliveryInfo.postalCode}
                                             onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
                                             placeholder="12345"
-                                            className={`w-full px-3 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none transition ${
+                                            className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
                                                 formErrors.postalCode ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
                                             }`}
                                         />
@@ -223,21 +223,21 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* Delivery Options Card */}
-                        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                            <div className="flex items-center gap-2 mb-4">
+                        <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
+                            <div className="flex items-center gap-2 mb-3">
                                 <div className="p-2 bg-green-50 rounded-full">
                                     <Truck className="h-5 w-5 text-green-600" />
                                 </div>
-                                <h2 className="text-lg font-black text-gray-900">Delivery Options</h2>
+                                <h2 className="text-base font-black text-gray-900">Delivery</h2>
                             </div>
 
-                            <div className="space-y-2">
+                            <div className="space-y-1.5">
                                 {[
-                                    { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'FREE' },
-                                    { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: '+LKR 500' },
-                                    { value: 'overnight', label: 'Next Day Delivery', desc: 'Next business day', price: '+LKR 1,000' },
+                                    { value: 'standard', label: 'Standard', desc: '5-7 days', price: 'FREE' },
+                                    { value: 'express', label: 'Express', desc: '2-3 days', price: '+500' },
+                                    { value: 'overnight', label: 'Next Day', desc: '1 day', price: '+1,000' },
                                 ].map((option) => (
-                                    <label key={option.value} className="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition text-sm"
+                                    <label key={option.value} className="flex items-center p-2 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition"
                                         style={{ borderColor: deliveryInfo.deliveryOption === option.value ? '#0066cc' : '' }}>
                                         <input
                                             type="radio"
@@ -245,41 +245,41 @@ export default function CheckoutPage() {
                                             value={option.value}
                                             checked={deliveryInfo.deliveryOption === option.value}
                                             onChange={(e) => setDeliveryInfo({ ...deliveryInfo, deliveryOption: e.target.value })}
-                                            className="w-4 h-4 text-corporate-blue"
+                                            className="w-3 h-3 text-corporate-blue"
                                         />
-                                        <div className="ml-3 flex-1">
-                                            <p className="font-black text-gray-900 text-sm">{option.label}</p>
+                                        <div className="ml-2 flex-1">
+                                            <p className="font-black text-gray-900 text-xs">{option.label}</p>
                                             <p className="text-xs text-gray-500 font-bold">{option.desc}</p>
                                         </div>
-                                        <p className="font-black text-gray-900 text-sm ml-2">{option.price}</p>
+                                        <p className="font-black text-gray-900 text-xs ml-1">LKR {option.price}</p>
                                     </label>
                                 ))}
                             </div>
                         </div>
 
                         {/* Items List */}
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                         {cart.map((item) => (
-                            <div key={item.id} className="bg-white p-4 rounded-2xl border border-gray-100 flex gap-4 items-center shadow-sm">
-                                <div className="relative h-20 w-20 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
+                            <div key={item.id} className="bg-white p-3 rounded-xl border border-gray-100 flex gap-3 items-center shadow-sm">
+                                <div className="relative h-16 w-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                                     {item.image ? (
                                         <Image src={item.image} alt={item.name} fill className="object-cover" unoptimized />
                                     ) : (
-                                        <ShoppingBag className="m-auto h-6 w-6 text-gray-300" />
+                                        <ShoppingBag className="m-auto h-5 w-5 text-gray-300" />
                                     )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="text-[8px] font-black text-blue-500 uppercase tracking-widest">{item.model}</div>
-                                    <h3 className="text-sm font-bold text-gray-900 tracking-tight line-clamp-1">{item.name}</h3>
-                                    <div className="text-sm font-black text-gray-900 mt-0.5">LKR {item.price}</div>
+                                    <div className="text-[7px] font-black text-blue-500 uppercase tracking-widest">{item.model}</div>
+                                    <h3 className="text-xs font-bold text-gray-900 tracking-tight line-clamp-1">{item.name}</h3>
+                                    <div className="text-xs font-black text-gray-900 mt-0.5">LKR {item.price}</div>
                                 </div>
-                                <div className="flex flex-col items-end gap-2 px-2">
-                                    <div className="text-xs font-bold text-gray-400">Qty: {item.quantity}</div>
+                                <div className="flex flex-col items-end gap-1">
+                                    <div className="text-xs font-bold text-gray-400">x{item.quantity}</div>
                                     <button
                                         onClick={() => removeFromCart(item.id)}
                                         className="p-1 text-gray-400 hover:text-red-500 transition-colors"
                                     >
-                                        <Trash2 className="h-4 w-4" />
+                                        <Trash2 className="h-3 w-3" />
                                     </button>
                                 </div>
                             </div>
