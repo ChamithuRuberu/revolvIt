@@ -22,6 +22,16 @@ export default function CheckoutPage() {
     });
     const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
+    const shippingOptions = [
+        { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'Free', cost: 0 },
+        { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: 'LKR 500', cost: 500 },
+        { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: 'LKR 1,000', cost: 1000 },
+    ];
+
+    const currentShippingOption = shippingOptions.find(o => o.value === deliveryInfo.deliveryOption) || shippingOptions[0];
+    const shippingCost = currentShippingOption.cost;
+    const finalTotal = totalAmount + shippingCost;
+
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://cdn.directpay.lk/v3/directpayipg.min.js';
@@ -58,7 +68,7 @@ export default function CheckoutPage() {
         setIsProcessing(true);
         try {
             const order_id = `order_${Date.now()}`;
-            const amount = totalAmount.toString();
+            const amount = finalTotal.toString();
             const currency = 'LKR';
 
             const response = await fetch('/api/directpay/initiate', {
@@ -221,11 +231,7 @@ export default function CheckoutPage() {
                             <section>
                                 <h2 className="text-xl font-bold text-gray-900 mb-4">Shipping method</h2>
                                 <div className="border border-gray-300 rounded-lg overflow-hidden divide-y divide-gray-300 bg-white">
-                                    {[
-                                        { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'Free' },
-                                        { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: 'LKR 500' },
-                                        { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: 'LKR 1,000' },
-                                    ].map((option) => (
+                                    {shippingOptions.map((option) => (
                                         <label key={option.value} className={`flex items-center justify-between p-4 cursor-pointer transition-colors ${
                                             deliveryInfo.deliveryOption === option.value ? 'bg-blue-50/50' : 'hover:bg-gray-50'
                                         }`}>
@@ -249,36 +255,6 @@ export default function CheckoutPage() {
                                 </div>
                             </section>
 
-                            {/* Payment */}
-                            <section className="pt-4">
-                                <h2 className="text-xl font-bold text-gray-900 mb-2">Payment</h2>
-                                <p className="text-sm text-gray-500 mb-6">All transactions are secure and encrypted.</p>
-                                
-                                <button
-                                    onClick={handlePayNow}
-                                    disabled={isProcessing}
-                                    className={`w-full bg-corporate-blue text-white py-4 rounded-lg font-bold text-base hover:bg-blue-700 transition-all duration-300 shadow-md flex items-center justify-center gap-3 active:scale-[0.98] ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
-                                >
-                                    {isProcessing ? (
-                                        <>
-                                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                            </svg>
-                                            Processing...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Pay now
-                                        </>
-                                    )}
-                                </button>
-
-                                <div className="mt-6 flex items-center justify-center gap-2 text-gray-500 text-xs font-medium">
-                                    <ShieldCheck className="h-4 w-4 text-gray-400" />
-                                    Secure 256-bit encrypted checkout
-                                </div>
-                            </section>
                         </div>
                     </div>
                 </div>
@@ -332,7 +308,7 @@ export default function CheckoutPage() {
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Shipping</span>
-                                <span className="font-medium text-gray-900">Free</span>
+                                <span className="font-medium text-gray-900">{shippingCost === 0 ? 'Free' : `LKR ${shippingCost.toLocaleString()}`}</span>
                             </div>
                             <div className="flex justify-between text-sm">
                                 <span className="text-gray-600">Tax</span>
@@ -341,12 +317,37 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* Total */}
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center mb-6">
                             <span className="text-base font-semibold text-gray-900">Total</span>
                             <div className="flex items-end gap-2">
                                 <span className="text-xs text-gray-500 mb-1">LKR</span>
-                                <span className="text-2xl font-semibold text-gray-900">{totalAmount.toLocaleString()}</span>
+                                <span className="text-2xl font-semibold text-gray-900">{finalTotal.toLocaleString()}</span>
                             </div>
+                        </div>
+
+                        <button
+                            onClick={handlePayNow}
+                            disabled={isProcessing}
+                            className={`w-full bg-corporate-blue text-white py-4 rounded-lg font-bold text-base hover:bg-blue-700 transition-all duration-300 shadow-md flex items-center justify-center gap-3 active:scale-[0.98] ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
+                        >
+                            {isProcessing ? (
+                                <>
+                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                    </svg>
+                                    Processing...
+                                </>
+                            ) : (
+                                <>
+                                    Pay LKR {finalTotal.toLocaleString()}
+                                </>
+                            )}
+                        </button>
+
+                        <div className="mt-6 flex items-center justify-center gap-2 text-gray-500 text-xs font-medium">
+                            <ShieldCheck className="h-4 w-4 text-gray-400" />
+                            Secure 256-bit encrypted checkout
                         </div>
                     </div>
                 </div>
