@@ -39,6 +39,21 @@ export async function POST(req: NextRequest) {
       amount,
     });
 
+    // Store payment status for the frontend to check
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.greencodesolution.web.lk'}/api/directpay/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_id,
+          status: payload.transaction?.status || status,
+          message: payload.transaction?.message || payload.message || 'Payment processed',
+        }),
+      });
+    } catch (e) {
+      console.error('Failed to store payment status:', e);
+    }
+
     if (status === 'success') {
       // Payment successful
       // TODO: Update your database order status here
