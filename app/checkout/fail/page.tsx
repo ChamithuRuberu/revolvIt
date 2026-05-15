@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { AlertCircle, ArrowLeft, MessageSquare, RefreshCw, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function PaymentFail() {
+function FailContent() {
   const searchParams = useSearchParams();
   const failureReason = searchParams.get('reason') || 'Payment Failed';
   const orderId = searchParams.get('order_id') || '';
@@ -112,6 +113,21 @@ export default function PaymentFail() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentFail() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-red-50 via-white to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="h-28 w-28 bg-red-100 rounded-full mx-auto mb-4 animate-pulse"></div>
+          <p className="text-slate-500 font-bold">Loading...</p>
+        </div>
+      </div>
+    }>
+      <FailContent />
+    </Suspense>
   );
 }
 
