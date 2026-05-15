@@ -129,8 +129,56 @@ export default function CheckoutPage() {
 
     return (
         <div className="min-h-screen bg-slate-50/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex flex-col">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
                 <h1 className="text-3xl md:text-4xl font-black text-gray-900 py-4 tracking-tighter border-b border-gray-200">Secure Checkout.</h1>
+
+                {/* Order Summary Card at Top */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xl my-6">
+                    <h2 className="text-lg font-black text-gray-900 mb-4 border-b border-gray-100 pb-3">Order Summary</h2>
+
+                    <div className="space-y-3 mb-6">
+                        <div className="flex justify-between text-gray-500 font-bold text-sm">
+                            <span>Subtotal</span>
+                            <span>LKR {totalAmount.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between text-gray-500 font-bold text-sm">
+                            <span>Shipping</span>
+                            <span className="text-green-600">FREE</span>
+                        </div>
+                        <div className="pt-2 border-t border-gray-100 flex justify-between">
+                            <span className="font-black text-gray-900 text-sm">Total</span>
+                            <span className="font-black text-corporate-blue text-lg">LKR {totalAmount.toLocaleString()}</span>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={handlePayNow}
+                        disabled={isProcessing}
+                        className={`w-full bg-gray-900 text-white py-4 rounded-xl font-black text-sm hover:bg-corporate-blue transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                        {isProcessing ? (
+                            <>
+                                <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                                Processing...
+                            </>
+                        ) : (
+                            <>
+                                <CreditCard className="h-5 w-5" />
+                                Pay with DirectPay
+                            </>
+                        )}
+                    </button>
+
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
+                            <ShieldCheck className="h-4 w-4 text-green-500" />
+                            Secure 256-bit encrypted checkout.
+                        </div>
+                    </div>
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 overflow-hidden">
                     {/* Scrollable Left Section */}
@@ -287,55 +335,8 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                    {/* Summary Card */}
-                    <div className="lg:col-span-1">
-                        <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xl sticky top-24">
-                            <h2 className="text-lg font-black text-gray-900 mb-4 border-b border-gray-100 pb-3">Order Summary</h2>
-
-                            <div className="space-y-3 mb-6">
-                                <div className="flex justify-between text-gray-500 font-bold text-sm">
-                                    <span>Subtotal</span>
-                                    <span>LKR {totalAmount.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between text-gray-500 font-bold text-sm">
-                                    <span>Shipping</span>
-                                    <span className="text-green-600">FREE</span>
-                                </div>
-                                <div className="pt-2 border-t border-gray-100 flex justify-between">
-                                    <span className="font-black text-gray-900 text-sm">Total</span>
-                                    <span className="font-black text-corporate-blue text-lg">LKR {totalAmount.toLocaleString()}</span>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={handlePayNow}
-                                disabled={isProcessing}
-                                className={`w-full bg-gray-900 text-white py-4 rounded-xl font-black text-sm hover:bg-corporate-blue transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            >
-                                {isProcessing ? (
-                                    <>
-                                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                        </svg>
-                                        Processing...
-                                    </>
-                                ) : (
-                                    <>
-                                        <CreditCard className="h-5 w-5" />
-                                        Pay with DirectPay
-                                    </>
-                                )}
-                            </button>
-
-                            <div className="mt-4 pt-4 border-t border-gray-100">
-                                <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
-                                    <ShieldCheck className="h-4 w-4 text-green-500" />
-                                    Secure 256-bit encrypted checkout.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/* Right Sidebar - Hidden on mobile, shown on lg */}
+                    <div className="hidden lg:block"></div>
                 </div>
             </div>
         </div>
