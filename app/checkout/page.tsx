@@ -174,7 +174,7 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white relative flex flex-col font-sans">
+        <div className="bg-white relative flex flex-col font-sans">
             {/* Split Background Layer for Desktop */}
             <div className="hidden lg:block absolute top-0 right-0 w-[45%] xl:w-[40%] h-full bg-[#f8f9fa] border-l border-gray-200 pointer-events-none"></div>
 
