@@ -128,18 +128,18 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col">
-                <div className="flex items-center gap-3 mb-8 pb-6 border-b border-gray-200">
+        <div className="h-[100dvh] pt-24 pb-6 flex flex-col bg-slate-50 overflow-hidden">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1 overflow-hidden min-h-0">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 flex-shrink-0">
                     <div className="bg-corporate-blue p-2 rounded-xl">
                         <ShoppingBag className="h-6 w-6 text-white" />
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tighter">Secure Checkout</h1>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 flex-1 overflow-hidden min-h-0">
                     {/* Left Column: Form & Details */}
-                    <div className="lg:col-span-7 xl:col-span-8 space-y-8">
+                    <div className="lg:col-span-7 xl:col-span-8 overflow-y-auto custom-scrollbar pr-2 pb-6 space-y-6 min-h-0">
                         {/* Delivery Info Card */}
                         <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
                             <div className="flex items-center justify-between mb-6">
@@ -271,39 +271,46 @@ export default function CheckoutPage() {
                         </div>
                     </div>
 
-                    {/* Right Column: Order Summary & Checkout (Sticky) */}
-                    <div className="lg:col-span-5 xl:col-span-4 relative">
-                        <div className="sticky top-8 space-y-6">
-                            <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
-                                <h2 className="text-xl font-black text-gray-900 mb-6">Order Summary</h2>
+                    {/* Right Column: Order Summary & Checkout */}
+                    <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full overflow-hidden min-h-0">
+                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40 flex flex-col h-full overflow-hidden">
+                            <h2 className="text-xl font-black text-gray-900 mb-6 flex-shrink-0">Order Summary</h2>
 
-                                {/* Items List (Compact) */}
-                                <div className="space-y-4 mb-8 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                                    {cart.map((item) => (
-                                        <div key={item.id} className="flex gap-4 items-center group">
-                                            <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
-                                                {item.image ? (
-                                                    <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" unoptimized />
-                                                ) : (
-                                                    <ShoppingBag className="m-auto h-6 w-6 text-gray-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                                                )}
-                                                <div className="absolute -top-2 -right-2 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full z-10 shadow-sm border-2 border-white">
-                                                    {item.quantity}
-                                                </div>
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <h3 className="text-sm font-bold text-gray-900 tracking-tight line-clamp-2 leading-snug">{item.name}</h3>
-                                                <div className="text-xs font-black text-gray-500 uppercase tracking-wider mt-1">{item.model}</div>
-                                            </div>
-                                            <div className="flex flex-col items-end">
-                                                <div className="text-sm font-black text-gray-900 whitespace-nowrap">LKR {item.price}</div>
+                            {/* Items List (Compact) */}
+                            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 mb-6">
+                                {cart.map((item) => (
+                                    <div key={item.id} className="flex gap-4 items-center group bg-gray-50/50 p-3 rounded-2xl border border-gray-100/50">
+                                        <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-white border border-gray-100 flex-shrink-0">
+                                            {item.image ? (
+                                                <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" unoptimized />
+                                            ) : (
+                                                <ShoppingBag className="m-auto h-6 w-6 text-gray-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                                            )}
+                                            <div className="absolute -top-2 -right-2 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full z-10 shadow-sm border-2 border-white">
+                                                {item.quantity}
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
+                                        <div className="flex-1 min-w-0">
+                                            <h3 className="text-sm font-bold text-gray-900 tracking-tight line-clamp-2 leading-snug">{item.name}</h3>
+                                            <div className="text-xs font-black text-gray-500 uppercase tracking-wider mt-1">{item.model}</div>
+                                            <div className="text-sm font-black text-gray-900 mt-1">LKR {item.price}</div>
+                                        </div>
+                                        <div className="flex flex-col items-end justify-center">
+                                            <button
+                                                onClick={() => removeFromCart(item.id)}
+                                                className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                                title="Remove Item"
+                                            >
+                                                <Trash2 className="h-5 w-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
 
-                                {/* Totals */}
-                                <div className="space-y-4 mb-8">
+                            {/* Totals & Pay Button */}
+                            <div className="flex-shrink-0 border-t border-gray-100 pt-6">
+                                <div className="space-y-3 mb-6">
                                     <div className="flex justify-between items-center text-gray-600 font-medium">
                                         <span>Subtotal</span>
                                         <span className="font-bold text-gray-900">LKR {totalAmount.toLocaleString()}</span>
@@ -316,13 +323,12 @@ export default function CheckoutPage() {
                                         <span>Tax</span>
                                         <span className="font-bold text-gray-900">Calculated at checkout</span>
                                     </div>
-                                    <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
+                                    <div className="pt-3 border-t border-gray-100 flex justify-between items-center">
                                         <span className="font-black text-gray-900 text-lg">Total</span>
                                         <span className="font-black text-corporate-blue text-2xl">LKR {totalAmount.toLocaleString()}</span>
                                     </div>
                                 </div>
 
-                                {/* Pay Button */}
                                 <button
                                     onClick={handlePayNow}
                                     disabled={isProcessing}
@@ -344,7 +350,7 @@ export default function CheckoutPage() {
                                     )}
                                 </button>
 
-                                <div className="mt-6 pt-6 border-t border-gray-100">
+                                <div className="mt-6">
                                     <div className="flex items-center justify-center gap-2 text-gray-500 text-xs font-bold bg-gray-50 py-3 rounded-xl">
                                         <ShieldCheck className="h-5 w-5 text-green-500" />
                                         Secure 256-bit encrypted checkout
