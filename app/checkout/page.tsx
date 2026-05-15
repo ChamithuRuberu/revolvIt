@@ -128,215 +128,231 @@ export default function CheckoutPage() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
-                <h1 className="text-3xl md:text-4xl font-black text-gray-900 py-4 tracking-tighter border-b border-gray-200">Secure Checkout.</h1>
-
-                {/* Order Summary Card at Top */}
-                <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xl my-6">
-                    <h2 className="text-lg font-black text-gray-900 mb-4 border-b border-gray-100 pb-3">Order Summary</h2>
-
-                    <div className="space-y-3 mb-6">
-                        <div className="flex justify-between text-gray-500 font-bold text-sm">
-                            <span>Subtotal</span>
-                            <span>LKR {totalAmount.toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-gray-500 font-bold text-sm">
-                            <span>Shipping</span>
-                            <span className="text-green-600">FREE</span>
-                        </div>
-                        <div className="pt-2 border-t border-gray-100 flex justify-between">
-                            <span className="font-black text-gray-900 text-sm">Total</span>
-                            <span className="font-black text-corporate-blue text-lg">LKR {totalAmount.toLocaleString()}</span>
-                        </div>
+        <div className="min-h-screen bg-slate-50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col">
+                <div className="flex items-center gap-3 mb-8 pb-6 border-b border-gray-200">
+                    <div className="bg-corporate-blue p-2 rounded-xl">
+                        <ShoppingBag className="h-6 w-6 text-white" />
                     </div>
-
-                    <button
-                        onClick={handlePayNow}
-                        disabled={isProcessing}
-                        className={`w-full bg-gray-900 text-white py-4 rounded-xl font-black text-sm hover:bg-corporate-blue transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95 ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    >
-                        {isProcessing ? (
-                            <>
-                                <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                </svg>
-                                Processing...
-                            </>
-                        ) : (
-                            <>
-                                <CreditCard className="h-5 w-5" />
-                                Pay with DirectPay
-                            </>
-                        )}
-                    </button>
-
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
-                            <ShieldCheck className="h-4 w-4 text-green-500" />
-                            Secure 256-bit encrypted checkout.
-                        </div>
-                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tighter">Secure Checkout</h1>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 overflow-hidden">
-                    {/* Scrollable Left Section */}
-                    <div className="lg:col-span-2 overflow-y-auto pr-4 space-y-3">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                    {/* Left Column: Form & Details */}
+                    <div className="lg:col-span-7 xl:col-span-8 space-y-8">
                         {/* Delivery Info Card */}
-                        <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm sticky top-0 z-10">
-                            <div className="flex items-center gap-2 mb-3">
-                                <div className="p-2 bg-blue-50 rounded-full">
-                                    <MapPin className="h-5 w-5 text-corporate-blue" />
+                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-3 bg-blue-50 text-corporate-blue rounded-2xl">
+                                        <MapPin className="h-6 w-6" />
+                                    </div>
+                                    <h2 className="text-xl font-black text-gray-900">Delivery Address</h2>
                                 </div>
-                                <h2 className="text-base font-black text-gray-900">Delivery Information</h2>
                             </div>
 
-                            <div className="space-y-2">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                 {/* Full Name */}
-                                <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Full Name</label>
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.fullName}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, fullName: e.target.value })}
                                         placeholder="John Doe"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
-                                            formErrors.fullName ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                            formErrors.fullName ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.fullName}</p>}
+                                    {formErrors.fullName && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.fullName}</p>}
                                 </div>
 
                                 {/* Phone */}
                                 <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Phone</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
                                     <input
                                         type="tel"
                                         value={deliveryInfo.phone}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, phone: e.target.value })}
                                         placeholder="+94 77 XXX XXXX"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
-                                            formErrors.phone ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                            formErrors.phone ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.phone}</p>}
+                                    {formErrors.phone && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.phone}</p>}
                                 </div>
 
                                 {/* Address */}
-                                <div>
-                                    <label className="block text-xs font-black text-gray-700 mb-0.5">Address</label>
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Street Address</label>
                                     <input
                                         type="text"
                                         value={deliveryInfo.address}
                                         onChange={(e) => setDeliveryInfo({ ...deliveryInfo, address: e.target.value })}
-                                        placeholder="123 Main Street"
-                                        className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
-                                            formErrors.address ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
+                                        placeholder="123 Main Street, Apartment, Studio, or Floor"
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                            formErrors.address ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
                                         }`}
                                     />
-                                    {formErrors.address && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.address}</p>}
+                                    {formErrors.address && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.address}</p>}
                                 </div>
 
-                                {/* City and Postal Code */}
-                                <div className="grid grid-cols-2 gap-2">
-                                    <div>
-                                        <label className="block text-xs font-black text-gray-700 mb-0.5">City</label>
-                                        <input
-                                            type="text"
-                                            value={deliveryInfo.city}
-                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
-                                            placeholder="Colombo"
-                                            className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
-                                                formErrors.city ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
-                                            }`}
-                                        />
-                                        {formErrors.city && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.city}</p>}
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-black text-gray-700 mb-0.5">Code</label>
-                                        <input
-                                            type="text"
-                                            value={deliveryInfo.postalCode}
-                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
-                                            placeholder="12345"
-                                            className={`w-full px-3 py-2 rounded-lg border-2 text-xs font-bold focus:outline-none transition ${
-                                                formErrors.postalCode ? 'border-red-500' : 'border-gray-200 focus:border-corporate-blue'
-                                            }`}
-                                        />
-                                        {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-0.5">{formErrors.postalCode}</p>}
-                                    </div>
+                                {/* City */}
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">City</label>
+                                    <input
+                                        type="text"
+                                        value={deliveryInfo.city}
+                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, city: e.target.value })}
+                                        placeholder="Colombo"
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                            formErrors.city ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
+                                        }`}
+                                    />
+                                    {formErrors.city && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.city}</p>}
+                                </div>
+                                
+                                {/* Postal Code */}
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Postal Code</label>
+                                    <input
+                                        type="text"
+                                        value={deliveryInfo.postalCode}
+                                        onChange={(e) => setDeliveryInfo({ ...deliveryInfo, postalCode: e.target.value })}
+                                        placeholder="00100"
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 text-sm font-medium focus:outline-none transition-all duration-300 ${
+                                            formErrors.postalCode ? 'border-red-400 bg-red-50 focus:border-red-500' : 'border-gray-200 focus:border-corporate-blue focus:ring-4 focus:ring-corporate-blue/10 bg-gray-50/50 focus:bg-white'
+                                        }`}
+                                    />
+                                    {formErrors.postalCode && <p className="text-red-500 text-xs font-bold mt-1.5 flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-red-500 inline-block"></span>{formErrors.postalCode}</p>}
                                 </div>
                             </div>
                         </div>
 
                         {/* Delivery Options Card */}
-                        <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm">
-                            <div className="flex items-center gap-2 mb-3">
-                                <div className="p-2 bg-green-50 rounded-full">
-                                    <Truck className="h-5 w-5 text-green-600" />
+                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="p-3 bg-green-50 text-green-600 rounded-2xl">
+                                    <Truck className="h-6 w-6" />
                                 </div>
-                                <h2 className="text-base font-black text-gray-900">Delivery</h2>
+                                <h2 className="text-xl font-black text-gray-900">Shipping Method</h2>
                             </div>
 
-                            <div className="space-y-1.5">
+                            <div className="space-y-4">
                                 {[
-                                    { value: 'standard', label: 'Standard', desc: '5-7 days', price: 'FREE' },
-                                    { value: 'express', label: 'Express', desc: '2-3 days', price: '+500' },
-                                    { value: 'overnight', label: 'Next Day', desc: '1 day', price: '+1,000' },
+                                    { value: 'standard', label: 'Standard Delivery', desc: '5-7 business days', price: 'FREE', icon: '📦' },
+                                    { value: 'express', label: 'Express Delivery', desc: '2-3 business days', price: '+LKR 500', icon: '🚀' },
+                                    { value: 'overnight', label: 'Next Day Delivery', desc: '1 business day', price: '+LKR 1,000', icon: '⚡' },
                                 ].map((option) => (
-                                    <label key={option.value} className="flex items-center p-2 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition"
-                                        style={{ borderColor: deliveryInfo.deliveryOption === option.value ? '#0066cc' : '' }}>
-                                        <input
-                                            type="radio"
-                                            name="delivery"
-                                            value={option.value}
-                                            checked={deliveryInfo.deliveryOption === option.value}
-                                            onChange={(e) => setDeliveryInfo({ ...deliveryInfo, deliveryOption: e.target.value })}
-                                            className="w-3 h-3 text-corporate-blue"
-                                        />
-                                        <div className="ml-2 flex-1">
-                                            <p className="font-black text-gray-900 text-xs">{option.label}</p>
-                                            <p className="text-xs text-gray-500 font-bold">{option.desc}</p>
+                                    <label key={option.value} className={`flex items-center p-4 border-2 rounded-2xl cursor-pointer transition-all duration-300 ${
+                                        deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue bg-blue-50/30' : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50/50'
+                                    }`}>
+                                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-4 flex-shrink-0 transition-colors ${
+                                            deliveryInfo.deliveryOption === option.value ? 'border-corporate-blue' : 'border-gray-300'
+                                        }`}>
+                                            {deliveryInfo.deliveryOption === option.value && (
+                                                <div className="w-2.5 h-2.5 rounded-full bg-corporate-blue"></div>
+                                            )}
                                         </div>
-                                        <p className="font-black text-gray-900 text-xs ml-1">LKR {option.price}</p>
+                                        
+                                        <div className="text-2xl mr-4">{option.icon}</div>
+                                        
+                                        <div className="flex-1">
+                                            <p className="font-bold text-gray-900 text-base">{option.label}</p>
+                                            <p className="text-sm text-gray-500 font-medium mt-0.5">{option.desc}</p>
+                                        </div>
+                                        
+                                        <p className={`font-black ${option.price === 'FREE' ? 'text-green-600' : 'text-gray-900'} text-sm`}>
+                                            {option.price}
+                                        </p>
                                     </label>
                                 ))}
                             </div>
                         </div>
-
-                        {/* Items List */}
-                        <div className="space-y-2">
-                        {cart.map((item) => (
-                            <div key={item.id} className="bg-white p-3 rounded-xl border border-gray-100 flex gap-3 items-center shadow-sm">
-                                <div className="relative h-16 w-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                                    {item.image ? (
-                                        <Image src={item.image} alt={item.name} fill className="object-cover" unoptimized />
-                                    ) : (
-                                        <ShoppingBag className="m-auto h-5 w-5 text-gray-300" />
-                                    )}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <div className="text-[7px] font-black text-blue-500 uppercase tracking-widest">{item.model}</div>
-                                    <h3 className="text-xs font-bold text-gray-900 tracking-tight line-clamp-1">{item.name}</h3>
-                                    <div className="text-xs font-black text-gray-900 mt-0.5">LKR {item.price}</div>
-                                </div>
-                                <div className="flex flex-col items-end gap-1">
-                                    <div className="text-xs font-bold text-gray-400">x{item.quantity}</div>
-                                    <button
-                                        onClick={() => removeFromCart(item.id)}
-                                        className="p-1 text-gray-400 hover:text-red-500 transition-colors"
-                                    >
-                                        <Trash2 className="h-3 w-3" />
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                        </div>
                     </div>
 
-                    {/* Right Sidebar - Hidden on mobile, shown on lg */}
-                    <div className="hidden lg:block"></div>
+                    {/* Right Column: Order Summary & Checkout (Sticky) */}
+                    <div className="lg:col-span-5 xl:col-span-4 relative">
+                        <div className="sticky top-8 space-y-6">
+                            <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/40">
+                                <h2 className="text-xl font-black text-gray-900 mb-6">Order Summary</h2>
+
+                                {/* Items List (Compact) */}
+                                <div className="space-y-4 mb-8 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                    {cart.map((item) => (
+                                        <div key={item.id} className="flex gap-4 items-center group">
+                                            <div className="relative h-16 w-16 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
+                                                {item.image ? (
+                                                    <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" unoptimized />
+                                                ) : (
+                                                    <ShoppingBag className="m-auto h-6 w-6 text-gray-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                                                )}
+                                                <div className="absolute -top-2 -right-2 bg-gray-900 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full z-10 shadow-sm border-2 border-white">
+                                                    {item.quantity}
+                                                </div>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="text-sm font-bold text-gray-900 tracking-tight line-clamp-2 leading-snug">{item.name}</h3>
+                                                <div className="text-xs font-black text-gray-500 uppercase tracking-wider mt-1">{item.model}</div>
+                                            </div>
+                                            <div className="flex flex-col items-end">
+                                                <div className="text-sm font-black text-gray-900 whitespace-nowrap">LKR {item.price}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Totals */}
+                                <div className="space-y-4 mb-8">
+                                    <div className="flex justify-between items-center text-gray-600 font-medium">
+                                        <span>Subtotal</span>
+                                        <span className="font-bold text-gray-900">LKR {totalAmount.toLocaleString()}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-gray-600 font-medium">
+                                        <span>Shipping</span>
+                                        <span className="font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-md">FREE</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-gray-600 font-medium">
+                                        <span>Tax</span>
+                                        <span className="font-bold text-gray-900">Calculated at checkout</span>
+                                    </div>
+                                    <div className="pt-4 border-t border-gray-100 flex justify-between items-center">
+                                        <span className="font-black text-gray-900 text-lg">Total</span>
+                                        <span className="font-black text-corporate-blue text-2xl">LKR {totalAmount.toLocaleString()}</span>
+                                    </div>
+                                </div>
+
+                                {/* Pay Button */}
+                                <button
+                                    onClick={handlePayNow}
+                                    disabled={isProcessing}
+                                    className={`w-full bg-gray-900 text-white py-5 rounded-2xl font-black text-base hover:bg-corporate-blue transition-all duration-300 shadow-xl shadow-gray-900/20 hover:shadow-corporate-blue/30 flex items-center justify-center gap-3 active:scale-[0.98] ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                >
+                                    {isProcessing ? (
+                                        <>
+                                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                            </svg>
+                                            Processing Secure Payment...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <CreditCard className="h-6 w-6" />
+                                            Pay LKR {totalAmount.toLocaleString()}
+                                        </>
+                                    )}
+                                </button>
+
+                                <div className="mt-6 pt-6 border-t border-gray-100">
+                                    <div className="flex items-center justify-center gap-2 text-gray-500 text-xs font-bold bg-gray-50 py-3 rounded-xl">
+                                        <ShieldCheck className="h-5 w-5 text-green-500" />
+                                        Secure 256-bit encrypted checkout
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
