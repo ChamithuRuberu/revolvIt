@@ -64,9 +64,11 @@ export default function CheckoutPage() {
                     if (result.transaction && result.transaction.status === 'success') {
                         clearCart();
                         router.push(`/checkout/success?gateway=directpay&order_id=${order_id}`);
-                    } else {
+                    } else if (result.transaction && result.transaction.status === 'FAILED') {
                         const failureReason = result.transaction?.message || 'Payment failed';
                         router.push(`/checkout/fail?gateway=directpay&order_id=${order_id}&reason=${encodeURIComponent(failureReason)}`);
+                    } else {
+                        router.push(`/checkout/cancel?gateway=directpay&order_id=${order_id}`);
                     }
                 }).catch((error: any) => {
                     console.error('Payment error:', error);
